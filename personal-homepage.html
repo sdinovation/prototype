@@ -3,439 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>刘晓源 - 产品经理个人主页</title>
+    <title>刘晓源 - 产品经理 · 个人主页</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Microsoft YaHei', 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: #f0f2f5;
             color: #333;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* Header Section */
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 40px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            animation: fadeInDown 0.8s ease;
-        }
-
-        .profile-avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            margin: 0 auto 20px;
+        /* 顶部导航 */
+        .topbar {
+            background: #fff;
+            border-bottom: 1px solid #e8e8e8;
+            padding: 0 24px;
+            height: 56px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 60px;
-            color: white;
-            font-weight: bold;
-            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
         }
-
-        .header h1 {
-            font-size: 2.5em;
-            color: #2d3748;
-            margin-bottom: 10px;
-        }
-
-        .header .title {
-            font-size: 1.3em;
-            color: #667eea;
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-
-        .contact-info {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-
-        .contact-item {
+        .topbar .logo {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a1a2e;
             display: flex;
             align-items: center;
             gap: 8px;
-            color: #4a5568;
-            font-size: 0.95em;
+        }
+        .topbar .logo span {
+            width: 32px; height: 32px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px;
+        }
+        .topbar .nav-links {
+            display: flex; gap: 24px; list-style: none;
+        }
+        .topbar .nav-links a {
+            text-decoration: none; color: #666; font-size: 14px;
+            transition: color 0.2s;
+        }
+        .topbar .nav-links a:hover { color: #667eea; }
+
+        /* 主体 */
+        .wrapper {
+            max-width: 960px;
+            margin: 32px auto;
+            padding: 0 20px;
         }
 
-        .contact-item i {
-            color: #667eea;
-            font-size: 1.2em;
-        }
-
-        /* Main Content */
-        .main-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-        }
-
-        .section {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-            animation: fadeInUp 0.8s ease;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-        }
-
-        .section-title {
-            font-size: 1.5em;
-            color: #2d3748;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #667eea;
+        /* 头部卡片 */
+        .hero {
+            background: #fff;
+            border-radius: 16px;
+            padding: 48px 40px;
+            margin-bottom: 24px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 32px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .hero-avatar {
+            width: 100px; height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            font-size: 42px; font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .hero-info h1 { font-size: 28px; color: #1a1a2e; margin-bottom: 4px; }
+        .hero-info .subtitle { font-size: 15px; color: #667eea; font-weight: 500; margin-bottom: 12px; }
+        .hero-info .meta {
+            display: flex; gap: 20px; flex-wrap: wrap;
+            font-size: 13px; color: #888;
+        }
+        .hero-info .meta span { display: flex; align-items: center; gap: 4px; }
+
+        @media (max-width: 640px) {
+            .hero { flex-direction: column; text-align: center; padding: 32px 24px; }
+            .hero-info .meta { justify-content: center; }
         }
 
-        .section-title i {
-            color: #667eea;
+        /* 卡片 */
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+        }
+        .card h2 {
+            font-size: 18px; color: #1a1a2e;
+            margin-bottom: 20px; padding-bottom: 12px;
+            border-bottom: 2px solid #f0f0ff;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .card h2 .dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: #667eea;
         }
 
-        /* Personal Info */
-        .personal-info {
-            grid-column: 1 / -1;
-        }
-
+        /* 基本信息网格 */
         .info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
         }
-
-        .info-item {
-            padding: 15px;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+        .info-cell {
+            padding: 14px 16px;
+            background: #f8f9fc;
             border-radius: 10px;
+            display: flex; gap: 10px; align-items: center;
         }
+        .info-cell .icon { font-size: 22px; }
+        .info-cell .lbl { font-size: 11px; color: #999; }
+        .info-cell .val { font-size: 14px; color: #333; font-weight: 500; }
 
-        .info-item .label {
-            font-size: 0.85em;
-            color: #718096;
-            margin-bottom: 5px;
+        /* 优势 */
+        .strengths {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 14px;
         }
-
-        .info-item .value {
-            font-size: 1.1em;
-            color: #2d3748;
-            font-weight: 500;
-        }
-
-        /* Skills */
-        .skills-list {
-            list-style: none;
-        }
-
-        .skills-list li {
-            padding: 12px 15px;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
-            border-radius: 8px;
-            position: relative;
-            padding-left: 30px;
-        }
-
-        .skills-list li::before {
-            content: "✓";
-            position: absolute;
-            left: 10px;
-            color: #667eea;
-            font-weight: bold;
-        }
-
-        /* Experience */
-        .experience-item {
-            margin-bottom: 25px;
-            padding: 20px;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+        .strength-item {
+            padding: 18px 20px;
+            background: #f8f9fc;
             border-radius: 12px;
+            border-left: 3px solid #667eea;
         }
+        .strength-item h4 { font-size: 14px; color: #1a1a2e; margin-bottom: 4px; }
+        .strength-item p { font-size: 13px; color: #666; }
 
-        .experience-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-            gap: 10px;
+        /* 时间线 */
+        .timeline { position: relative; padding-left: 20px; border-left: 2px solid #e8e8f0; }
+        .timeline-item { margin-bottom: 24px; }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-item::before {
+            content: '';
+            position: absolute; left: -7px;
+            width: 12px; height: 12px; border-radius: 50%;
+            background: #667eea; margin-top: 6px;
         }
-
-        .experience-title {
-            font-size: 1.2em;
-            color: #2d3748;
-            font-weight: 600;
+        .timeline-hd {
+            display: flex; justify-content: space-between; align-items: baseline;
+            flex-wrap: wrap; gap: 8px; margin-bottom: 8px;
         }
+        .timeline-hd .role { font-size: 16px; font-weight: 600; color: #1a1a2e; }
+        .timeline-hd .company { font-size: 14px; color: #667eea; font-weight: 500; }
+        .timeline-hd .date { font-size: 13px; color: #999; }
+        .timeline-body { font-size: 14px; color: #555; }
+        .timeline-body ul { padding-left: 18px; line-height: 2; }
+        .timeline-body p { margin-bottom: 10px; }
+        .timeline-body h5 { color: #333; margin: 10px 0 6px; font-size: 14px; }
 
-        .experience-date {
-            color: #667eea;
-            font-weight: 500;
+        /* 项目链接 */
+        .link-table { width: 100%; border-collapse: collapse; }
+        .link-table td {
+            padding: 12px 16px; border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
         }
-
-        .experience-company {
-            color: #718096;
-            margin-bottom: 10px;
+        .link-table td:first-child { font-weight: 600; color: #333; white-space: nowrap; width: 100px; }
+        .link-table td:last-child a {
+            color: #667eea; text-decoration: none; word-break: break-all;
         }
+        .link-table td:last-child a:hover { text-decoration: underline; }
+        .link-table tr:last-child td { border-bottom: none; }
 
-        .experience-content h4 {
-            color: #4a5568;
-            margin: 15px 0 10px;
-            font-size: 1.05em;
-        }
-
-        .experience-content ul {
-            list-style: none;
-            padding-left: 20px;
-        }
-
-        .experience-content li {
-            position: relative;
-            padding: 5px 0;
-            color: #4a5568;
-        }
-
-        .experience-content li::before {
-            content: "•";
-            position: absolute;
-            left: -15px;
-            color: #667eea;
-        }
-
-        /* Education */
-        .education-item {
-            padding: 20px;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
-            border-radius: 12px;
-        }
-
-        .education-school {
-            font-size: 1.2em;
-            color: #2d3748;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .education-details {
-            color: #4a5568;
-        }
-
-        .career-goal {
-            margin-top: 15px;
-            padding: 15px;
-            background: linear-gradient(135deg, #667eea20 0%, #764ba220 100%);
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
-        }
-
-        .career-goal .label {
-            color: #667eea;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        /* Courses */
-        .courses-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
+        /* 课程标签 */
+        .course-tags { display: flex; flex-wrap: wrap; gap: 8px; }
         .course-tag {
-            padding: 8px 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 20px;
-            font-size: 0.9em;
+            padding: 6px 14px; border-radius: 20px;
+            font-size: 13px; color: #667eea; background: #f0f0ff;
         }
 
-        /* Animations */
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Footer */
+        /* 页脚 */
         .footer {
-            text-align: center;
-            padding: 30px;
-            color: white;
-            margin-top: 30px;
+            text-align: center; padding: 32px;
+            color: #aaa; font-size: 13px;
         }
 
-        .footer a {
-            color: white;
-            text-decoration: none;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2em;
-            }
-            
-            .contact-info {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .personal-info {
-                grid-column: 1;
-            }
+        @media (max-width: 640px) {
+            .wrapper { margin: 16px auto; }
+            .card { padding: 20px; }
+            .info-grid { grid-template-columns: 1fr; }
+            .strengths { grid-template-columns: 1fr; }
+            .topbar .nav-links { display: none; }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Header Section -->
-        <header class="header">
-            <div class="profile-avatar">刘</div>
+
+<!-- 顶部 -->
+<header class="topbar">
+    <div class="logo"><span>刘</span> 刘晓源 · 个人主页</div>
+    <ul class="nav-links">
+        <li><a href="#about">基本信息</a></li>
+        <li><a href="#education">教育</a></li>
+        <li><a href="#strengths">优势</a></li>
+        <li><a href="#experience">经历</a></li>
+        <li><a href="#links">项目</a></li>
+    </ul>
+</header>
+
+<div class="wrapper">
+
+    <!-- 头部 -->
+    <section class="hero">
+        <div class="hero-avatar">刘</div>
+        <div class="hero-info">
             <h1>刘晓源</h1>
-            <p class="title">产品经理 | 产品助理</p>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <span>3824747742@qq.com</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <span>1339344657</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>山西·晋中</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-graduation-cap"></i>
-                    <span>本科 · 软件工程</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-user"></i>
-                    <span>男 · 20岁</span>
-                </div>
+            <p class="subtitle">产品经理 / 产品助理 · 软件工程</p>
+            <div class="meta">
+                <span>👤 男 · 20岁 · 未婚</span>
+                <span>📍 山西 · 晋中</span>
+                <span>📧 3394592538@qq.com</span>
+                <span>📱 1339344657</span>
             </div>
-        </header>
+        </div>
+    </section>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Personal Advantages -->
-            <section class="section">
-                <h2 class="section-title"><i class="fas fa-star"></i> 个人优势</h2>
-                <ul class="skills-list">
-                    <li><strong>产品实战经验：</strong>有从0到1的产品实战经验，可独立完成产品原型图、PRD、用户手册与竞品分析，熟悉产品设计思维逻辑，拥有从设计到方案落地的完整闭环思维</li>
-                    <li><strong>工具与技术：</strong>熟练使用Office、Axure、Visio等软件工具，了解软件生命周期，可使用AI辅助PRD、竞品分析、PPT编写</li>
-                    <li><strong>软实力：</strong>擅长沟通，逻辑思维清晰，拥有结构化产品思维，做事认真</li>
-                    <li><strong>兴趣爱好：</strong>听歌</li>
-                </ul>
-            </section>
+    <!-- 基本信息 -->
+    <section class="card" id="about">
+        <h2><span class="dot"></span>基本信息</h2>
+        <div class="info-grid">
+            <div class="info-cell">
+                <span class="icon">👤</span>
+                <div><div class="lbl">姓名</div><div class="val">刘晓源 · 男 · 20岁</div></div>
+            </div>
+            <div class="info-cell">
+                <span class="icon">💍</span>
+                <div><div class="lbl">婚姻状况</div><div class="val">未婚</div></div>
+            </div>
+            <div class="info-cell">
+                <span class="icon">📍</span>
+                <div><div class="lbl">长期居住地</div><div class="val">山西 · 晋中</div></div>
+            </div>
+            <div class="info-cell">
+                <span class="icon">📧</span>
+                <div><div class="lbl">邮箱</div><div class="val">3394592538@qq.com</div></div>
+            </div>
+            <div class="info-cell">
+                <span class="icon">📱</span>
+                <div><div class="lbl">电话</div><div class="val">1339344657</div></div>
+            </div>
+            <div class="info-cell">
+                <span class="icon">🎯</span>
+                <div><div class="lbl">求职意向</div><div class="val">产品经理 / 产品助理</div></div>
+            </div>
+        </div>
+    </section>
 
-            <!-- Education -->
-            <section class="section">
-                <h2 class="section-title"><i class="fas fa-university"></i> 教育经历</h2>
-                <div class="education-item">
-                    <div class="education-school">山西农业大学</div>
-                    <div class="education-details">
-                        <p><strong>专业：</strong>软件工程</p>
-                        <p><strong>学历：</strong>本科</p>
-                        <p><strong>时间：</strong>2024/9 - 2028/6</p>
-                    </div>
-                    <div class="career-goal">
-                        <div class="label">求职意向</div>
-                        <p>职业规划：产品经理，产品助理</p>
-                    </div>
+    <!-- 教育经历 -->
+    <section class="card" id="education">
+        <h2><span class="dot"></span>教育经历</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-hd">
+                    <span class="role">山西农业大学</span>
+                    <span class="date">2024.09 - 2028.06</span>
                 </div>
-            </section>
-
-            <!-- Product Experience -->
-            <section class="section" style="grid-column: 1 / -1;">
-                <h2 class="section-title"><i class="fas fa-briefcase"></i> 产品实习经历</h2>
-                <div class="experience-item">
-                    <div class="experience-header">
-                        <div class="experience-title">产品助理</div>
-                        <div class="experience-date">2026年3月 - 2026年5月</div>
-                    </div>
-                    <div class="experience-company">雷云文档</div>
-                    
-                    <div class="experience-content">
-                        <h4>产品功能介绍</h4>
-                        <p>独立完成文档的设计，包括置顶/取消置顶、收藏/取消收藏、文字等级修改、文字颜色与背景颜色修改功能，以及登录、退出、注册、文档管理等功能的设计与原型图绘制。产品支持用户在线编辑、文档导出及用户间交流等功能。</p>
-                        
-                        <h4>负责模块</h4>
-                        <ul>
-                            <li>负责文档功能原型图的绘制，如收藏、置顶、登录等功能原型图，同时设计用户使用时的进程状态与异常状态</li>
-                            <li>独立完成产品PRD的书写及各功能流程图的绘制</li>
-                            <li>完成用户手册、竞品分析等文档核心内容编写</li>
-                        </ul>
-                        
-                        <h4>取得成果</h4>
-                        <ul>
-                            <li>掌握Axure工具</li>
-                            <li>养成并巩固逻辑思维、结构化思维</li>
-                            <li>熟悉PRD、流程图与原型图的绘制</li>
-                            <li>掌握功能从设计到使用入口再到异常状态设计的完整流程</li>
-                            <li>熟悉产品的框架设计流程</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <!-- School Experience -->
-            <section class="section" style="grid-column: 1 / -1;">
-                <h2 class="section-title"><i class="fas fa-book"></i> 在校经历</h2>
-                
-                <div style="margin-bottom: 20px;">
-                    <h4 style="color: #4a5568; margin-bottom: 15px;">核心课程</h4>
-                    <div class="courses-list">
-                        <span class="course-tag">面向对象程序设计A/B</span>
+                <div class="timeline-body">
+                    <p>专业：软件工程 · 学历：本科</p>
+                    <h5>核心课程</h5>
+                    <div class="course-tags">
+                        <span class="course-tag">面向对象程序设计 A/B</span>
                         <span class="course-tag">数据库</span>
                         <span class="course-tag">数据结构</span>
                         <span class="course-tag">计算机组成原理</span>
@@ -444,21 +283,98 @@
                         <span class="course-tag">Web程序设计</span>
                     </div>
                 </div>
-                
-                <div class="experience-item">
-                    <h4 style="color: #4a5568; margin-bottom: 10px;">学业成果</h4>
-                    <p>参加多项校内活动，团队合作意识与听从指挥意识强，擅长与成员之间的关系打理。</p>
-                </div>
-            </section>
-        </main>
+            </div>
+        </div>
+    </section>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <p>© 2026 刘晓源 | 产品经理个人主页</p>
-            <p style="margin-top: 10px; font-size: 0.9em;">
-                <a href="mailto:3824747742@qq.com"><i class="fas fa-envelope"></i> 联系我</a>
-            </p>
-        </footer>
-    </div>
+    <!-- 求职意向 -->
+    <section class="card">
+        <h2><span class="dot"></span>求职意向</h2>
+        <p style="font-size:15px;">职业规划：<strong style="color:#667eea;">产品经理</strong> · <strong style="color:#667eea;">产品助理</strong></p>
+    </section>
+
+    <!-- 个人优势 -->
+    <section class="card" id="strengths">
+        <h2><span class="dot"></span>个人优势</h2>
+        <div class="strengths">
+            <div class="strength-item">
+                <h4>🚀 从0到1产品实战经验</h4>
+                <p>独立完成产品原型图、PRD、用户手册与竞品分析，熟悉产品设计思维逻辑，拥有从设计到方案落地的完整闭环思维。</p>
+            </div>
+            <div class="strength-item">
+                <h4>🛠 工具与技术</h4>
+                <p>熟练使用 Office、Axure、Visio 等软件，了解软件生命周期，可使用 AI 辅助 PRD、竞品分析、PPT 编写。</p>
+            </div>
+            <div class="strength-item">
+                <h4>💬 软实力</h4>
+                <p>擅长沟通，逻辑思维清晰，拥有结构化产品思维，做事认真。</p>
+            </div>
+            <div class="strength-item">
+                <h4>🎵 兴趣爱好</h4>
+                <p>听歌</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 产品实习经历 -->
+    <section class="card" id="experience">
+        <h2><span class="dot"></span>产品（实习）经历</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-hd">
+                    <span class="role">产品助理</span>
+                    <span class="company">雷云文档</span>
+                    <span class="date">2026.03 - 2026.05</span>
+                </div>
+                <div class="timeline-body">
+                    <h5>📌 产品功能介绍</h5>
+                    <p>独立完成文档的设计，包括置顶/取消置顶、收藏/取消收藏、文字等级修改、文字颜色与背景颜色修改、登录/退出/注册、文档管理等功能的设计与原型图绘制。产品支持用户在线编辑、文档导出以及用户间交流等功能。</p>
+
+                    <h5>📋 负责模块</h5>
+                    <ul>
+                        <li>文档功能原型图绘制（收藏、置顶、登录等），同时设计用户进程状态与异常状态</li>
+                        <li>独立完成产品 PRD 及功能流程图绘制</li>
+                        <li>完成用户手册、竞品分析等核心文档编写</li>
+                    </ul>
+
+                    <h5>✅ 取得成果</h5>
+                    <ul>
+                        <li>掌握 Axure 工具</li>
+                        <li>养成并巩固逻辑思维、结构化思维</li>
+                        <li>熟悉 PRD、流程图与原型图绘制</li>
+                        <li>掌握功能从设计到使用入口再到异常状态设计的完整流程</li>
+                        <li>熟悉产品框架设计流程</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目链接 -->
+    <section class="card" id="links">
+        <h2><span class="dot"></span>项目链接</h2>
+        <table class="link-table">
+            <tr><td>🖼 原型图</td><td><a href="https://lanhuapp.com/link/#/invite?sid=qx8Uw5Da" target="_blank">蓝湖原型图</a></td></tr>
+            <tr><td>📄 PRD</td><td><a href="https://ccnl9c9ioift.feishu.cn/wiki/A2ewwHN2yi5iWCkKoaBctFC5nbf" target="_blank">飞书 PRD 文档</a></td></tr>
+            <tr><td>📖 用户手册</td><td><a href="https://ccnl9c9ioift.feishu.cn/wiki/GFnawb9u2i0I0vkmBYgcXiT5n3f" target="_blank">飞书用户手册</a></td></tr>
+            <tr><td>📊 竞品分析</td><td><a href="https://ccnl9c9ioift.feishu.cn/wiki/DW07wcNPviALLQkj6InciNQvnKh" target="_blank">飞书竞品分析</a></td></tr>
+            <tr><td>🧪 Demo</td><td><a href="https://sdinovation.github.io/prototype/prototype.html" target="_blank">雷云云文档原型</a></td></tr>
+        </table>
+    </section>
+
+    <!-- 在校经历 -->
+    <section class="card">
+        <h2><span class="dot"></span>在校经历</h2>
+        <p style="font-size:14px;color:#555;line-height:2;">
+            参加多项校内活动，<strong>团队合作意识与听从指挥意识强</strong>，擅长与成员之间的关系打理。
+        </p>
+    </section>
+
+</div>
+
+<footer class="footer">
+    © 2026 刘晓源 · 产品经理个人主页
+</footer>
+
 </body>
 </html>
