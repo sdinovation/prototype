@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人介绍</title>
+    <style id="theme-vars">
+/* ============================================
+   Brand Tokens — 面试作品集
+   Primary: #1a1a2e | Accent: #e94560
+   Font: Inter + Noto Sans SC
+   ============================================ */
+
+:root {
+  /* ── Colors ── */
+  --color-primary: #1a1a2e;
+  --color-accent: #e94560;
+  --color-background: #ffffff;
+  --color-surface: #f8f9fb;
+  --color-foreground: #1a1a2e;
+  --color-text-primary: #1a1a2e;
+  --color-text-secondary: #4a4a6a;
+  --color-text-tertiary: #7a7a9a;
+  --color-border: #e2e5ed;
+  --color-muted: #f0f1f5;
+
+  /* ── Radius ── */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* ── Shadow (alpha <= 0.05) ── */
+  --shadow-sm: 0 1px 2px rgba(26,26,46,0.04);
+  --shadow-md: 0 2px 8px rgba(26,26,46,0.05);
+  --shadow-lg: 0 4px 16px rgba(26,26,46,0.05);
+
+  /* ── Spacing ── */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 96px;
+
+  /* ── Typography ── */
+  --font-primary: 'Inter', 'Noto Sans SC', sans-serif;
+  --font-display: 'Inter', 'Noto Sans SC', sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 30px;
+  --font-size-4xl: 36px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* ── Layout ── */
+  --content-max-width: 1200px;
+  --section-padding-y: 96px;
+  --card-padding: 24px;
+}
+
+/* ── Typography Classes ── */
+.display-heading {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.03em;
+}
+
+.heading-1 {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-4xl);
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.02em;
+}
+
+.heading-2 {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-2xl);
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.01em;
+}
+
+.heading-3 {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-normal);
+}
+
+.body-text {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-normal);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-secondary);
+}
+
+.caption-text {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-normal);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-tertiary);
+}
+
+/* ── Card Surface ── */
+.card-surface {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--color-background);
+    --color-foreground: var(--color-foreground);
+    --color-primary: var(--color-primary);
+    --color-muted: var(--color-muted);
+    --color-accent: var(--color-accent);
+    --color-border: var(--color-border);
+  }
+  @layer base {
+    body { background: var(--color-background); color: var(--color-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+
+<!-- TOP NAVIGATION BAR -->
+<nav style="position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid #e2e5ed;width:100%;">
+  <div style="max-width:1200px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;">
+    <a href="#intro" style="font-family:'Inter','Noto Sans SC',sans-serif;font-weight:700;font-size:18px;color:#1a1a2e;text-decoration:none;letter-spacing:-0.02em;white-space:nowrap;">
+      刘晓源
+    </a>
+    <div style="display:flex;align-items:center;gap:32px;">
+      <a href="#intro" data-nav-key="intro" data-active="true" data-dom-id="nav-intro" class="nav-link-active" style="font-family:'Inter','Noto Sans SC',sans-serif;font-size:14px;font-weight:600;color:#1a1a2e;text-decoration:none;white-space:nowrap;transition:color 0.2s ease;">个人介绍</a>
+      <a href="#project" data-nav-key="project" data-dom-id="nav-project" style="font-family:'Inter','Noto Sans SC',sans-serif;font-size:14px;font-weight:500;color:#4a4a6a;text-decoration:none;white-space:nowrap;transition:color 0.2s ease;">项目经历</a>
+      <a href="#skills" data-nav-key="skills" data-dom-id="nav-skills" style="font-family:'Inter','Noto Sans SC',sans-serif;font-size:14px;font-weight:500;color:#4a4a6a;text-decoration:none;white-space:nowrap;transition:color 0.2s ease;">能力展示</a>
+      <a href="#contact" data-nav-key="contact" data-dom-id="nav-contact" style="font-family:'Inter','Noto Sans SC',sans-serif;font-size:14px;font-weight:500;color:#4a4a6a;text-decoration:none;white-space:nowrap;transition:color 0.2s ease;">联系方式</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<!-- MAIN CONTENT WRAPPER -->
+<div class="main-content-wrapper" style="max-width:1200px;margin:0 auto;padding:0 24px;">
+
+  <!-- ========== HERO SECTION (Asymmetric Split) ========== -->
+  <section style="padding-top:96px;padding-bottom:64px;">
+    <div class="flex flex-col lg:flex-row lg:items-center lg:gap-12">
+      <!-- Left side (60%) -->
+      <div class="flex-1 min-w-0" style="flex-basis:60%;">
+        <!-- Large greeting -->
+        <h1 class="display-heading" style="font-size:clamp(32px, 5vw, 52px);text-wrap:balance;word-break:keep-all;overflow-wrap:break-word;color:var(--color-primary);margin:0 0 16px 0;">
+          你好，我是刘晓源
+        </h1>
+        <!-- Subtitle -->
+        <h2 class="heading-2" style="font-size:var(--font-size-2xl);color:var(--color-text-primary);margin:0 0 24px 0;">
+          <span class="accent-underline">产品经理</span> · 软件工程
+        </h2>
+        <!-- Personal value statement -->
+        <p class="body-text" style="max-width:540px;margin:0 0 40px 0;line-height:var(--line-height-relaxed);">
+          致力于互联网产品领域深耕发展，拥有从需求分析到方案落地的完整闭环思维。具备 0 到 1 的产品实战经验，熟练掌握产品全流程工具链。
+        </p>
+        <!-- CTA buttons -->
+        <div class="flex flex-wrap gap-3">
+          <a href="#project" data-dom-id="link-project" class="inline-flex items-center gap-2 shrink-0" style="display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:var(--color-primary);color:#ffffff;border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-base);font-weight:var(--font-weight-medium);text-decoration:none;transition:opacity 0.2s ease;">
+            查看项目经历
+            <span style="font-size:14px;">&rarr;</span>
+          </a>
+          <a href="#contact" data-dom-id="nav-contact" class="inline-flex items-center shrink-0" style="display:inline-flex;align-items:center;padding:12px 28px;background:transparent;color:var(--color-primary);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-base);font-weight:var(--font-weight-medium);text-decoration:none;transition:border-color 0.2s ease;">
+            联系方式
+          </a>
+        </div>
+      </div>
+      <!-- Right side (40%) -->
+      <div class="shrink-0 min-w-0" style="flex-basis:40%;">
+        <img src="../assets/hero-intro.jpg" alt="" class="rounded-xl object-cover w-full" style="border:1px solid var(--color-border);border-radius:var(--radius-xl);width:100%;height:auto;display:block;">
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CORE SKILLS TAGS SECTION ========== -->
+  <section style="padding-bottom:64px;">
+    <!-- Section title -->
+    <p class="text-label" style="margin:0 0 24px 0;">核心能力</p>
+    <!-- Tags flex row -->
+    <div class="flex flex-wrap gap-2">
+      <span class="inline-flex items-center whitespace-nowrap" style="padding:6px 14px;border:1px solid var(--color-border);background:var(--color-surface);border-radius:9999px;font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-secondary);">产品原型设计</span>
+      <span class="inline-flex items-center whitespace-nowrap" style="padding:6px 14px;border:1px solid var(--color-border);background:var(--color-surface);border-radius:9999px;font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-secondary);">PRD撰写</span>
+      <span class="inline-flex items-center whitespace-nowrap" style="padding:6px 14px;border:1px solid var(--color-border);background:var(--color-surface);border-radius:9999px;font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-secondary);">竞品分析</span>
+      <span class="inline-flex items-center whitespace-nowrap" style="padding:6px 14px;border:1px solid var(--color-border);background:var(--color-surface);border-radius:9999px;font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-secondary);">需求分析</span>
+      <span class="inline-flex items-center whitespace-nowrap" style="padding:6px 14px;border:1px solid var(--color-border);background:var(--color-surface);border-radius:9999px;font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-secondary);">Axure</span>
+      <span class="inline-flex items-center whitespace-nowrap" style="padding:6px 14px;border:1px solid var(--color-border);background:var(--color-surface);border-radius:9999px;font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-secondary);">墨刀</span>
+      <span class="inline-flex items-center whitespace-nowrap" style="padding:6px 14px;border:1px solid var(--color-border);background:var(--color-surface);border-radius:9999px;font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-secondary);">Visio</span>
+      <span class="inline-flex items-center whitespace-nowrap" style="padding:6px 14px;border:1px solid var(--color-border);background:var(--color-surface);border-radius:9999px;font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-secondary);">Xmind</span>
+      <span class="inline-flex items-center whitespace-nowrap" style="padding:6px 14px;border:1px solid var(--color-border);background:var(--color-surface);border-radius:9999px;font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-secondary);">Claude Code</span>
+      <span class="inline-flex items-center whitespace-nowrap" style="padding:6px 14px;border:1px solid var(--color-border);background:var(--color-surface);border-radius:9999px;font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-secondary);">Trae</span>
+      <span class="inline-flex items-center whitespace-nowrap" style="padding:6px 14px;border:1px solid var(--color-border);background:var(--color-surface);border-radius:9999px;font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-secondary);">流程图绘制</span>
+      <span class="inline-flex items-center whitespace-nowrap" style="padding:6px 14px;border:1px solid var(--color-border);background:var(--color-surface);border-radius:9999px;font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-secondary);">用户手册编写</span>
+    </div>
+  </section>
+
+  <!-- ========== QUICK STATS SECTION ========== -->
+  <section style="padding-bottom:96px;">
+    <div class="flex flex-col sm:flex-row sm:items-start gap-8 sm:gap-0 sm:justify-between">
+      <!-- Stat 1 -->
+      <div class="flex flex-col items-center sm:items-start" style="min-width:120px;">
+        <span class="display-heading" style="font-size:clamp(28px, 3.5vw, 40px);color:var(--color-primary);white-space:nowrap;">1</span>
+        <span class="caption-text" style="margin-top:4px;white-space:nowrap;">个完整项目</span>
+      </div>
+      <!-- Stat 2 -->
+      <div class="flex flex-col items-center sm:items-start" style="min-width:120px;">
+        <span class="display-heading" style="font-size:clamp(28px, 3.5vw, 40px);color:var(--color-primary);white-space:nowrap;">5+</span>
+        <span class="caption-text" style="margin-top:4px;white-space:nowrap;">核心文档</span>
+      </div>
+      <!-- Stat 3 -->
+      <div class="flex flex-col items-center sm:items-start" style="min-width:120px;">
+        <span class="display-heading" style="font-size:clamp(28px, 3.5vw, 40px);color:var(--color-primary);white-space:nowrap;">2+</span>
+        <span class="caption-text" style="margin-top:4px;white-space:nowrap;">竞品分析</span>
+      </div>
+    </div>
+  </section>
+
+</div><!-- end .main-content-wrapper -->
+
+</main>
+
+<!-- FOOTER -->
+<footer style="border-top:1px solid #e2e5ed;margin-top:64px;">
+  <div style="max-width:1200px;margin:0 auto;padding:24px;text-align:center;">
+    <p style="font-family:'Inter','Noto Sans SC',sans-serif;font-size:13px;color:#4a4a6a;margin:0;white-space:nowrap;">&copy; 2026 刘晓源 &middot; 产品经理求职作品集</p>
+  </div>
+</footer>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

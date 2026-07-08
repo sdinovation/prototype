@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系方式 - 刘晓源产品经理作品集</title>
+    <style id="theme-vars">
+/* ============================================
+   Brand Tokens — 面试作品集
+   Primary: #1a1a2e | Accent: #e94560
+   Font: Inter + Noto Sans SC
+   ============================================ */
+
+:root {
+  /* ── Colors ── */
+  --color-primary: #1a1a2e;
+  --color-accent: #e94560;
+  --color-background: #ffffff;
+  --color-surface: #f8f9fb;
+  --color-foreground: #1a1a2e;
+  --color-text-primary: #1a1a2e;
+  --color-text-secondary: #4a4a6a;
+  --color-text-tertiary: #7a7a9a;
+  --color-border: #e2e5ed;
+  --color-muted: #f0f1f5;
+
+  /* ── Radius ── */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* ── Shadow (alpha <= 0.05) ── */
+  --shadow-sm: 0 1px 2px rgba(26,26,46,0.04);
+  --shadow-md: 0 2px 8px rgba(26,26,46,0.05);
+  --shadow-lg: 0 4px 16px rgba(26,26,46,0.05);
+
+  /* ── Spacing ── */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 96px;
+
+  /* ── Typography ── */
+  --font-primary: 'Inter', 'Noto Sans SC', sans-serif;
+  --font-display: 'Inter', 'Noto Sans SC', sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 30px;
+  --font-size-4xl: 36px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* ── Layout ── */
+  --content-max-width: 1200px;
+  --section-padding-y: 96px;
+  --card-padding: 24px;
+}
+
+/* ── Typography Classes ── */
+.display-heading {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.03em;
+}
+
+.heading-1 {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-4xl);
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.02em;
+}
+
+.heading-2 {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-2xl);
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.01em;
+}
+
+.heading-3 {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-normal);
+}
+
+.body-text {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-normal);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-secondary);
+}
+
+.caption-text {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-normal);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-tertiary);
+}
+
+/* ── Card Surface ── */
+.card-surface {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--color-background);
+    --color-foreground: var(--color-foreground);
+    --color-primary: var(--color-primary);
+    --color-muted: var(--color-muted);
+    --color-accent: var(--color-accent);
+    --color-border: var(--color-border);
+  }
+  @layer base {
+    body { background: var(--color-background); color: var(--color-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+
+<!-- TOP NAVIGATION BAR -->
+<nav style="position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--color-border);width:100%;">
+  <div style="max-width:1200px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;">
+    <a href="#intro" style="font-family:'Inter','Noto Sans SC',sans-serif;font-weight:700;font-size:18px;color:var(--color-primary);text-decoration:none;letter-spacing:-0.02em;white-space:nowrap;">
+      刘晓源
+    </a>
+    <div style="display:flex;align-items:center;gap:32px;">
+      <a href="#intro" data-nav-key="intro" data-dom-id="nav-intro" style="font-family:'Inter','Noto Sans SC',sans-serif;font-size:14px;font-weight:500;color:var(--color-text-secondary);text-decoration:none;white-space:nowrap;transition:color 0.2s ease;">个人介绍</a>
+      <a href="#project" data-nav-key="project" data-dom-id="nav-project" style="font-family:'Inter','Noto Sans SC',sans-serif;font-size:14px;font-weight:500;color:var(--color-text-secondary);text-decoration:none;white-space:nowrap;transition:color 0.2s ease;">项目经历</a>
+      <a href="#skills" data-nav-key="skills" data-dom-id="nav-skills" style="font-family:'Inter','Noto Sans SC',sans-serif;font-size:14px;font-weight:500;color:var(--color-text-secondary);text-decoration:none;white-space:nowrap;transition:color 0.2s ease;">能力展示</a>
+      <a href="#contact" data-nav-key="contact" data-dom-id="nav-contact" data-active="true" style="font-family:'Inter','Noto Sans SC',sans-serif;font-size:14px;font-weight:600;color:var(--color-primary);text-decoration:none;white-space:nowrap;transition:color 0.2s ease;">联系方式</a>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT WRAPPER -->
+<div class="main-content-wrapper" style="max-width:1200px;margin:0 auto;padding:0 24px;">
+
+  <!-- HERO SECTION -->
+  <section style="padding-top:96px;padding-bottom:64px;text-align:center;">
+    <h1 class="display-heading" style="font-size:clamp(36px,5vw,56px);color:var(--color-text-primary);margin:0 0 24px 0;text-wrap:balance;word-break:keep-all;overflow-wrap:break-word;">
+      期待与您交流
+    </h1>
+    <p class="body-text" style="max-width:560px;margin:0 auto;font-size:var(--font-size-lg);line-height:var(--line-height-relaxed);">
+      感谢您查看我的作品集。如果您对我的产品经历和技能感兴趣，欢迎通过以下方式联系我。
+    </p>
+  </section>
+
+  <!-- CONTACT CARDS -->
+  <section style="padding-bottom:96px;">
+    <div style="max-width:640px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:24px;">
+
+      <!-- Card 1: 邮箱 -->
+      <div style="background:var(--color-background);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--card-padding);text-align:center;">
+        <div style="width:48px;height:48px;border-radius:50%;background:rgba(233,69,96,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 16px auto;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+          </svg>
+        </div>
+        <p class="caption-text" style="margin:0 0 8px 0;">邮箱</p>
+        <p class="heading-3" style="margin:0;word-break:break-all;">3394592538@qq.com</p>
+      </div>
+
+      <!-- Card 2: 电话 -->
+      <div style="background:var(--color-background);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--card-padding);text-align:center;">
+        <div style="width:48px;height:48px;border-radius:50%;background:rgba(233,69,96,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 16px auto;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </div>
+        <p class="caption-text" style="margin:0 0 8px 0;">电话</p>
+        <p class="heading-3" style="margin:0;white-space:nowrap;">13393446357</p>
+      </div>
+
+      <!-- Card 3: 所在地 -->
+      <div style="background:var(--color-background);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--card-padding);text-align:center;">
+        <div style="width:48px;height:48px;border-radius:50%;background:rgba(233,69,96,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 16px auto;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <p class="caption-text" style="margin:0 0 8px 0;">所在地</p>
+        <p class="heading-3" style="margin:0;white-space:nowrap;">北京</p>
+      </div>
+
+      <!-- Card 4: 求职意向 -->
+      <div style="background:var(--color-background);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--card-padding);text-align:center;">
+        <div style="width:48px;height:48px;border-radius:50%;background:rgba(233,69,96,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 16px auto;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+          </svg>
+        </div>
+        <p class="caption-text" style="margin:0 0 8px 0;">求职意向</p>
+        <p class="heading-3" style="margin:0;white-space:nowrap;">产品经理 / 产品助理</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CLOSING CTA SECTION -->
+  <section style="padding-bottom:80px;text-align:center;">
+    <p class="body-text" style="margin:0 0 12px 0;">我的个人主页</p>
+    <a href="https://sdinovation.github.io/personal-homepage" target="_blank" rel="noopener noreferrer" style="font-family:var(--font-primary);font-size:var(--font-size-lg);font-weight:var(--font-weight-semibold);color:var(--color-accent);text-decoration:none;transition:opacity 0.2s ease;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+      sdinovation.github.io/personal-homepage
+    </a>
+    <p class="caption-text" style="margin:16px auto 0 auto;max-width:400px;">更多详细信息欢迎访问我的在线主页</p>
+  </section>
+
+  <!-- PERSONAL NOTE -->
+  <section style="padding-bottom:96px;">
+    <div style="max-width:680px;margin:0 auto;">
+      <p class="body-text" style="font-size:var(--font-size-lg);line-height:var(--line-height-relaxed);margin:0;">
+        我是一名软件工程专业在读学生，热爱产品工作，具备从 0 到 1 的实战经验。期待能在产品经理岗位上持续成长，用产品思维解决真实问题，创造用户价值。
+      </p>
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer style="border-top:1px solid var(--color-border);">
+  <div style="max-width:1200px;margin:0 auto;padding:24px;text-align:center;">
+    <p style="font-family:'Inter','Noto Sans SC',sans-serif;font-size:13px;color:var(--color-text-secondary);margin:0;white-space:nowrap;">&copy; 2026 刘晓源 &middot; 产品经理求职作品集</p>
+  </div>
+</footer>
+
+    <main data-page="contact" style="display:none;"></main>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

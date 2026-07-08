@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plus Button Editor</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .editor-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.05);
+      padding: 48px 64px 48px 48px;
+      position: relative;
+    }
+    .editor-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #1f2329;
+      margin-bottom: 24px;
+      outline: none;
+    }
+    .editor-title:empty:before {
+      content: '无标题文档';
+      color: #bbbfc4;
+    }
+    .editor-body {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #1f2329;
+      outline: none;
+      min-height: 400px;
+    }
+    .editor-body p {
+      margin: 0 0 12px 0;
+      position: relative;
+      padding-left: 4px;
+      min-height: 28px;
+    }
+    .editor-body p:empty:before {
+      content: '\200B';
+    }
+    .editor-body h1 { font-size: 28px; font-weight: 700; margin: 24px 0 16px; color: #1f2329; }
+    .editor-body h2 { font-size: 24px; font-weight: 700; margin: 20px 0 14px; color: #1f2329; }
+    .editor-body h3 { font-size: 20px; font-weight: 600; margin: 16px 0 12px; color: #1f2329; }
+    .editor-body h4 { font-size: 18px; font-weight: 600; margin: 14px 0 10px; color: #1f2329; }
+    .editor-body h5 { font-size: 16px; font-weight: 600; margin: 12px 0 8px; color: #1f2329; }
+    .editor-body h6 { font-size: 14px; font-weight: 600; margin: 10px 0 6px; color: #646a73; }
+
+    /* === 导航栏样式 === */
+    .page-wrapper {
+      display: flex;
+      min-height: 100vh;
+      background: #f5f6f7;
+    }
+    .outline-nav {
+      width: 280px;
+      min-width: 280px;
+      background: #fff;
+      border-right: 1px solid #e8e8e8;
+      overflow: hidden;
+      transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1), min-width 300ms cubic-bezier(0.4, 0, 0.2, 1), opacity 200ms ease;
+      position: relative;
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+    }
+    .outline-nav.collapsed {
+      width: 0;
+      min-width: 0;
+      border-right: none;
+    }
+    .outline-nav-header {
+      padding: 16px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1f2329;
+      border-bottom: 1px solid #f0f1f2;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .outline-nav-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px 0;
+    }
+    .nav-label {
+      display: flex;
+      align-items: center;
+      padding: 6px 16px;
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 20px;
+      color: #1f2329;
+      transition: background 120ms ease, color 200ms ease;
+      white-space: nowrap;
+      overflow: hidden;
+      position: relative;
+      border-radius: 0;
+    }
+    .nav-label:hover {
+      background: #f5f6f7;
+    }
+    .nav-label.active {
+      background: #e8f3ff;
+    }
+    .nav-label.level-1 { padding-left: 16px; font-size: 15px; font-weight: 700; }
+    .nav-label.level-2 { padding-left: 32px; font-size: 14px; font-weight: 700; }
+    .nav-label.level-3 { padding-left: 48px; font-size: 13px; font-weight: 400; }
+    .nav-label.level-4 { padding-left: 64px; font-size: 12px; font-weight: 400; color: #646a73; }
+    .nav-label-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 80px;
+      transition: color 200ms ease;
+    }
+    .nav-label-text.truncated {
+      max-width: 80px;
+    }
+    .nav-label-text:not(.truncated) {
+      max-width: none;
+    }
+
+    /* 折叠/展开按钮 */
+    .nav-toggle-btn {
+      position: fixed;
+      top: 12px;
+      width: 24px;
+      height: 24px;
+      background: #fff;
+      border: 1px solid #dee0e3;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 60;
+      transition: left 300ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 150ms ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .nav-toggle-btn:hover {
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    }
+    .nav-toggle-arrow {
+      width: 0;
+      height: 0;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      transition: border-right 150ms ease, border-left 150ms ease;
+    }
+    .nav-toggle-arrow.expanded {
+      border-right: 6px solid #646a73;
+      border-left: none;
+    }
+    .nav-toggle-arrow.collapsed {
+      border-left: 6px solid #646a73;
+      border-right: none;
+    }
+
+    /* 悬浮提示弹窗 */
+    .nav-tooltip {
+      position: fixed;
+      background: #fff;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      padding: 6px 10px;
+      font-size: 13px;
+      line-height: 20px;
+      max-width: 300px;
+      word-break: break-all;
+      z-index: 300;
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: opacity 150ms ease, transform 150ms ease;
+      pointer-events: none;
+    }
+    .nav-tooltip.visible {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+    }
+
+    /* 编辑器区域 */
+    .editor-area {
+      flex: 1;
+      padding: 40px 20px;
+      min-width: 0;
+    }
+
+    /* 控制面板 */
+    .plus-btn {
+      position: fixed;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: #fff;
+      border: 1px solid #dee0e3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: opacity 200ms ease, transform 200ms ease, background 150ms ease;
+      z-index: 100;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      user-select: none;
+    }
+    .plus-btn.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .plus-btn:hover {
+      background: #f5f6f7;
+      border-color: #c9cdd4;
+    }
+    .plus-btn svg {
+      width: 14px;
+      height: 14px;
+      color: #646a73;
+    }
+
+    .popup-menu {
+      position: fixed;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12), 0 1px 3px rgba(0,0,0,0.08);
+      padding: 4px 0;
+      min-width: 180px;
+      max-height: 70vh;
+      overflow-y: auto;
+      opacity: 0;
+      transform: translateY(-6px) scale(0.96);
+      transition: opacity 200ms ease, transform 200ms ease;
+      z-index: 200;
+      pointer-events: none;
+    }
+    .popup-menu.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .popup-section {
+      padding: 2px 0;
+      border-bottom: 1px solid #f0f1f2;
+    }
+    .popup-section:last-child {
+      border-bottom: none;
+    }
+    .popup-section-title {
+      font-size: 10px;
+      color: #8f959e;
+      padding: 2px 12px 4px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+    .popup-item {
+      display: flex;
+      align-items: center;
+      padding: 4px 12px;
+      cursor: pointer;
+      font-size: 13px;
+      color: #1f2329;
+      transition: background 120ms ease;
+      gap: 8px;
+    }
+    .popup-item:hover {
+      background: #f0f1f3;
+    }
+    .popup-item.level-active {
+      background: #3370ff;
+      color: #fff;
+      border-radius: 4px;
+    }
+    .popup-item.level-active:hover {
+      background: #2860e1;
+    }
+    .popup-item.level-active .item-icon svg {
+      color: #fff;
+    }
+    .popup-item .item-icon {
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .popup-item .item-icon svg {
+      width: 12px;
+      height: 12px;
+      color: #646a73;
+    }
+    .popup-item .item-label {
+      flex: 1;
+    }
+    .popup-item .item-shortcut {
+      font-size: 10px;
+      color: #bbbfc4;
+    }
+
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 3px;
+      padding: 3px 12px 6px;
+    }
+    .color-swatch {
+      width: 16px;
+      height: 16px;
+      border-radius: 3px;
+      cursor: pointer;
+      border: 1px solid rgba(0,0,0,0.06);
+      transition: transform 120ms ease, box-shadow 120ms ease;
+    }
+    .color-swatch:hover {
+      transform: scale(1.15);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    }
+    .color-input-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 12px 6px;
+    }
+    .color-input-row input[type="color"] {
+      width: 24px;
+      height: 24px;
+      border: 1px solid #dee0e3;
+      border-radius: 4px;
+      cursor: pointer;
+      padding: 1px;
+      background: #fff;
+    }
+    .color-input-row input[type="text"] {
+      flex: 1;
+      height: 24px;
+      border: 1px solid #dee0e3;
+      border-radius: 4px;
+      padding: 0 6px;
+      font-size: 11px;
+      color: #1f2329;
+      outline: none;
+    }
+    .color-input-row input[type="text"]:focus {
+      border-color: #3370ff;
+    }
+
+    .size-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3px;
+      padding: 3px 12px 6px;
+    }
+    .size-btn {
+      height: 24px;
+      border: 1px solid #dee0e3;
+      border-radius: 4px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 11px;
+      color: #1f2329;
+      transition: background 120ms ease, border-color 120ms ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .size-btn:hover {
+      background: #f5f6f7;
+      border-color: #c9cdd4;
+    }
+
+    .action-row {
+      display: flex;
+      gap: 3px;
+      padding: 3px 12px 6px;
+    }
+    .action-btn {
+      flex: 1;
+      height: 26px;
+      border: 1px solid #dee0e3;
+      border-radius: 4px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 12px;
+      color: #1f2329;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: background 120ms ease, border-color 120ms ease;
+    }
+    .action-btn:hover {
+      background: #f5f6f7;
+      border-color: #c9cdd4;
+    }
+    .action-btn svg {
+      width: 13px;
+      height: 13px;
+      color: #646a73;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useCallback, useRef, useMemo } = React;
+
+    const PRESET_COLORS = [
+      '#1f2329','#646a73','#8f959e','#bbbfc4',
+      '#3370ff','#34d399','#f59e0b','#ef4444',
+      '#8b5cf6','#ec4899','#06b6d4','#10b981',
+      '#fef3c7','#dbeafe','#d1fae5','#fce7f3',
+      '#7c3aed','#0ea5e9','#14b8a6','#84cc16',
+    ];
+
+    const PlusIcon = () => (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+      </svg>
+    );
+
+    const TypeIcon = () => (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="4 7 4 4 20 4 20 7"></polyline>
+        <line x1="9" y1="20" x2="15" y2="20"></line>
+        <line x1="12" y1="4" x2="12" y2="20"></line>
+      </svg>
+    );
+
+    const TrashIcon = () => (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="3 6 5 6 21 6"></polyline>
+        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+      </svg>
+    );
+
+    const CopyIcon = () => (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+      </svg>
+    );
+
+    const PasteIcon = () => (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+        <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+      </svg>
+    );
+
+    const ScissorsIcon = () => (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="6" cy="6" r="3"></circle>
+        <circle cx="6" cy="18" r="3"></circle>
+        <line x1="20" y1="4" x2="8.12" y2="15.88"></line>
+        <line x1="14.47" y1="14.48" x2="20" y2="20"></line>
+        <line x1="8.12" y1="8.12" x2="12" y2="12"></line>
+      </svg>
+    );
+
+    const FontSizeIcon = () => (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="3 7 3 4 21 4 21 7"></polyline>
+        <line x1="12" y1="4" x2="12" y2="20"></line>
+      </svg>
+    );
+
+    const PaletteIcon = () => (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="13.5" cy="6.5" r=".5"></circle>
+        <circle cx="17.5" cy="10.5" r=".5"></circle>
+        <circle cx="8.5" cy="7.5" r=".5"></circle>
+        <circle cx="6.5" cy="12.5" r=".5"></circle>
+        <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path>
+      </svg>
+    );
+
+    const FillIcon = () => (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M19 11l-8-8-8.6 8.6a2 2 0 0 0 0 2.8l5.2 5.2c.8.8 2 .8 2.8 0L19 11z"></path>
+        <path d="M5 2l5 5"></path>
+        <path d="M2 13h15"></path>
+        <path d="M22 20a2 2 0 1 1-4 0c0-1.6 1.7-2.4 2-4 .3 1.6 2 2.4 2 4z"></path>
+      </svg>
+    );
+
+    function PlusButtonEditor() {
+      const editorRef = useRef(null);
+      const bodyRef = useRef(null);
+      const plusBtnRef = useRef(null);
+      const popupRef = useRef(null);
+      const activeLineRef = useRef(null);
+
+      const [plusVisible, setPlusVisible] = useState(false);
+      const [plusPos, setPlusPos] = useState({ top: 0, left: 0 });
+      const [popupVisible, setPopupVisible] = useState(false);
+      const [popupPos, setPopupPos] = useState({ top: 0, left: 0 });
+      const [customTextColor, setCustomTextColor] = useState('#3370ff');
+      const [customFillColor, setCustomFillColor] = useState('#fef3c7');
+      const [clipboard, setClipboard] = useState(null);
+
+      // 导航栏数据
+      const [navExpanded, setNavExpanded] = useState(true);
+      const [activeNavId, setActiveNavId] = useState(null);
+      const [tooltipData, setTooltipData] = useState({ visible: false, text: '', color: '', top: 0, left: 0 });
+      const [selectedParaId, setSelectedParaId] = useState(null);
+
+      const [paragraphs, setParagraphs] = useState(() => [
+        { id: 1, level: 1, text: '项目概述', color: '#1f2329' },
+        { id: 2, level: 2, text: '背景与目标', color: '#1f2329' },
+        { id: 3, level: 3, text: '市场需求分析报告', color: '#3370ff' },
+        { id: 4, level: 3, text: '竞品调研结果', color: '#3370ff' },
+        { id: 5, level: 2, text: '技术方案设计', color: '#1f2329' },
+        { id: 6, level: 3, text: '系统架构设计文档', color: '#8b5cf6' },
+        { id: 7, level: 4, text: '前端技术选型', color: '#8b5cf6' },
+        { id: 8, level: 4, text: '后端服务架构', color: '#8b5cf6' },
+        { id: 9, level: 2, text: '项目进度安排', color: '#1f2329' },
+        { id: 10, level: 3, text: '第一阶段开发计划详细说明', color: '#f59e0b' },
+        { id: 11, level: 3, text: '第二阶段测试方案', color: '#f59e0b' },
+        { id: 12, level: 1, text: '总结与展望', color: '#1f2329' },
+      ]);
+
+      const isTruncated = useCallback((text) => text.length > 5, []);
+
+      const handleNavLabelClick = useCallback((para) => {
+        setActiveNavId(para.id);
+        setSelectedParaId(para.id);
+        const el = document.querySelector(`[data-para-id="${para.id}"]`);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          el.style.backgroundColor = '#e8f3ff';
+          setTimeout(() => { el.style.backgroundColor = ''; }, 1500);
+        }
+        setTooltipData(prev => ({ ...prev, visible: false }));
+      }, []);
+
+      const handleNavLabelMouseEnter = useCallback((e, para) => {
+        if (!isTruncated(para.text)) return;
+        const rect = e.currentTarget.getBoundingClientRect();
+        setTooltipData({
+          visible: true,
+          text: para.text,
+          color: para.color,
+          top: rect.top,
+          left: rect.right + 8,
+        });
+      }, [isTruncated]);
+
+      const handleNavLabelMouseLeave = useCallback(() => {
+        setTooltipData(prev => ({ ...prev, visible: false }));
+      }, []);
+
+      const handleTooltipClick = useCallback((para) => {
+        handleNavLabelClick(para);
+      }, [handleNavLabelClick]);
+
+
+      // Toggle button position
+      const toggleLeft = navExpanded ? 280 : 0;
+
+      const getLineElement = useCallback((node) => {
+        while (node && node !== bodyRef.current) {
+          if (node.tagName === 'P' || /^H[1-6]$/.test(node.tagName)) {
+            return node;
+          }
+          node = node.parentElement;
+        }
+        return null;
+      }, []);
+
+      const updatePlusPosition = useCallback(() => {
+        const line = activeLineRef.current;
+        if (!line) return;
+        const rect = line.getBoundingClientRect();
+        const containerRect = editorRef.current.getBoundingClientRect();
+        const top = rect.top + rect.height / 2 - 14;
+        // 加号按钮显示在编辑器容器左侧 40px 处
+        const left = containerRect.left - 40;
+        setPlusPos({ top, left });
+        if (popupVisible) {
+          const popupTop = top;
+          // 弹窗显示在加号按钮右侧
+          const popupLeft = containerRect.left + 8;
+          setPopupPos({ top: popupTop, left: popupLeft });
+        }
+      }, [popupVisible]);
+
+      useEffect(() => {
+        const onScroll = () => updatePlusPosition();
+        const onResize = () => updatePlusPosition();
+        window.addEventListener('scroll', onScroll, true);
+        window.addEventListener('resize', onResize);
+        return () => {
+          window.removeEventListener('scroll', onScroll, true);
+          window.removeEventListener('resize', onResize);
+        };
+      }, [updatePlusPosition]);
+
+      useEffect(() => {
+        const observer = new MutationObserver(() => {
+          updatePlusPosition();
+        });
+        if (bodyRef.current) {
+          observer.observe(bodyRef.current, { childList: true, subtree: true, characterData: true });
+        }
+        return () => observer.disconnect();
+      }, [updatePlusPosition]);
+
+      // 使用原生事件监听，避免 contentEditable 和 React 合成事件冲突
+      useEffect(() => {
+        const body = bodyRef.current;
+        if (!body) return;
+        
+        const handleMouseDown = (e) => {
+          // 延迟执行，让浏览器先完成选区设置
+          setTimeout(() => {
+            // 如果正在切换等级，不处理 mousedown（防止误关闭弹窗）
+            if (isHeadingChanging.current) return;
+            const line = getLineElement(e.target);
+            if (line) {
+              activeLineRef.current = line;
+              // 更新当前等级
+              setCurrentLevel(getLevelFromElement(line));
+              const rect = line.getBoundingClientRect();
+              const containerRect = editorRef.current.getBoundingClientRect();
+              const top = rect.top + rect.height / 2 - 14;
+              // 加号按钮显示在编辑器容器左侧 40px 处
+              const left = containerRect.left - 40;
+              setPlusPos({ top, left });
+              setPlusVisible(true);
+              setPopupVisible(false);
+            }
+          }, 0);
+        };
+        
+        body.addEventListener('mousedown', handleMouseDown);
+        return () => body.removeEventListener('mousedown', handleMouseDown);
+      }, [getLineElement]);
+
+      const handleBodyClick = useCallback((e) => {
+        const line = getLineElement(e.target);
+        if (line) {
+          activeLineRef.current = line;
+          const rect = line.getBoundingClientRect();
+          const containerRect = editorRef.current.getBoundingClientRect();
+          const top = rect.top + rect.height / 2 - 14;
+          const left = containerRect.left - 38;
+          setPlusPos({ top, left });
+          setPlusVisible(true);
+          setPopupVisible(false);
+        } else {
+          setPlusVisible(false);
+          setPopupVisible(false);
+          activeLineRef.current = null;
+        }
+      }, [getLineElement]);
+
+      const isClickingPlus = useRef(false);
+      const isHeadingChanging = useRef(false);
+
+      const handlePlusClick = useCallback((e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        isClickingPlus.current = true;
+        const line = activeLineRef.current;
+        if (!line) return;
+        const rect = line.getBoundingClientRect();
+        const containerRect = editorRef.current.getBoundingClientRect();
+        let top = rect.top + rect.height / 2 - 14;
+        // 弹窗显示在加号按钮左侧，确保不超出屏幕边缘
+        const popupWidth = 180;
+        const popupHeight = 320;
+        const left = Math.max(8, plusPos.left - popupWidth - 8);
+        top = Math.min(top, window.innerHeight - popupHeight - 8);
+        setPopupPos({ top: Math.max(8, top), left });
+        setPopupVisible(v => !v);
+        // 重置标志
+        setTimeout(() => { isClickingPlus.current = false; }, 100);
+      }, []);
+
+      const closeAll = useCallback(() => {
+        setPlusVisible(false);
+        setPopupVisible(false);
+        activeLineRef.current = null;
+        setSelectedParaId(null);
+        setActiveNavId(null);
+      }, []);
+
+      useEffect(() => {
+        const onDocClick = (e) => {
+          // 如果正在切换等级，忽略点击
+          if (isHeadingChanging.current) return;
+          // 如果正在点击加号按钮，忽略此次点击
+          if (isClickingPlus.current) return;
+          // 如果点击的是编辑器区域内的文本行，不关闭（由 mousedown 处理切换）
+          if (bodyRef.current && bodyRef.current.contains(e.target)) return;
+          // 如果点击的是弹窗内部，不关闭
+          if (popupRef.current && popupRef.current.contains(e.target)) return;
+          // 如果点击的是加号按钮，不关闭
+          if (plusBtnRef.current && plusBtnRef.current.contains(e.target)) return;
+          // 如果点击的是编辑器容器内部（包括替换后的新元素），不关闭
+          if (editorRef.current && editorRef.current.contains(e.target)) return;
+          // 如果点击的是导航栏内部，不关闭
+          const navEl = document.querySelector('.outline-nav');
+          if (navEl && navEl.contains(e.target)) return;
+          // 如果点击的是导航栏 tooltip，不关闭
+          const tooltipEl = document.querySelector('.nav-tooltip');
+          if (tooltipEl && tooltipEl.contains(e.target)) return;
+          // 点击编辑器外部才关闭
+          closeAll();
+        };
+        document.addEventListener('click', onDocClick);
+        return () => document.removeEventListener('click', onDocClick);
+      }, [closeAll]);
+
+      const applyToLine = useCallback((fn) => {
+        const line = activeLineRef.current;
+        if (!line) return;
+        fn(line);
+        setTimeout(() => updatePlusPosition(), 0);
+      }, [updatePlusPosition]);
+
+      const setHeading = useCallback((level) => {
+        setCurrentLevel(level);
+        isHeadingChanging.current = true;
+        const line = activeLineRef.current;
+        if (!line) { isHeadingChanging.current = false; return; }
+        const paraId = line.getAttribute('data-para-id');
+        if (paraId) {
+          // 仅通过 React state 更新等级，不手动操作 DOM
+          setParagraphs(prev => prev.map(p =>
+            p.id === Number(paraId) ? { ...p, level: level === 0 ? 4 : level } : p
+          ));
+          // React 重新渲染后，重新获取对应 DOM 元素并更新 ref（不更新弹窗位置）
+          setTimeout(() => {
+            const newEl = document.querySelector(`[data-para-id="${paraId}"]`);
+            if (newEl) {
+              activeLineRef.current = newEl;
+            }
+          }, 50);
+        }
+        // 不关闭弹窗，不滚动页面
+        setTimeout(() => { isHeadingChanging.current = false; }, 300);
+      }, [updatePlusPosition]);
+
+      const setFontSize = useCallback((size) => {
+        applyToLine((line) => {
+          line.style.fontSize = size + 'px';
+        });
+        setPopupVisible(false);
+      }, [applyToLine]);
+
+      const setTextColor = useCallback((color) => {
+        applyToLine((line) => {
+          line.style.color = color;
+          // 同步更新导航栏数据中的颜色
+          const paraId = line.getAttribute('data-para-id');
+          if (paraId) {
+            setParagraphs(prev => prev.map(p =>
+              p.id === Number(paraId) ? { ...p, color: color } : p
+            ));
+          }
+        });
+        setPopupVisible(false);
+      }, [applyToLine]);
+
+      const setFillColor = useCallback((color) => {
+        applyToLine((line) => {
+          line.style.backgroundColor = color;
+        });
+        setPopupVisible(false);
+      }, [applyToLine]);
+
+      const deleteLine = useCallback(() => {
+        applyToLine((line) => {
+          const next = line.nextElementSibling || line.previousElementSibling;
+          line.remove();
+          if (next) {
+            activeLineRef.current = next;
+            const range = document.createRange();
+            const sel = window.getSelection();
+            range.selectNodeContents(next);
+            range.collapse(false);
+            sel.removeAllRanges();
+            sel.addRange(range);
+            const rect = next.getBoundingClientRect();
+            const containerRect = editorRef.current.getBoundingClientRect();
+            setPlusPos({ top: rect.top + rect.height / 2 - 14, left: containerRect.left - 38 });
+          } else {
+            setPlusVisible(false);
+            setPopupVisible(false);
+            activeLineRef.current = null;
+          }
+        });
+      }, [applyToLine]);
+
+      const copyLine = useCallback(() => {
+        applyToLine((line) => {
+          setClipboard(line.outerHTML);
+        });
+        setPopupVisible(false);
+      }, [applyToLine]);
+
+      const pasteLine = useCallback(() => {
+        if (!clipboard) return;
+        applyToLine((line) => {
+          const wrapper = document.createElement('div');
+          wrapper.innerHTML = clipboard;
+          const newLine = wrapper.firstChild;
+          line.parentNode.insertBefore(newLine, line.nextSibling);
+          activeLineRef.current = newLine;
+          const range = document.createRange();
+          const sel = window.getSelection();
+          range.selectNodeContents(newLine);
+          range.collapse(false);
+          sel.removeAllRanges();
+          sel.addRange(range);
+        });
+        setPopupVisible(false);
+      }, [applyToLine, clipboard]);
+
+      const cutLine = useCallback(() => {
+        applyToLine((line) => {
+          setClipboard(line.outerHTML);
+          const next = line.nextElementSibling || line.previousElementSibling;
+          line.remove();
+          if (next) {
+            activeLineRef.current = next;
+            const range = document.createRange();
+            const sel = window.getSelection();
+            range.selectNodeContents(next);
+            range.collapse(false);
+            sel.removeAllRanges();
+            sel.addRange(range);
+          } else {
+            setPlusVisible(false);
+            setPopupVisible(false);
+            activeLineRef.current = null;
+          }
+        });
+      }, [applyToLine]);
+
+      const headingLevels = useMemo(() => [
+        { label: 'H1', level: 1 },
+        { label: 'H2', level: 2 },
+        { label: 'H3', level: 3 },
+        { label: '正文', level: 0 },
+      ], []);
+
+      // 获取当前激活行的等级
+      const [currentLevel, setCurrentLevel] = useState(0);
+      const getLevelFromElement = useCallback((el) => {
+        if (!el) return 0;
+        const tag = el.tagName.toLowerCase();
+        if (tag === 'h1') return 1;
+        if (tag === 'h2') return 2;
+        if (tag === 'h3') return 3;
+        if (tag === 'h4') return 4;
+        return 0; // p 或其他视为正文
+      }, []);
+
+      const fontSizes = useMemo(() => [12, 14, 16, 18, 20, 24, 32], []);
+
+      return (
+        <div className="page-wrapper">
+          {/* 左侧导航栏 */}
+          <div className={`outline-nav ${navExpanded ? '' : 'collapsed'}`}>
+            <div className="outline-nav-header">大纲导航</div>
+            <div className="outline-nav-body">
+              {paragraphs.map(para => (
+                <div
+                  key={para.id}
+                  className={`nav-label level-${para.level} ${activeNavId === para.id ? 'active' : ''}`}
+                  style={{ color: para.color }}
+                  onClick={() => handleNavLabelClick(para)}
+                  onMouseEnter={(e) => handleNavLabelMouseEnter(e, para)}
+                  onMouseLeave={handleNavLabelMouseLeave}
+                >
+                  <span className={`nav-label-text ${isTruncated(para.text) ? 'truncated' : ''}`}>
+                    {para.text}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* 折叠/展开按钮 */}
+          <div
+            className="nav-toggle-btn"
+            style={{ left: toggleLeft + 8 }}
+            onClick={() => setNavExpanded(v => !v)}
+          >
+            <div className={`nav-toggle-arrow ${navExpanded ? 'expanded' : 'collapsed'}`} />
+          </div>
+
+          {/* 悬浮提示弹窗 */}
+          {tooltipData.visible && (
+            <div
+              className="nav-tooltip visible"
+              style={{ top: tooltipData.top, left: tooltipData.left, color: tooltipData.color }}
+              onClick={() => handleTooltipClick({ id: activeNavId, text: tooltipData.text, color: tooltipData.color })}
+              onMouseLeave={handleNavLabelMouseLeave}
+            >
+              {tooltipData.text}
+            </div>
+          )}
+
+          {/* 右侧编辑器区域 */}
+          <div className="editor-area">
+            <div className="editor-container" ref={editorRef}>
+              <div
+                className="editor-title"
+                contentEditable
+                suppressContentEditableWarning
+                data-placeholder="无标题文档"
+              >
+                欢迎使用 Plus Button 编辑器
+              </div>
+              <div
+                className="editor-body"
+                ref={bodyRef}
+                contentEditable
+                suppressContentEditableWarning
+                onClick={handleBodyClick}
+              >
+                {paragraphs.map(para => {
+                  const Tag = para.level === 1 ? 'h1' : para.level === 2 ? 'h2' : para.level === 3 ? 'h3' : 'p';
+                  return (
+                    <Tag key={para.id} data-para-id={para.id} style={{ color: para.color }}>
+                      {para.text}
+                    </Tag>
+                  );
+                })}
+              </div>
+
+              <div
+                ref={plusBtnRef}
+                className={`plus-btn ${plusVisible ? 'visible' : ''}`}
+                style={{ top: plusPos.top, left: plusPos.left }}
+                onClick={handlePlusClick}
+              >
+                <PlusIcon />
+              </div>
+
+              <div
+                ref={popupRef}
+                className={`popup-menu ${popupVisible ? 'visible' : ''}`}
+                style={{ top: popupPos.top, left: popupPos.left }}
+              >
+                <div className="popup-section">
+                  <div className="popup-section-title">文字等级</div>
+                  {headingLevels.map(h => (
+                    <div
+                      key={h.level}
+                      className={`popup-item ${currentLevel === h.level ? 'level-active' : ''}`}
+                      onClick={() => setHeading(h.level)}
+                    >
+                      <span className="item-icon"><TypeIcon /></span>
+                      <span className="item-label">{h.label}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="popup-section">
+                  <div className="popup-section-title">Text Size</div>
+                  <div className="size-grid">
+                    {fontSizes.map(s => (
+                      <button key={s} className="size-btn" onClick={() => setFontSize(s)}>{s}px</button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="popup-section">
+                  <div className="popup-section-title">Text Color</div>
+                  <div className="color-grid">
+                    {PRESET_COLORS.map(c => (
+                      <div key={c} className="color-swatch" style={{ backgroundColor: c }} onClick={() => setTextColor(c)} />
+                    ))}
+                  </div>
+                  <div className="color-input-row">
+                    <input type="color" value={customTextColor} onChange={e => setCustomTextColor(e.target.value)} />
+                    <input type="text" value={customTextColor} onChange={e => setCustomTextColor(e.target.value)} placeholder="#3370ff" />
+                    <button className="size-btn" style={{ width: 40 }} onClick={() => setTextColor(customTextColor)}>Apply</button>
+                  </div>
+                </div>
+
+                <div className="popup-section">
+                  <div className="popup-section-title">Fill Color</div>
+                  <div className="color-grid">
+                    {PRESET_COLORS.map(c => (
+                      <div key={c} className="color-swatch" style={{ backgroundColor: c }} onClick={() => setFillColor(c)} />
+                    ))}
+                  </div>
+                  <div className="color-input-row">
+                    <input type="color" value={customFillColor} onChange={e => setCustomFillColor(e.target.value)} />
+                    <input type="text" value={customFillColor} onChange={e => setCustomFillColor(e.target.value)} placeholder="#fef3c7" />
+                    <button className="size-btn" style={{ width: 40 }} onClick={() => setFillColor(customFillColor)}>Apply</button>
+                  </div>
+                </div>
+
+                <div className="popup-section">
+                  <div className="popup-section-title">Edit Actions</div>
+                  <div className="action-row">
+                    <button className="action-btn" onClick={deleteLine}><TrashIcon /> Delete</button>
+                    <button className="action-btn" onClick={copyLine}><CopyIcon /> Copy</button>
+                  </div>
+                  <div className="action-row">
+                    <button className="action-btn" onClick={pasteLine} disabled={!clipboard} style={{ opacity: clipboard ? 1 : 0.4 }}><PasteIcon /> Paste</button>
+                    <button className="action-btn" onClick={cutLine}><ScissorsIcon /> Cut</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<PlusButtonEditor />);
+  </script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手写数字识别 - 神经网络数学原理实践</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>手写数字识别</h1>
+            <p class="subtitle">基于 NumPy 从头实现的神经网络 | MNIST 数据集</p>
+        </header>
+
+        <main>
+            <div class="left-panel">
+                <div class="canvas-container">
+                    <h3>手写画板</h3>
+                    <canvas id="drawingCanvas" width="280" height="280"></canvas>
+                    <div class="canvas-controls">
+                        <button id="clearBtn" class="btn btn-secondary">清空画板</button>
+                        <button id="predictBtn" class="btn btn-primary">识别数字</button>
+                    </div>
+                    <p class="hint">在画板上手写一个数字 (0-9), 然后点击"识别数字"</p>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <div class="result-container">
+                    <h3>识别结果</h3>
+                    <div id="resultArea" class="result-area">
+                        <div class="placeholder">请先手写数字并点击识别</div>
+                    </div>
+                </div>
+
+                <div class="probabilities-container">
+                    <h3>各类别概率</h3>
+                    <div id="probBars" class="prob-bars">
+                        <!-- 动态生成概率条 -->
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <section class="network-info">
+            <h3>神经网络结构</h3>
+            <div class="network-diagram">
+                <div class="layer">
+                    <div class="layer-title">输入层</div>
+                    <div class="layer-size">784</div>
+                    <div class="layer-desc">28×28 像素</div>
+                </div>
+                <div class="arrow">→</div>
+                <div class="layer">
+                    <div class="layer-title">隐藏层1</div>
+                    <div class="layer-size">128</div>
+                    <div class="layer-desc">ReLU 激活</div>
+                </div>
+                <div class="arrow">→</div>
+                <div class="layer">
+                    <div class="layer-title">隐藏层2</div>
+                    <div class="layer-size">64</div>
+                    <div class="layer-desc">ReLU 激活</div>
+                </div>
+                <div class="arrow">→</div>
+                <div class="layer output">
+                    <div class="layer-title">输出层</div>
+                    <div class="layer-size">10</div>
+                    <div class="layer-desc">Softmax</div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>完全按照《手写识别神经网络数学原理》PPT 中的公式实现</p>
+            <p>包含: 像素展开 → 归一化 → 前向传播 → 交叉熵损失 → 反向传播 → 梯度下降</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

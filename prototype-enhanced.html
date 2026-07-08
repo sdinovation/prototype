@@ -1,0 +1,2950 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>雷云云文档 - 主页</title>
+<style>
+/* ============================================
+   DESIGN SYSTEM — CSS Custom Properties
+   ============================================ */
+:root {
+    --primary: #4f6ef6;
+    --primary-light: #1e2545;
+    --primary-dark: #3b54d4;
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #5b6df0 50%, #4f6ef6 100%);
+    --bg-body: #0f1117;
+    --bg-surface: #1a1d27;
+    --bg-hover: #242836;
+    --bg-active: #2a2f3d;
+    --border: #2a2f3d;
+    --border-light: #222636;
+    --text-primary: #e8eaef;
+    --text-secondary: #9ca3b2;
+    --text-tertiary: #6b7280;
+    --text-placeholder: #4b5563;
+    --text-inverse: #ffffff;
+    --success: #22c55e;
+    --success-bg: #f0fdf4;
+    --warning: #f59e0b;
+    --warning-bg: #fffbeb;
+    --danger: #ef4444;
+    --danger-bg: #fef2f2;
+    --info: #4f6ef6;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.2);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
+    --shadow-lg: 0 12px 32px rgba(0,0,0,0.4);
+    --shadow-xl: 0 20px 48px rgba(0,0,0,0.5);
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --radius-xl: 20px;
+    --radius-full: 9999px;
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: "SF Mono", "Fira Code", "Consolas", monospace;
+    --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    --sidebar-width: 260px;
+    --header-height: 56px;
+}
+[data-theme="light"] {
+    --bg-body: #f0f2f5;
+    --bg-surface: #ffffff;
+    --bg-hover: #f6f7fa;
+    --bg-active: #eef1ff;
+    --border: #e8ecf1;
+    --border-light: #f2f4f7;
+    --text-primary: #1a1d26;
+    --text-secondary: #5f6673;
+    --text-tertiary: #939aa8;
+    --text-placeholder: #bcc3cf;
+    --primary-light: #eef1ff;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+    --shadow-lg: 0 12px 32px rgba(0,0,0,0.08), 0 4px 8px rgba(0,0,0,0.04);
+    --shadow-xl: 0 20px 48px rgba(0,0,0,0.12);
+}
+[data-theme="light"] .sidebar {
+    background-color: #ffffff;
+    border-right-color: #e8ecf1;
+    color: #5f6673;
+}
+[data-theme="light"] .sidebar-logo .logo-text-sidebar { color: #1a1d26; }
+[data-theme="light"] .sidebar-search input {
+    border-color: #e8ecf1;
+    background-color: #f6f7fa;
+    color: #1a1d26;
+}
+[data-theme="light"] .sidebar-search input:focus {
+    background-color: #ffffff;
+    border-color: #4f6ef6;
+}
+[data-theme="light"] .nav-item { color: #5f6673; }
+[data-theme="light"] .nav-item:hover { background-color: #f6f7fa; color: #1a1d26; }
+[data-theme="light"] .sidebar-section-title { color: #939aa8; }
+[data-theme="light"] .sidebar-section-item { color: #5f6673; }
+[data-theme="light"] .sidebar-section-item:hover { background-color: #f6f7fa; color: #1a1d26; }
+[data-theme="light"] .sidebar-bottom-actions { border-top-color: #e8ecf1; }
+[data-theme="light"] .sidebar-bottom-icon:hover { background-color: #f6f7fa; color: #1a1d26; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-body);
+    color: var(--text-primary);
+    line-height: 1.5;
+    min-height: 100vh;
+}
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--text-placeholder); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-tertiary); }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: var(--radius-sm); }
+
+.app-wrapper {
+    max-width: 1440px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background-color: var(--bg-body);
+    display: flex;
+    flex-direction: column;
+    transition: background-color var(--transition-base);
+}
+
+/* ============================================
+   HEADER (Simplified)
+   ============================================ */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--space-lg);
+    height: var(--header-height);
+    background-color: var(--bg-surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: background-color var(--transition-base), border-color var(--transition-base);
+}
+.header-left { display: flex; align-items: center; gap: var(--space-sm); }
+.header-center { flex: 1; display: flex; justify-content: center; }
+.header-right { display: flex; align-items: center; gap: var(--space-xs); }
+
+.menu-btn {
+    width: 36px; height: 36px;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    cursor: pointer; gap: 4px;
+    border-radius: var(--radius-sm);
+    transition: background-color var(--transition-fast);
+}
+.menu-btn:hover { background-color: var(--bg-hover); }
+.menu-btn span { display: block; width: 18px; height: 2px; background-color: var(--text-secondary); border-radius: 2px; }
+
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-icon {
+    width: 32px; height: 32px;
+    background: var(--primary-gradient);
+    border-radius: var(--radius-md);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    box-shadow: 0 2px 8px rgba(79,110,246,0.3);
+}
+.logo-icon::before { content: "°1"; color: white; }
+.logo-text { font-size: 16px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em; }
+
+.header-search {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+}
+.header-search input {
+    width: 100%;
+    height: 38px;
+    padding: 0 12px 0 36px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    background-color: var(--bg-hover);
+    color: var(--text-primary);
+    transition: all var(--transition-fast);
+}
+.header-search input:focus {
+    background-color: var(--bg-surface);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(79,110,246,0.1);
+    outline: none;
+}
+.header-search input::placeholder { color: var(--text-tertiary); }
+.header-search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-tertiary);
+    font-size: 14px;
+    pointer-events: none;
+}
+
+.header-icon {
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: var(--text-secondary); font-size: 18px;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+}
+.header-icon:hover { background-color: var(--bg-hover); color: var(--text-primary); }
+
+.user-avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: linear-gradient(135deg, #f59e0b, #f97316);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 14px; color: white;
+    position: relative; font-weight: 600;
+    box-shadow: 0 2px 6px rgba(245,158,11,0.3);
+    user-select: none;
+}
+.user-avatar.logged-out { background: #9ca3b2 !important; box-shadow: none; }
+.user-role-badge {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    background: var(--primary);
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 1px 4px;
+    border-radius: var(--radius-full);
+    border: 2px solid var(--bg-surface);
+    line-height: 1;
+}
+
+/* User dropdown */
+.user-dropdown {
+    position: absolute; top: calc(100% + 8px); right: 0;
+    background-color: var(--bg-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    min-width: 220px; z-index: 1000;
+    display: none; padding: var(--space-sm) 0;
+    border: 1px solid var(--border);
+    animation: dropdownIn 0.15s ease;
+}
+@keyframes dropdownIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.user-dropdown.show { display: block; }
+.user-dropdown-header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px var(--space-md); border-bottom: 1px solid var(--border-light);
+}
+.user-dropdown-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, #f59e0b, #f97316);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; color: white; font-weight: 600;
+}
+.user-dropdown-avatar.logged-out { background: #9ca3b2 !important; }
+.user-dropdown-name { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+.user-dropdown-role { font-size: 12px; color: var(--text-tertiary); margin-top: 2px; }
+.user-dropdown-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px var(--space-md); cursor: pointer;
+    font-size: 14px; color: var(--text-primary);
+    transition: background-color var(--transition-fast);
+}
+.user-dropdown-item:hover { background-color: var(--bg-hover); }
+.user-dropdown-item span:first-child { display: flex; align-items: center; gap: 10px; }
+.user-dropdown-divider { height: 1px; background-color: var(--border-light); margin: var(--space-sm) 0; }
+
+/* Admin submenu */
+.admin-submenu {
+    position: absolute; top: 0; left: 100%; margin-left: 8px;
+    background-color: var(--bg-surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    min-width: 170px; z-index: 1001;
+    display: none; padding: var(--space-sm) 0;
+    border: 1px solid var(--border);
+}
+.admin-submenu.show { display: block; }
+.admin-submenu-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px var(--space-md); cursor: pointer;
+    font-size: 14px; color: var(--text-primary);
+    transition: background-color var(--transition-fast);
+}
+.admin-submenu-item:hover { background-color: var(--bg-hover); }
+
+/* ============================================
+   MAIN LAYOUT
+   ============================================ */
+.main-container { display: flex; flex: 1; min-height: 0; }
+
+/* ============================================
+   SIDEBAR (Dark Theme)
+   ============================================ */
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: #1a1d27;
+    border-right: 1px solid #252a3a;
+    padding: var(--space-md) 0;
+    overflow-y: auto;
+    transition: width var(--transition-base), background-color var(--transition-base);
+    flex-shrink: 0;
+    display: flex; flex-direction: column;
+    color: #9ca3b2;
+}
+.sidebar.collapsed { width: 64px; }
+.sidebar.collapsed .nav-item span:not(.nav-item-icon),
+.sidebar.collapsed .sidebar-section-title,
+.sidebar.collapsed .sidebar-doc-name,
+.sidebar.collapsed .sidebar-search,
+.sidebar.collapsed .sidebar-bottom-actions { opacity: 0; width: 0; pointer-events: none; display: none; }
+.sidebar.collapsed .nav-item { justify-content: center; padding: 10px; }
+.sidebar.collapsed .sidebar-section-item { justify-content: center; padding: 8px; }
+.sidebar.collapsed .logo-text-sidebar { display: none; }
+
+.sidebar-logo {
+    display: flex; align-items: center; gap: 10px;
+    padding: 0 var(--space-md) var(--space-md);
+    margin: 0 var(--space-sm);
+}
+.sidebar-logo .logo-icon { width: 28px; height: 28px; font-size: 16px; }
+.sidebar-logo .logo-text-sidebar {
+    font-size: 15px; font-weight: 600; color: #e8eaef; letter-spacing: -0.01em;
+}
+
+.sidebar-search {
+    position: relative;
+    padding: 0 var(--space-md);
+    margin-bottom: var(--space-md);
+}
+.sidebar-search input {
+    width: 100%;
+    height: 34px;
+    padding: 0 10px 0 30px;
+    border: 1px solid #2a2f3d;
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    background-color: #242836;
+    color: #e8eaef;
+    transition: all var(--transition-fast);
+}
+.sidebar-search input:focus {
+    background-color: #2a2f3d;
+    border-color: #4f6ef6;
+    outline: none;
+}
+.sidebar-search input::placeholder { color: #6b7280; }
+.sidebar-search-icon {
+    position: absolute;
+    left: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6b7280;
+    font-size: 13px;
+    pointer-events: none;
+}
+
+.nav-menu { list-style: none; padding: 0 var(--space-sm); margin-bottom: var(--space-md); }
+.nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 12px; margin: 2px var(--space-sm);
+    border-radius: var(--radius-md);
+    cursor: pointer; color: #9ca3b2;
+    font-size: 14px; font-weight: 500;
+    transition: all var(--transition-fast);
+}
+.nav-item:hover { background-color: #242836; color: #e8eaef; }
+.nav-item.active {
+    background-color: rgba(79,110,246,0.12);
+    color: #4f6ef6;
+    font-weight: 600;
+}
+.nav-item-icon { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+
+.sidebar-section { margin-bottom: var(--space-md); }
+.sidebar-section-title {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 var(--space-md) 6px;
+    font-size: 12px; font-weight: 600; color: #6b7280;
+    text-transform: uppercase; letter-spacing: 0.03em;
+}
+.sidebar-section-list { list-style: none; padding: 0 var(--space-sm); }
+.sidebar-section-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 7px 12px; margin: 1px var(--space-sm);
+    border-radius: var(--radius-md);
+    cursor: pointer; color: #9ca3b2;
+    font-size: 13px;
+    transition: all var(--transition-fast);
+}
+.sidebar-section-item:hover { background-color: #242836; color: #e8eaef; }
+.sidebar-section-item.active {
+    background-color: rgba(79,110,246,0.12);
+    color: #4f6ef6;
+}
+.sidebar-doc-icon { width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+.sidebar-doc-name {
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.sidebar-bottom-actions {
+    margin-top: auto;
+    padding: 12px var(--space-md);
+    border-top: 1px solid #252a3a;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.sidebar-bottom-icon {
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: #6b7280; font-size: 16px;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+}
+.sidebar-bottom-icon:hover { background-color: #242836; color: #e8eaef; }
+
+/* ============================================
+   MAIN CONTENT
+   ============================================ */
+.content { flex: 1; padding: var(--space-xl) var(--space-2xl); overflow-y: auto; background-color: var(--bg-body); }
+.content-header { margin-bottom: var(--space-sm); display: flex; align-items: center; justify-content: space-between; }
+.content-title { font-size: 24px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.02em; }
+.content-actions { display: flex; gap: var(--space-sm); }
+
+/* ============================================
+   ACTION CARDS
+   ============================================ */
+.action-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+}
+.action-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+.action-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+.action-card-icon {
+    width: 48px; height: 48px;
+    border-radius: var(--radius-md);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+.action-card-title {
+    font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 4px;
+}
+.action-card-subtitle {
+    font-size: 13px; color: rgba(255,255,255,0.75);
+}
+.action-card-new {
+    background: linear-gradient(135deg, #4f6ef6 0%, #3b54d4 100%);
+}
+.action-card-new .action-card-icon { background: rgba(255,255,255,0.15); }
+.action-card-upload {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+.action-card-upload .action-card-icon { background: rgba(255,255,255,0.15); }
+.action-card-template {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+}
+.action-card-template .action-card-icon { background: rgba(255,255,255,0.15); }
+
+/* ============================================
+   TAB BAR
+   ============================================ */
+.tab-bar-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-md);
+    border-bottom: 1px solid var(--border);
+}
+.tabs {
+    display: flex;
+    gap: 0;
+}
+.tab {
+    padding: 12px 18px; font-size: 14px; color: var(--text-secondary);
+    cursor: pointer; position: relative;
+    transition: all var(--transition-fast);
+    font-weight: 500;
+}
+.tab:hover { color: var(--text-primary); }
+.tab.active { color: var(--primary); font-weight: 600; }
+.tab.active::after {
+    content: ""; position: absolute; bottom: 0; left: 12px; right: 12px;
+    height: 2px; background-color: var(--primary); border-radius: 1px;
+}
+.tab-add {
+    padding: 12px 14px; font-size: 18px; color: var(--text-tertiary);
+    cursor: pointer; transition: all var(--transition-fast);
+}
+.tab-add:hover { color: var(--text-primary); }
+
+.tab-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+.tab-control-btn {
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 13px; color: var(--text-secondary);
+    cursor: pointer; border: 1px solid var(--border);
+    background: var(--bg-surface);
+    transition: all var(--transition-fast);
+}
+.tab-control-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
+.tab-control-icon {
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: var(--text-secondary); font-size: 16px;
+    border-radius: var(--radius-sm); border: 1px solid var(--border);
+    background: var(--bg-surface);
+    transition: all var(--transition-fast);
+}
+.tab-control-icon:hover { background: var(--bg-hover); color: var(--text-primary); }
+
+/* ============================================
+   DOC TABLE
+   ============================================ */
+.doc-table {
+    width: 100%; background-color: var(--bg-surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    overflow: visible;
+}
+.table-header {
+    display: flex; padding: 14px var(--space-md);
+    background-color: var(--bg-hover);
+    border-bottom: 1px solid var(--border);
+    font-size: 12px; color: var(--text-tertiary);
+    font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;
+}
+.table-row {
+    display: flex; padding: 12px var(--space-md);
+    border-bottom: 1px solid var(--border-light);
+    align-items: center; font-size: 14px; color: var(--text-primary);
+    transition: background-color var(--transition-fast);
+    position: relative;
+}
+.table-row:hover { background-color: var(--bg-hover); }
+.table-row:last-child { border-bottom: none; }
+.table-row.deleted { opacity: 0.6; }
+.table-row.selected {
+    background-color: rgba(79,110,246,0.08);
+    border-left: 3px solid var(--primary);
+    padding-left: calc(var(--space-md) - 3px);
+}
+
+.col-checkbox { width: 36px; display: flex; align-items: center; justify-content: center; }
+.col-checkbox input[type="checkbox"] {
+    width: 16px; height: 16px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+.table-row:hover .col-checkbox input[type="checkbox"],
+.col-checkbox input[type="checkbox"]:checked { opacity: 1; }
+
+.col-title { flex: 2.5; display: flex; align-items: center; gap: 12px; min-width: 0; }
+.col-location { flex: 1.2; color: var(--text-secondary); font-size: 13px; }
+.col-owner { flex: 1; display: flex; align-items: center; gap: 8px; }
+.col-time { flex: 0.9; color: var(--text-secondary); font-size: 13px; }
+.col-action { width: 40px; text-align: center; position: relative; overflow: visible; }
+
+.doc-icon-small { width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.doc-icon-doc { color: #4f6ef6; }
+.doc-icon-sheet { color: #22c55e; }
+.doc-icon-slide { color: #f59e0b; }
+.doc-name { display: flex; align-items: center; gap: 4px; min-width: 0; }
+.doc-name-text {
+    display: inline-block;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    vertical-align: middle; cursor: default; position: relative;
+    max-width: 96px;
+}
+.doc-name-text .highlight { background: #fef08a; color: #1a1d26; border-radius: 2px; padding: 0 1px; }
+
+.location-tag {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 12px; padding: 3px 10px;
+    border-radius: var(--radius-full);
+    background: var(--bg-active);
+    color: var(--text-secondary);
+    font-weight: 500;
+    border: 1px solid var(--border);
+}
+
+.owner-avatar {
+    width: 24px; height: 24px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: white; font-weight: 600;
+    flex-shrink: 0;
+}
+
+.pin-icon-table {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; color: var(--text-tertiary);
+    font-size: 14px; opacity: 0; transition: all var(--transition-fast);
+    cursor: pointer; margin-left: 4px; border: none; background: none;
+    border-radius: var(--radius-sm); flex-shrink: 0;
+}
+.pin-icon-table:hover { background-color: var(--bg-hover); }
+.pin-icon-table.pinned { opacity: 1; color: var(--success); }
+.table-row:hover .pin-icon-table:not(.pinned) { opacity: 1; }
+
+.star-icon-table {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; color: var(--text-tertiary);
+    font-size: 14px; opacity: 0; transition: all var(--transition-fast);
+    cursor: pointer; margin-left: 2px; border: none; background: none;
+    border-radius: var(--radius-sm);
+}
+.star-icon-table:hover { background-color: var(--bg-hover); }
+.star-icon-table.collected { opacity: 1; color: var(--warning); }
+.table-row:hover .star-icon-table:not(.collected) { opacity: 1; }
+
+.action-btn {
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: var(--text-tertiary);
+    border-radius: var(--radius-sm);
+    opacity: 0; transition: all var(--transition-fast);
+    font-size: 16px; border: none; background: none;
+}
+.action-btn:hover { background-color: var(--bg-hover); color: var(--text-primary); }
+.table-row:hover .action-btn { opacity: 1; }
+
+/* ============================================
+   DROPDOWNS
+   ============================================ */
+.dropdown-menu {
+    position: absolute; top: 100%; right: 0; margin-top: 6px;
+    background-color: var(--bg-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    min-width: 210px; z-index: 1000;
+    display: none; padding: var(--space-sm) 0;
+    border: 1px solid var(--border);
+    animation: dropdownIn 0.15s ease;
+}
+.dropdown-menu.show { display: block; }
+.dropdown-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px var(--space-md); cursor: pointer;
+    font-size: 14px; color: var(--text-primary);
+    transition: background-color var(--transition-fast);
+}
+.dropdown-item:hover { background-color: var(--bg-hover); }
+.dropdown-item.pin-item { background-color: var(--bg-hover); border-radius: var(--radius-md); margin: 0 var(--space-sm) var(--space-sm) var(--space-sm); padding: 12px var(--space-md); }
+.dropdown-item.pin-item.pinned { color: var(--danger); background-color: var(--danger-bg); }
+.dropdown-icon { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+.dropdown-divider { height: 1px; background-color: var(--border-light); margin: var(--space-sm) 0; }
+.dropdown-item.delete-item { color: var(--danger); border-radius: var(--radius-md); margin: 0 var(--space-sm) var(--space-sm) var(--space-sm); padding: 10px var(--space-md); }
+.dropdown-item.delete-item:hover { background-color: var(--danger-bg); }
+.dropdown-item.rename-item { border-radius: var(--radius-md); margin: 0 var(--space-sm); }
+.dropdown-item.recycle-item { color: var(--warning); }
+.dropdown-item.recycle-item:hover { background-color: var(--warning-bg); }
+
+/* ============================================
+   TOAST NOTIFICATIONS
+   ============================================ */
+.toast-notification {
+    position: fixed; top: 24px; left: 50%;
+    transform: translateX(-50%) translateY(-120px);
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 12px 24px;
+    display: flex; align-items: center; gap: 10px;
+    box-shadow: var(--shadow-lg);
+    z-index: 9999; transition: all var(--transition-base);
+    opacity: 0;
+}
+.toast-notification.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast-icon {
+    width: 22px; height: 22px; background-color: var(--success);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 12px; font-weight: 700;
+}
+.toast-text { font-size: 14px; color: var(--text-primary); font-weight: 500; }
+
+/* ============================================
+   MODALS
+   ============================================ */
+.modal-overlay {
+    position: fixed; inset: 0;
+    background-color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 10000; opacity: 0; visibility: hidden;
+    transition: all var(--transition-base);
+}
+.modal-overlay.show { opacity: 1; visibility: visible; }
+.modal {
+    background-color: var(--bg-surface);
+    border-radius: var(--radius-xl);
+    padding: var(--space-lg);
+    width: 420px; max-width: 90%;
+    box-shadow: var(--shadow-xl);
+    transform: scale(0.92);
+    transition: transform var(--transition-base);
+}
+.modal-overlay.show .modal { transform: scale(1); }
+.modal-title { font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 12px; }
+.modal-desc { font-size: 14px; color: var(--text-secondary); margin-bottom: var(--space-lg); line-height: 1.6; }
+.modal-buttons { display: flex; gap: 12px; justify-content: flex-end; }
+.modal-btn {
+    padding: 10px 24px; border-radius: var(--radius-md);
+    font-size: 14px; cursor: pointer; font-weight: 500;
+    border: 1px solid var(--border); background-color: var(--bg-surface);
+    color: var(--text-primary);
+    transition: all var(--transition-fast);
+}
+.modal-btn:hover { background-color: var(--bg-hover); }
+.modal-btn.confirm { background-color: var(--danger); border-color: var(--danger); color: white; }
+.modal-btn.confirm:hover { background-color: #dc2626; }
+.modal-btn.primary { background-color: var(--primary); border-color: var(--primary); color: white; }
+.modal-btn.primary:hover { background-color: var(--primary-dark); }
+
+/* Login modal */
+.login-modal-overlay {
+    position: fixed; inset: 0; z-index: 5000;
+    display: none; background-color: var(--bg-surface);
+}
+.login-modal-overlay.show { display: flex; }
+.login-modal-left {
+    width: 45%; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 40px; background-color: var(--bg-surface);
+    position: relative;
+}
+.login-modal-right {
+    width: 55%;
+    background: var(--primary-gradient);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+}
+.login-form-container { width: 100%; max-width: 380px; }
+.login-title { text-align: center; font-size: 20px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
+.login-subtitle { text-align: center; font-size: 13px; color: var(--text-tertiary); margin-bottom: 32px; }
+.login-input {
+    width: 100%; height: 44px; padding: 0 14px;
+    border: 1px solid var(--border); border-radius: var(--radius-md);
+    font-size: 14px; background-color: var(--bg-surface);
+    color: var(--text-primary); margin-bottom: 12px;
+    transition: border-color var(--transition-fast);
+}
+.login-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79,110,246,0.1); outline: none; }
+.login-input::placeholder { color: var(--text-placeholder); }
+.login-submit {
+    width: 100%; height: 44px;
+    background: var(--primary); color: white; border: none;
+    border-radius: var(--radius-md); font-size: 15px; font-weight: 500;
+    cursor: pointer; transition: all var(--transition-fast);
+    margin-top: 8px;
+}
+.login-submit:hover { background: var(--primary-dark); }
+.login-close-btn {
+    position: absolute; top: 20px; right: 20px;
+    width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: var(--text-tertiary); font-size: 20px;
+    border-radius: 50%; transition: all 0.2s; z-index: 10;
+}
+.login-close-btn:hover { background-color: var(--bg-hover); color: var(--text-primary); }
+
+/* ============================================
+   EDITOR VIEW
+   ============================================ */
+.editor-view {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: var(--bg-body);
+}
+.editor-view.active { display: flex; }
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: var(--bg-body);
+}
+.editor-view.active { display: flex; }
+
+/* Editor top bar */
+.editor-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--space-lg);
+    height: var(--header-height);
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+}
+.editor-top-left { display: flex; align-items: center; gap: var(--space-md); }
+.editor-top-center { flex: 1; display: flex; justify-content: center; }
+.editor-top-right { display: flex; align-items: center; gap: var(--space-sm); }
+
+.back-btn {
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 12px; border-radius: var(--radius-sm);
+    cursor: pointer; font-size: 14px; color: var(--text-secondary);
+    background: none; border: none; transition: all var(--transition-fast);
+}
+.back-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
+
+.doc-title-input {
+    font-size: 16px; font-weight: 600;
+    color: var(--text-primary);
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    padding: 6px 12px;
+    background: transparent;
+    text-align: center;
+    min-width: 200px;
+    transition: all var(--transition-fast);
+}
+.doc-title-input:hover { border-color: var(--border); background: var(--bg-hover); }
+.doc-title-input:focus { border-color: var(--primary); background: var(--bg-surface); outline: none; }
+
+.editor-top-icon {
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: var(--text-secondary); font-size: 16px;
+    border-radius: var(--radius-sm); border: none; background: none;
+    transition: all var(--transition-fast);
+}
+.editor-top-icon:hover { background: var(--bg-hover); color: var(--text-primary); }
+.editor-top-icon.pinned { color: var(--success); }
+
+/* Editor body layout */
+.editor-body-wrapper {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Outline nav */
+.outline-nav {
+    width: 260px;
+    min-width: 260px;
+    background: var(--bg-surface);
+    border-right: 1px solid var(--border);
+    overflow: hidden;
+    transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1), min-width 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+}
+.outline-nav.collapsed { width: 0; min-width: 0; border-right: none; }
+.outline-nav-header {
+    padding: 14px var(--space-md);
+    font-size: 14px; font-weight: 600;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-light);
+    white-space: nowrap;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.outline-toggle-btn {
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; border-radius: var(--radius-sm);
+    font-size: 12px; color: var(--text-tertiary);
+    transition: all var(--transition-fast);
+}
+.outline-toggle-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
+.outline-nav-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 0;
+}
+.nav-label {
+    display: flex;
+    align-items: center;
+    padding: 6px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--text-primary);
+    transition: background 120ms ease, color 200ms ease;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+    border-radius: 0;
+}
+.nav-label:hover { background: var(--bg-hover); }
+.nav-label.active { background: var(--primary-light); }
+.nav-label.level-1 { padding-left: 16px; font-size: 15px; font-weight: 700; }
+.nav-label.level-2 { padding-left: 32px; font-size: 14px; font-weight: 700; }
+.nav-label.level-3 { padding-left: 48px; font-size: 13px; font-weight: 400; }
+.nav-label.level-4 { padding-left: 64px; font-size: 12px; font-weight: 400; color: var(--text-secondary); }
+.nav-label-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 90px;
+}
+
+/* Editor content area */
+.editor-content-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 32px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.editor-page {
+    width: 100%;
+    max-width: 800px;
+    background: var(--bg-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: 48px 64px 48px 48px;
+    position: relative;
+    min-height: 600px;
+}
+
+.editor-doc-body {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text-primary);
+    outline: none;
+    min-height: 400px;
+}
+.editor-doc-body p {
+    margin: 0 0 12px 0;
+    position: relative;
+    padding-left: 4px;
+    min-height: 32px;
+    transition: background-color 150ms ease;
+    border-radius: 4px;
+}
+.editor-doc-body p:hover { background-color: #e8f3ff; }
+.editor-doc-body p:empty:before { content: '\200B'; }
+.editor-doc-body h1 { font-size: 28px; font-weight: 700; margin: 24px 0 16px; color: var(--text-primary); }
+.editor-doc-body h2 { font-size: 24px; font-weight: 700; margin: 20px 0 14px; color: var(--text-primary); }
+.editor-doc-body h3 { font-size: 20px; font-weight: 600; margin: 16px 0 12px; color: var(--text-primary); }
+.editor-doc-body h4 { font-size: 18px; font-weight: 600; margin: 14px 0 10px; color: var(--text-primary); }
+
+/* Empty doc state */
+.empty-doc-placeholder {
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    transition: background-color 200ms ease;
+    cursor: text;
+}
+.empty-doc-placeholder:hover { background-color: var(--bg-hover); }
+.empty-doc-plus {
+    width: 40px; height: 40px;
+    border-radius: var(--radius-md);
+    background: var(--bg-hover);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; color: var(--text-tertiary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+.empty-doc-plus:hover { background: var(--primary-light); border-color: var(--primary); color: var(--primary); }
+
+/* Level badge */
+.level-badge {
+    position: absolute;
+    left: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-hover);
+    color: var(--text-tertiary);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 150ms ease;
+    white-space: nowrap;
+    user-select: none;
+    border: 1px solid var(--border);
+}
+.editor-doc-body p:hover .level-badge,
+.editor-doc-body h1:hover .level-badge,
+.editor-doc-body h2:hover .level-badge,
+.editor-doc-body h3:hover .level-badge,
+.editor-doc-body h4:hover .level-badge { opacity: 1; }
+
+/* Plus button for new paragraphs */
+.plus-btn {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 200ms ease, transform 200ms ease, background 150ms ease;
+    z-index: 100;
+    box-shadow: var(--shadow-xs);
+    user-select: none;
+    font-size: 16px;
+    color: var(--text-secondary);
+}
+.plus-btn.visible { opacity: 1; transform: scale(1); }
+.plus-btn:hover { background: var(--bg-hover); border-color: var(--text-tertiary); }
+
+/* Popup menus in editor */
+.popup-menu {
+    position: fixed;
+    background: var(--bg-surface);
+    border-radius: 8px;
+    box-shadow: var(--shadow-lg);
+    padding: 4px 0;
+    min-width: 180px;
+    max-height: 70vh;
+    overflow-y: auto;
+    opacity: 0;
+    transform: translateY(-6px) scale(0.96);
+    transition: opacity 200ms ease, transform 200ms ease;
+    z-index: 500;
+    pointer-events: none;
+    border: 1px solid var(--border);
+}
+.popup-menu.visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+.popup-section { padding: 2px 0; border-bottom: 1px solid var(--border-light); }
+.popup-section:last-child { border-bottom: none; }
+.popup-section-title {
+    font-size: 10px; color: var(--text-tertiary);
+    padding: 2px 12px 4px; font-weight: 500; letter-spacing: 0.3px;
+}
+.popup-item {
+    display: flex; align-items: center;
+    padding: 6px 12px; cursor: pointer;
+    font-size: 13px; color: var(--text-primary);
+    transition: background 120ms ease; gap: 8px;
+    margin: 0 4px; border-radius: var(--radius-sm);
+}
+.popup-item:hover { background: var(--bg-hover); }
+.popup-item.level-active { background: var(--primary); color: #fff; }
+.popup-item.level-active:hover { background: var(--primary-dark); }
+
+/* Color grid */
+.color-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 3px;
+    padding: 3px 12px 6px;
+}
+.color-swatch {
+    width: 16px; height: 16px;
+    border-radius: 3px; cursor: pointer;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 120ms ease, box-shadow 120ms ease;
+}
+.color-swatch:hover { transform: scale(1.15); box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
+.color-swatch.selected { box-shadow: 0 0 0 2px var(--primary); }
+.color-input-row {
+    display: flex; align-items: center; gap: 6px;
+    padding: 3px 12px 6px;
+}
+.color-input-row input[type="color"] {
+    width: 24px; height: 24px; border: 1px solid var(--border);
+    border-radius: 4px; cursor: pointer; padding: 1px; background: var(--bg-surface);
+}
+.color-input-row input[type="text"] {
+    flex: 1; height: 24px; border: 1px solid var(--border);
+    border-radius: 4px; padding: 0 6px; font-size: 11px;
+    color: var(--text-primary); outline: none; background: var(--bg-surface);
+}
+.color-input-row input[type="text"]:focus { border-color: var(--primary); }
+
+/* Editor bottom bar */
+.editor-bottom-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--space-lg);
+    height: 40px;
+    background: var(--bg-surface);
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+    font-size: 12px;
+    color: var(--text-tertiary);
+}
+.save-status { display: flex; align-items: center; gap: 6px; }
+.save-status.saving { color: var(--primary); }
+.word-count { display: flex; align-items: center; gap: 6px; }
+
+/* Tooltip for outline nav */
+.nav-tooltip {
+    position: fixed;
+    background: var(--bg-surface);
+    border-radius: 6px;
+    box-shadow: var(--shadow-lg);
+    padding: 6px 10px;
+    font-size: 13px;
+    line-height: 20px;
+    max-width: 300px;
+    word-break: break-all;
+    z-index: 600;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 150ms ease, transform 150ms ease;
+    pointer-events: none;
+    border: 1px solid var(--border);
+}
+.nav-tooltip.visible { opacity: 1; transform: translateX(0); pointer-events: auto; }
+
+/* ============================================
+   ADMIN PANEL
+   ============================================ */
+.admin-panel-overlay {
+    position: fixed; inset: 0; background-color: var(--bg-body);
+    display: none; z-index: 10001;
+}
+.admin-panel-overlay.show { display: flex; }
+.admin-panel-sidebar {
+    width: 240px; background-color: var(--bg-surface);
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column;
+}
+.admin-panel-logo {
+    padding: var(--space-md) var(--space-lg);
+    display: flex; align-items: center; gap: 12px;
+    border-bottom: 1px solid var(--border);
+}
+.admin-panel-logo span { font-size: 16px; font-weight: 600; color: var(--text-primary); }
+.admin-sidebar-menu { padding: 12px 0; }
+.admin-sidebar-item {
+    padding: 12px var(--space-lg); display: flex; align-items: center; gap: 12px;
+    cursor: pointer; transition: all var(--transition-fast);
+    color: var(--text-secondary); font-size: 14px; border-right: 3px solid transparent;
+}
+.admin-sidebar-item:hover { background-color: var(--bg-hover); color: var(--text-primary); }
+.admin-sidebar-item.active { background-color: var(--primary-light); color: var(--primary); border-right-color: var(--primary); font-weight: 600; }
+.admin-panel-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.admin-panel-header {
+    height: 64px; background-color: var(--bg-surface);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 var(--space-lg);
+}
+.admin-panel-header h2 { font-size: 20px; font-weight: 700; color: var(--text-primary); }
+.admin-panel-content { flex: 1; padding: var(--space-lg); overflow-y: auto; }
+.admin-table-container {
+    background-color: var(--bg-surface); border-radius: var(--radius-lg);
+    border: 1px solid var(--border); overflow: hidden;
+}
+.admin-table { width: 100%; border-collapse: collapse; }
+.admin-table th {
+    background-color: var(--bg-hover); padding: 12px var(--space-md);
+    text-align: left; font-weight: 600; color: var(--text-tertiary);
+    font-size: 12px; border-bottom: 1px solid var(--border);
+    text-transform: uppercase; letter-spacing: 0.04em;
+}
+.admin-table td {
+    padding: 12px var(--space-md); border-bottom: 1px solid var(--border-light);
+    font-size: 14px; color: var(--text-primary);
+}
+.admin-table tr:hover { background-color: var(--bg-hover); }
+.admin-table tr:last-child td { border-bottom: none; }
+.admin-status-normal { color: var(--success); font-weight: 500; }
+.admin-status-recycle { color: var(--warning); font-weight: 500; }
+.admin-status-deleted { color: var(--danger); font-weight: 500; }
+
+/* ============================================
+   RECYCLE BIN
+   ============================================ */
+.recycle-bin-overlay {
+    position: fixed; inset: 0; background-color: var(--bg-body);
+    display: none; z-index: 10001;
+}
+.recycle-bin-overlay.show { display: flex; flex-direction: column;
+}
+.recycle-bin-header {
+    height: 64px; background-color: var(--bg-surface);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 var(--space-lg);
+}
+.recycle-bin-header h2 { font-size: 20px; font-weight: 700; color: var(--text-primary); }
+.recycle-bin-content { flex: 1; padding: var(--space-lg); overflow-y: auto; }
+
+/* ============================================
+   MULTI-SELECT BAR
+   ============================================ */
+.multi-select-bar {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(120px);
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    z-index: 500;
+    transition: transform var(--transition-base);
+}
+.multi-select-bar.show { transform: translateX(-50%) translateY(0); }
+.multi-select-count { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+.multi-select-actions { display: flex; gap: var(--space-sm); }
+.multi-select-btn {
+    padding: 6px 14px;
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    transition: all var(--transition-fast);
+}
+.multi-select-btn:hover { background: var(--bg-hover); }
+.multi-select-btn.danger { color: var(--danger); border-color: var(--danger); }
+.multi-select-btn.danger:hover { background: var(--danger-bg); }
+
+/* ============================================
+   EMPTY STATE
+   ============================================ */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-tertiary);
+}
+.empty-state-icon { font-size: 48px; margin-bottom: var(--space-md); }
+.empty-state-text { font-size: 15px; }
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    .sidebar { display: none; }
+    .content { padding: var(--space-md); }
+    .editor-page { padding: 24px; }
+    .outline-nav { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Toast Notification -->
+<div class="toast-notification" id="toast-notification">
+    <div class="toast-icon">&#10003;</div>
+    <div class="toast-text" id="toast-text">操作成功</div>
+</div>
+
+<!-- Login Modal -->
+<div class="login-modal-overlay" id="login-modal">
+    <div class="login-modal-left">
+        <div class="login-close-btn" onclick="hideLoginModal()">&times;</div>
+        <div class="login-form-container">
+            <div style="text-align:center; margin-bottom:24px;">
+                <div class="logo" style="justify-content:center;">
+                    <div class="logo-icon"></div>
+                    <span class="logo-text">雷云云文档</span>
+                </div>
+            </div>
+            <div class="login-title">欢迎登录</div>
+            <div class="login-subtitle">请输入账号密码继续访问</div>
+            <input type="text" class="login-input" id="login-username" placeholder="用户名" onkeypress="if(event.key==='Enter') document.getElementById('login-password').focus()">
+            <input type="password" class="login-input" id="login-password" placeholder="密码" onkeypress="if(event.key==='Enter') handleLogin()">
+            <button class="login-submit" onclick="handleLogin()">登录</button>
+        </div>
+    </div>
+    <div class="login-modal-right">
+        <div style="text-align:center; color:white; z-index:1;">
+            <div style="font-size:64px; margin-bottom:16px;">&#9729;</div>
+            <div style="font-size:22px; font-weight:600; margin-bottom:8px;">雷云云文档</div>
+            <div style="font-size:14px; opacity:0.8;">轻量级在线文档工具<br>简洁易用的文档编辑与管理体验</div>
+        </div>
+    </div>
+</div>
+
+<!-- Confirm Modal -->
+<div class="modal-overlay" id="confirm-modal">
+    <div class="modal">
+        <div class="modal-title" id="confirm-title">确认操作</div>
+        <div class="modal-desc" id="confirm-desc">确定要执行此操作吗？</div>
+        <div class="modal-buttons">
+            <button class="modal-btn" onclick="hideConfirmModal()">取消</button>
+            <button class="modal-btn confirm" id="confirm-btn" onclick="executeConfirmAction()">确认</button>
+        </div>
+    </div>
+</div>
+
+<!-- Rename Modal -->
+<div class="modal-overlay" id="rename-modal">
+    <div class="modal">
+        <div class="modal-title">重命名文档</div>
+        <div class="modal-desc">
+            <input type="text" class="login-input" id="rename-input" placeholder="新文档名称" style="margin:0;" onkeypress="if(event.key==='Enter') executeRename()">
+        </div>
+        <div class="modal-buttons">
+            <button class="modal-btn" onclick="hideRenameModal()">取消</button>
+            <button class="modal-btn primary" onclick="executeRename()">确认</button>
+        </div>
+    </div>
+</div>
+
+<!-- Admin Panel -->
+<div class="admin-panel-overlay" id="admin-panel">
+    <div class="admin-panel-sidebar">
+        <div class="admin-panel-logo">
+            <div class="logo-icon" style="width:36px;height:36px;font-size:20px;"></div>
+            <span>管理后台</span>
+        </div>
+        <div class="admin-sidebar-menu">
+            <div class="admin-sidebar-item active" onclick="switchAdminTab('docs')">
+                <span style="font-size:18px;">&#128196;</span>
+                <span>文档管理</span>
+            </div>
+            <div class="admin-sidebar-item" onclick="switchAdminTab('users')">
+                <span style="font-size:18px;">&#128100;</span>
+                <span>用户管理</span>
+            </div>
+        </div>
+        <div style="margin-top:auto; padding:16px; border-top:1px solid var(--border);">
+            <button class="new-doc-btn" style="width:100%;" onclick="closeAdminPanel()">退出管理后台</button>
+        </div>
+    </div>
+    <div class="admin-panel-main">
+        <div class="admin-panel-header">
+            <h2>文档管理</h2>
+            <div style="display:flex;align-items:center;gap:12px;">
+                <select class="login-input" id="admin-status-filter" style="width:140px;height:36px;margin:0;" onchange="renderAdminPanel()">
+                    <option value="all">全部状态</option>
+                    <option value="normal">正常</option>
+                    <option value="recycle">回收站</option>
+                    <option value="permanently_deleted">彻底删除</option>
+                </select>
+            </div>
+        </div>
+        <div class="admin-panel-content">
+            <div class="admin-table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>文档名称</th>
+                            <th>类型</th>
+                            <th>所有者</th>
+                            <th>状态</th>
+                            <th>大小</th>
+                            <th>修改时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-table-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recycle Bin -->
+<div class="recycle-bin-overlay" id="recycle-bin-panel">
+    <div class="recycle-bin-header">
+        <h2>&#128465; 回收站</h2>
+        <button class="new-doc-btn" style="background:var(--text-tertiary);" onclick="closeRecycleBin()">关闭</button>
+    </div>
+    <div class="recycle-bin-content">
+        <div class="admin-table-container">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>文档名称</th>
+                        <th>类型</th>
+                        <th>删除时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="recycle-table-body">
+                </tbody>
+            </table>
+        </div>
+        <div class="empty-state" id="recycle-empty" style="display:none;">
+            <div class="empty-state-icon">&#128465;</div>
+            <div class="empty-state-text">回收站为空</div>
+        </div>
+    </div>
+</div>
+
+<!-- Main App -->
+<!-- Main App -->
+<div class="app-wrapper" id="app-wrapper">
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="menu-btn" onclick="toggleSidebar()">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="header-center">
+            <div class="header-search">
+                <span class="header-search-icon">&#128269;</span>
+                <input type="text" id="header-search-input" placeholder="搜索文档..." oninput="handleSearch(this.value)">
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="header-icon" onclick="toggleTheme()" title="切换主题" id="theme-toggle-btn">&#9728;</div>
+            <div class="user-avatar logged-out" id="user-avatar" onclick="toggleUserDropdown(event)">
+                &#128100;
+                <span class="user-role-badge" id="user-role-badge" style="display:none;">USER</span>
+                <div class="user-dropdown" id="user-dropdown">
+                    <div class="user-dropdown-header">
+                        <div class="user-dropdown-avatar logged-out" id="dropdown-avatar">&#128100;</div>
+                        <div>
+                            <div class="user-dropdown-name" id="dropdown-username">未登录</div>
+                            <div class="user-dropdown-role" id="dropdown-role"></div>
+                        </div>
+                    </div>
+                    <div class="user-dropdown-item" id="admin-menu-item" style="display:none;" onmouseenter="showAdminSubmenu()" onmouseleave="hideAdminSubmenu()">
+                        <span><span style="font-size:16px;">&#128295;</span> 管理后台</span>
+                        <span class="user-dropdown-arrow">&#8250;</span>
+                        <div class="admin-submenu" id="admin-submenu">
+                            <div class="admin-submenu-item" onclick="openRecycleBin()">
+                                <span style="font-size:16px;">&#128465;</span> 回收站
+                            </div>
+                            <div class="admin-submenu-item" onclick="openAdminPanel()">
+                                <span style="font-size:16px;">&#128196;</span> 文件管理
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-dropdown-item" onclick="toggleTheme()">
+                        <span><span style="font-size:16px;">&#127769;</span> 主题设置</span>
+                    </div>
+                    <div class="user-dropdown-divider"></div>
+                    <div class="user-dropdown-item" onclick="showToast('意见反馈功能开发中')">
+                        <span><span style="font-size:16px;">&#128172;</span> 意见反馈</span>
+                    </div>
+                    <div class="user-dropdown-item" id="login-menu-item" onclick="showLoginModal()">
+                        <span><span style="font-size:16px;">&#128275;</span> 登录</span>
+                    </div>
+                    <div class="user-dropdown-item" id="logout-menu-item" onclick="showLogoutModal()" style="display:none;">
+                        <span><span style="font-size:16px;">&#128682;</span> 退出登录</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo-icon"></div>
+                <span class="logo-text-sidebar">雷云云文档</span>
+            </div>
+
+            <div class="sidebar-search">
+                <span class="sidebar-search-icon">&#128269;</span>
+                <input type="text" placeholder="搜索" oninput="handleSidebarSearch(this.value)">
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-item active" data-nav="home" onclick="switchNav('home')">
+                    <span class="nav-item-icon">&#127968;</span>
+                    <span>主页</span>
+                </li>
+                <li class="nav-item" data-nav="drive" onclick="switchNav('drive')">
+                    <span class="nav-item-icon">&#128193;</span>
+                    <span>云盘</span>
+                </li>
+                <li class="nav-item" data-nav="wiki" onclick="switchNav('wiki')">
+                    <span class="nav-item-icon">&#128218;</span>
+                    <span>知识库</span>
+                </li>
+                <li class="nav-item" data-nav="minutes" onclick="switchNav('minutes')">
+                    <span class="nav-item-icon">&#127908;</span>
+                    <span>智能纪要</span>
+                </li>
+            </ul>
+
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">
+                    <span>置顶文档</span>
+                </div>
+                <ul class="sidebar-section-list" id="sidebar-pinned-docs">
+                    <!-- Dynamic -->
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">
+                    <span>置顶知识库</span>
+                </div>
+                <ul class="sidebar-section-list" id="sidebar-pinned-wikis">
+                    <li class="sidebar-section-item" onclick="showToast('打开知识库：产品规范')">
+                        <span class="sidebar-doc-icon">&#128218;</span>
+                        <span class="sidebar-doc-name">产品规范</span>
+                    </li>
+                    <li class="sidebar-section-item" onclick="showToast('打开知识库：技术文档')">
+                        <span class="sidebar-doc-icon">&#128218;</span>
+                        <span class="sidebar-doc-name">技术文档</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">
+                    <span>我的文档库</span>
+                </div>
+                <ul class="sidebar-section-list" id="sidebar-my-docs">
+                    <!-- Dynamic -->
+                </ul>
+            </div>
+
+            <div class="sidebar-bottom-actions">
+                <div class="sidebar-bottom-icon" onclick="showToast('新建文档')" title="新建">&#10133;</div>
+                <div class="sidebar-bottom-icon" onclick="openRecycleBin()" title="回收站">&#128465;</div>
+                <div class="sidebar-bottom-icon" onclick="showToast('设置')" title="设置">&#9881;</div>
+            </div>
+        </aside>
+
+        <!-- Content -->
+        <main class="content" id="main-content">
+            <!-- Action Cards -->
+            <div class="action-cards">
+                <div class="action-card action-card-new" onclick="createNewDocument()">
+                    <div class="action-card-icon">&#128196;</div>
+                    <div>
+                        <div class="action-card-title">新建</div>
+                        <div class="action-card-subtitle">新建文档开始创作</div>
+                    </div>
+                </div>
+                <div class="action-card action-card-upload" onclick="showToast('上传功能开发中')">
+                    <div class="action-card-icon">&#11014;</div>
+                    <div>
+                        <div class="action-card-title">上传</div>
+                        <div class="action-card-subtitle">上传本地文件</div>
+                    </div>
+                </div>
+                <div class="action-card action-card-template" onclick="showToast('模板库开发中')">
+                    <div class="action-card-icon">&#128209;</div>
+                    <div>
+                        <div class="action-card-title">模板库</div>
+                        <div class="action-card-subtitle">选择模板快速新建</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Bar -->
+            <div class="tab-bar-wrapper" id="tab-bar-wrapper">
+                <div class="tabs" id="content-tabs">
+                    <div class="tab active" data-tab="recent" onclick="switchMainTab('recent')">最近访问</div>
+                    <div class="tab" data-tab="my-docs" onclick="switchMainTab('my-docs')">归我所有</div>
+                    <div class="tab" data-tab="shared" onclick="switchMainTab('shared')">与我共享</div>
+                    <div class="tab" data-tab="collection" onclick="switchMainTab('collection')">收藏</div>
+                    <div class="tab" data-tab="custom-view" onclick="switchMainTab('custom-view')">未命名视图</div>
+                    <div class="tab-add" onclick="showToast('新建视图')">+</div>
+                </div>
+                <div class="tab-controls">
+                    <button class="tab-control-btn" onclick="showToast('筛选')">&#128269; 筛选</button>
+                    <button class="tab-control-btn" onclick="showToast('显示设置')">&#9881; 显示设置</button>
+                    <div class="tab-control-icon" onclick="switchViewMode('list')" title="列表视图">&#9776;</div>
+                    <div class="tab-control-icon" onclick="switchViewMode('grid')" title="网格视图">&#9638;</div>
+                </div>
+            </div>
+
+            <!-- Doc Table -->
+            <div class="doc-table" id="doc-table">
+                <div class="table-header">
+                    <div class="col-checkbox"><input type="checkbox" id="select-all-checkbox" onclick="toggleSelectAll()"></div>
+                    <div class="col-title">标题</div>
+                    <div class="col-location">位置</div>
+                    <div class="col-owner">所有者</div>
+                    <div class="col-time">收藏时间</div>
+                    <div class="col-action"></div>
+                </div>
+                <div id="doc-table-body">
+                    <!-- Dynamic content -->
+                </div>
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="empty-state" style="display:none;">
+                <div class="empty-state-icon">&#128196;</div>
+                <div class="empty-state-text">暂无文档</div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Editor View -->
+<div class="editor-view" id="editor-view">
+    <div class="editor-top-bar">
+        <div class="editor-top-left">
+            <button class="back-btn" onclick="closeEditor()">
+                <span>&#8592;</span>
+                <span>返回</span>
+            </button>
+        </div>
+        <div class="editor-top-center">
+            <input type="text" class="doc-title-input" id="editor-doc-title" value="未命名文档" onchange="updateDocTitle(this.value)">
+        </div>
+        <div class="editor-top-right">
+            <button class="editor-top-icon" id="editor-pin-btn" onclick="toggleEditorPin()" title="置顶">&#128204;</button>
+            <button class="editor-top-icon" onclick="toggleEditorMoreMenu(event)" title="更多">&#8943;
+                <div class="dropdown-menu" id="editor-more-menu" style="top:100%;right:0;margin-top:6px;">
+                    <div class="dropdown-item" onclick="handleEditorPinFromMenu()">
+                        <span class="dropdown-icon">&#128204;</span>
+                        <span id="editor-pin-menu-text">置顶文档</span>
+                    </div>
+                    <div class="dropdown-item" onclick="handleEditorCollectFromMenu()">
+                        <span class="dropdown-icon">&#11088;</span>
+                        <span id="editor-collect-menu-text">收藏文档</span>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-item delete-item" onclick="deleteCurrentDoc()">
+                        <span class="dropdown-icon">&#128465;</span>
+                        <span>删除文档</span>
+                    </div>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <div class="editor-body-wrapper">
+        <!-- Outline Nav -->
+        <div class="outline-nav" id="outline-nav">
+            <div class="outline-nav-header">
+                <span>大纲导航</span>
+                <span class="outline-toggle-btn" onclick="toggleOutlineNav()">&#10094;</span>
+            </div>
+            <div class="outline-nav-body" id="outline-nav-body">
+                <!-- Dynamic -->
+            </div>
+        </div>
+
+        <!-- Editor Content -->
+        <div class="editor-content-area" id="editor-content-area">
+            <div class="editor-page" id="editor-page">
+                <div class="editor-doc-body" id="editor-doc-body" contenteditable="true" spellcheck="false">
+                    <!-- Dynamic -->
+                </div>
+                <div class="empty-doc-placeholder" id="empty-doc-placeholder" onclick="initEmptyDoc()">
+                    <div class="empty-doc-plus">&#10133;</div>
+                </div>
+
+                <!-- Plus button -->
+                <div class="plus-btn" id="editor-plus-btn">&#10133;</div>
+
+                <!-- Level popup -->
+                <div class="popup-menu" id="level-popup">
+                    <div class="popup-section">
+                        <div class="popup-section-title">文字等级</div>
+                        <div class="popup-item" data-level="0" onclick="setParagraphLevel(0)">
+                            <span>&#182;</span>
+                            <span class="item-label">正文</span>
+                        </div>
+                        <div class="popup-item" data-level="1" onclick="setParagraphLevel(1)">
+                            <span>H1</span>
+                            <span class="item-label">一级标题</span>
+                        </div>
+                        <div class="popup-item" data-level="2" onclick="setParagraphLevel(2)">
+                            <span>H2</span>
+                            <span class="item-label">二级标题</span>
+                        </div>
+                        <div class="popup-item" data-level="3" onclick="setParagraphLevel(3)">
+                            <span>H3</span>
+                            <span class="item-label">三级标题</span>
+                        </div>
+                        <div class="popup-item" data-level="4" onclick="setParagraphLevel(4)">
+                            <span>H4</span>
+                            <span class="item-label">四级标题</span>
+                        </div>
+                    </div>
+                    <div class="popup-section">
+                        <div class="popup-section-title">文字颜色</div>
+                        <div class="color-grid" id="text-color-grid"></div>
+                        <div class="color-input-row">
+                            <input type="color" id="custom-text-color" value="#3370ff">
+                            <input type="text" id="custom-text-color-text" value="#3370ff" placeholder="#3370ff">
+                            <button class="modal-btn" style="padding:4px 10px;font-size:11px;" onclick="applyCustomTextColor()">应用</button>
+                        </div>
+                    </div>
+                    <div class="popup-section">
+                        <div class="popup-section-title">背景颜色</div>
+                        <div class="color-grid" id="bg-color-grid"></div>
+                        <div class="color-input-row">
+                            <input type="color" id="custom-bg-color" value="#fef3c7">
+                            <input type="text" id="custom-bg-color-text" value="#fef3c7" placeholder="#fef3c7">
+                            <button class="modal-btn" style="padding:4px 10px;font-size:11px;" onclick="applyCustomBgColor()">应用</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="editor-bottom-bar">
+        <div class="word-count">
+            <span>&#128221;</span>
+            <span id="word-count">0 字</span>
+        </div>
+        <div class="save-status" id="save-status">
+            <span id="save-status-icon">&#10003;</span>
+            <span id="save-status-text">已保存</span>
+        </div>
+    </div>
+</div>
+
+<!-- Multi-select bar -->
+<div class="multi-select-bar" id="multi-select-bar">
+    <span class="multi-select-count" id="multi-select-count">已选择 0 项</span>
+    <div class="multi-select-actions">
+        <button class="multi-select-btn" onclick="batchCollect()">收藏</button>
+        <button class="multi-select-btn" onclick="batchPin()">置顶</button>
+        <button class="multi-select-btn danger" onclick="batchMoveToRecycle()">移动到回收站</button>
+    </div>
+</div>
+
+<!-- Tooltip -->
+<div class="nav-tooltip" id="nav-tooltip"></div>
+
+<script>
+/* ============================================
+   CONSTANTS & DATA
+   ============================================ */
+const PRESET_COLORS = [
+    '#1f2329','#646a73','#8f959e','#bbbfc4',
+    '#3370ff','#34d399','#f59e0b','#ef4444',
+    '#8b5cf6','#ec4899','#06b6d4','#10b981',
+    '#fef3c7','#dbeafe','#d1fae5','#fce7f3',
+    '#7c3aed','#0ea5e9','#14b8a6','#84cc16',
+];
+
+const LEVEL_NAMES = { 0: '正文', 1: '一级', 2: '二级', 3: '三级', 4: '四级' };
+const LEVEL_TAGS = { 0: 'p', 1: 'h1', 2: 'h2', 3: 'h3', 4: 'h4' };
+
+// Simulated document data
+let documents = [
+    {
+        id: 'doc-1', name: '项目需求文档', type: '文档', size: '24KB',
+        modifiedAt: Date.now() - 1000*60*30, accessedAt: Date.now() - 1000*60*30,
+        isPinned: true, isCollected: false, status: 'normal', owner: '我', location: '我的文档库 / 项目',
+        paragraphs: [
+            { id: 1, level: 1, text: '项目需求文档', color: '#1f2329', bgColor: 'transparent' },
+            { id: 2, level: 2, text: '背景与目标', color: '#1f2329', bgColor: 'transparent' },
+            { id: 3, level: 0, text: '本项目旨在开发一款轻量级在线文档工具。', color: '#1f2329', bgColor: 'transparent' },
+            { id: 4, level: 2, text: '功能需求', color: '#1f2329', bgColor: 'transparent' },
+            { id: 5, level: 3, text: '文档编辑功能', color: '#3370ff', bgColor: 'transparent' },
+            { id: 6, level: 0, text: '支持富文本编辑、自动保存、导出等功能。', color: '#1f2329', bgColor: 'transparent' },
+        ]
+    },
+    {
+        id: 'doc-2', name: '技术方案设计', type: '文档', size: '18KB',
+        modifiedAt: Date.now() - 1000*60*60*2, accessedAt: Date.now() - 1000*60*60*2,
+        isPinned: false, isCollected: true, status: 'normal', owner: '我', location: '我的文档库 / 技术',
+        collectedAt: Date.now() - 1000*60*60*5,
+        paragraphs: [
+            { id: 1, level: 1, text: '技术方案设计', color: '#1f2329', bgColor: 'transparent' },
+            { id: 2, level: 2, text: '前端架构', color: '#1f2329', bgColor: 'transparent' },
+            { id: 3, level: 0, text: '采用 React + TypeScript 技术栈。', color: '#1f2329', bgColor: 'transparent' },
+            { id: 4, level: 2, text: '后端架构', color: '#1f2329', bgColor: 'transparent' },
+            { id: 5, level: 0, text: '采用 SpringBoot + SpringCloud 微服务架构。', color: '#1f2329', bgColor: 'transparent' },
+        ]
+    },
+    {
+        id: 'doc-3', name: '会议记录', type: '表格', size: '8KB',
+        modifiedAt: Date.now() - 1000*60*60*24, accessedAt: Date.now() - 1000*60*60*5,
+        isPinned: false, isCollected: false, status: 'normal', owner: '我', location: '我的文档库 / 会议',
+        paragraphs: [
+            { id: 1, level: 1, text: '会议记录', color: '#1f2329', bgColor: 'transparent' },
+            { id: 2, level: 0, text: '2026年7月6日项目进度会议。', color: '#1f2329', bgColor: 'transparent' },
+        ]
+    },
+    {
+        id: 'doc-4', name: '竞品分析报告', type: '幻灯片', size: '32KB',
+        modifiedAt: Date.now() - 1000*60*60*48, accessedAt: Date.now() - 1000*60*60*24,
+        isPinned: false, isCollected: false, status: 'normal', owner: '我', location: '我的文档库 / 分析',
+        paragraphs: [
+            { id: 1, level: 1, text: '竞品分析报告', color: '#1f2329', bgColor: 'transparent' },
+            { id: 2, level: 2, text: '市场概况', color: '#1f2329', bgColor: 'transparent' },
+            { id: 3, level: 0, text: '当前市场主要竞争者包括飞书文档、Notion、语雀等。', color: '#1f2329', bgColor: 'transparent' },
+        ]
+    },
+    {
+        id: 'doc-5', name: '测试用例文档', type: '文档', size: '45KB',
+        modifiedAt: Date.now() - 1000*60*60*72, accessedAt: Date.now() - 1000*60*60*48,
+        isPinned: false, isCollected: true, status: 'normal', owner: '我', location: '我的文档库 / 测试',
+        collectedAt: Date.now() - 1000*60*60*12,
+        paragraphs: [
+            { id: 1, level: 1, text: '测试用例文档', color: '#1f2329', bgColor: 'transparent' },
+            { id: 2, level: 2, text: '功能测试', color: '#1f2329', bgColor: 'transparent' },
+            { id: 3, level: 0, text: '覆盖文档编辑、保存、导出等核心功能。', color: '#1f2329', bgColor: 'transparent' },
+        ]
+    }
+];
+
+let nextDocId = 6;
+
+/* ============================================
+   STATE
+   ============================================ */
+let currentUser = null;
+let currentTab = 'my-docs';
+let currentView = 'list';
+let currentDocId = null;
+let searchQuery = '';
+let selectedDocIds = new Set();
+let toastTimeout = null;
+let saveTimeout = null;
+let currentDropdown = null;
+let activeParagraph = null;
+let isLoggedIn = false;
+let confirmCallback = null;
+let renameDocId = null;
+let searchDebounce = null;
+
+/* ============================================
+   UTILITIES
+   ============================================ */
+function formatTime(ts) {
+    const d = new Date(ts);
+    const now = new Date();
+    const diff = now - d;
+    if (diff < 60000) return '刚刚';
+    if (diff < 3600000) return Math.floor(diff/60000) + '分钟前';
+    if (diff < 86400000) return Math.floor(diff/3600000) + '小时前';
+    if (diff < 172800000) return '昨天';
+    return (d.getMonth()+1) + '月' + d.getDate() + '日';
+}
+
+function escapeHtml(str) {
+    return str.replace(/[&<>"']/g, function(m) {
+        return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'})[m];
+    });
+}
+
+function generateId() { return 'doc-' + (nextDocId++); }
+function getDocById(id) { return documents.find(d => d.id === id); }
+
+function fuzzyMatch(text, query) {
+    if (!query) return true;
+    const t = text.toLowerCase();
+    const q = query.toLowerCase();
+    let i = 0;
+    for (let c of q) {
+        i = t.indexOf(c, i);
+        if (i === -1) return false;
+        i++;
+    }
+    return true;
+}
+
+function highlightText(text, query) {
+    if (!query) return escapeHtml(text);
+    const q = query.toLowerCase();
+    let result = '';
+    const lowerText = text.toLowerCase();
+    let matchPositions = [];
+    let qi = 0;
+    for (let i = 0; i < text.length && qi < q.length; i++) {
+        if (lowerText[i] === q[qi]) {
+            matchPositions.push(i);
+            qi++;
+        }
+    }
+    if (matchPositions.length !== q.length) return escapeHtml(text);
+    let inHighlight = false;
+    for (let i = 0; i < text.length; i++) {
+        const isMatch = matchPositions.includes(i);
+        if (isMatch && !inHighlight) {
+            result += '<span class="highlight">';
+            inHighlight = true;
+        } else if (!isMatch && inHighlight) {
+            result += '</span>';
+            inHighlight = false;
+        }
+        result += escapeHtml(text[i]);
+    }
+    if (inHighlight) result += '</span>';
+    return result;
+}
+
+/* ============================================
+   THEME
+   ============================================ */
+function getTheme() { return localStorage.getItem('lei-cloud-theme') || 'dark'; }
+function setTheme(theme) {
+    localStorage.setItem('lei-cloud-theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
+    const btn = document.getElementById('theme-toggle-btn');
+    if (btn) btn.innerHTML = theme === 'dark' ? '&#9728;' : '&#127769;';
+}
+function toggleTheme() {
+    setTheme(getTheme() === 'dark' ? 'light' : 'dark');
+    showToast(getTheme() === 'dark' ? '已切换至深色模式' : '已切换至浅色模式');
+}
+(function() { setTheme(getTheme()); })();
+
+/* ============================================
+   TOAST
+   ============================================ */
+function showToast(message) {
+    const toast = document.getElementById('toast-notification');
+    const text = document.getElementById('toast-text');
+    if (toastTimeout) clearTimeout(toastTimeout);
+    text.textContent = message;
+    toast.classList.add('show');
+    toastTimeout = setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
+/* ============================================
+   LOGIN / LOGOUT
+   ============================================ */
+function showLoginModal() {
+    document.getElementById('login-modal').classList.add('show');
+    setTimeout(() => document.getElementById('login-username').focus(), 100);
+}
+function hideLoginModal() {
+    document.getElementById('login-modal').classList.remove('show');
+}
+function handleLogin() {
+    const username = document.getElementById('login-username').value.trim();
+    const password = document.getElementById('login-password').value.trim();
+    if (!username || !password) {
+        showToast('请输入用户名和密码');
+        return;
+    }
+    const role = username.toLowerCase().includes('admin') ? 'ADMIN' : 'USER';
+    currentUser = { username, role };
+    isLoggedIn = true;
+    updateUserUI();
+    hideLoginModal();
+    showToast('登录成功，欢迎 ' + username);
+    document.getElementById('login-username').value = '';
+    document.getElementById('login-password').value = '';
+}
+function showLogoutModal() {
+    if (!isLoggedIn) { showToast('您尚未登录'); return; }
+    showConfirm('确认退出登录？', '退出后将需要重新登录', function() {
+        currentUser = null;
+        isLoggedIn = false;
+        updateUserUI();
+        showToast('已退出登录');
+        hideUserDropdown();
+    });
+}
+function updateUserUI() {
+    const avatar = document.getElementById('user-avatar');
+    const dropdownAvatar = document.getElementById('dropdown-avatar');
+    const dropdownName = document.getElementById('dropdown-username');
+    const dropdownRole = document.getElementById('dropdown-role');
+    const roleBadge = document.getElementById('user-role-badge');
+    const adminItem = document.getElementById('admin-menu-item');
+    const loginItem = document.getElementById('login-menu-item');
+    const logoutItem = document.getElementById('logout-menu-item');
+
+    if (isLoggedIn && currentUser) {
+        avatar.classList.remove('logged-out');
+        dropdownAvatar.classList.remove('logged-out');
+        dropdownName.textContent = currentUser.username;
+        dropdownRole.textContent = currentUser.role === 'ADMIN' ? '管理员' : '普通用户';
+        roleBadge.textContent = currentUser.role;
+        roleBadge.style.display = 'block';
+        if (currentUser.role === 'ADMIN') {
+            adminItem.style.display = 'flex';
+        } else {
+            adminItem.style.display = 'none';
+        }
+        if (loginItem) loginItem.style.display = 'none';
+        if (logoutItem) logoutItem.style.display = 'flex';
+    } else {
+        avatar.classList.add('logged-out');
+        dropdownAvatar.classList.add('logged-out');
+        dropdownName.textContent = '未登录';
+        dropdownRole.textContent = '';
+        roleBadge.style.display = 'none';
+        adminItem.style.display = 'none';
+        if (loginItem) loginItem.style.display = 'flex';
+        if (logoutItem) logoutItem.style.display = 'none';
+    }
+}
+
+/* ============================================
+   USER DROPDOWN
+   ============================================ */
+function toggleUserDropdown(event) {
+    event.stopPropagation();
+    const dropdown = document.getElementById('user-dropdown');
+    dropdown.classList.toggle('show');
+    if (dropdown.classList.contains('show')) {
+        closeAllDropdowns();
+    }
+}
+function hideUserDropdown() {
+    document.getElementById('user-dropdown').classList.remove('show');
+}
+function showAdminSubmenu() {
+    const submenu = document.getElementById('admin-submenu');
+    if (submenu) submenu.classList.add('show');
+}
+function hideAdminSubmenu() {
+    const submenu = document.getElementById('admin-submenu');
+    if (submenu) submenu.classList.remove('show');
+}
+
+/* ============================================
+   CONFIRM MODAL
+   ============================================ */
+function showConfirm(title, desc, onConfirm) {
+    document.getElementById('confirm-title').textContent = title;
+    document.getElementById('confirm-desc').textContent = desc;
+    document.getElementById('confirm-modal').classList.add('show');
+    confirmCallback = onConfirm;
+}
+function hideConfirmModal() {
+    document.getElementById('confirm-modal').classList.remove('show');
+    confirmCallback = null;
+}
+function executeConfirmAction() {
+    if (confirmCallback) confirmCallback();
+    hideConfirmModal();
+}
+
+/* ============================================
+   RENAME MODAL
+   ============================================ */
+function showRenameModal(docId) {
+    renameDocId = docId;
+    const doc = getDocById(docId);
+    document.getElementById('rename-input').value = doc ? doc.name : '';
+    document.getElementById('rename-modal').classList.add('show');
+    setTimeout(() => document.getElementById('rename-input').focus(), 100);
+}
+function hideRenameModal() {
+    document.getElementById('rename-modal').classList.remove('show');
+    renameDocId = null;
+}
+function executeRename() {
+    const newName = document.getElementById('rename-input').value.trim();
+    if (!newName) { showToast('请输入新名称'); return; }
+    const doc = getDocById(renameDocId);
+    if (doc) {
+        doc.name = newName;
+        doc.modifiedAt = Date.now();
+        showToast('重命名成功');
+        renderDocTable();
+    }
+    hideRenameModal();
+}
+
+/* ============================================
+   SIDEBAR
+   ============================================ */
+function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('collapsed');
+}
+
+/* ============================================
+   TAB SWITCHING
+   ============================================ */
+function switchMainTab(tab) {
+    currentTab = tab;
+    document.querySelectorAll('.tab').forEach(el => {
+        el.classList.toggle('active', el.dataset.tab === tab);
+    });
+    renderDocTable();
+}
+
+function switchNav(nav) {
+    document.querySelectorAll('.nav-item').forEach(el => {
+        el.classList.toggle('active', el.dataset.nav === nav);
+    });
+    if (nav === 'home') {
+        switchMainTab('recent');
+    } else {
+        showToast('功能开发中：' + nav);
+    }
+}
+
+function handleSidebarSearch(value) {
+    // filter sidebar items visually
+    const items = document.querySelectorAll('.sidebar-section-item');
+    const v = value.trim().toLowerCase();
+    items.forEach(function(item) {
+        const name = item.querySelector('.sidebar-doc-name');
+        if (!name) return;
+        if (!v || name.textContent.toLowerCase().includes(v)) {
+            item.style.display = 'flex';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
+
+function switchViewMode(mode) {
+    currentView = mode;
+    showToast('已切换至' + (mode === 'grid' ? '网格' : '列表') + '视图');
+    renderDocTable();
+}
+
+/* ============================================
+   SEARCH
+   ============================================ */
+function handleSearch(value) {
+    if (searchDebounce) clearTimeout(searchDebounce);
+    searchDebounce = setTimeout(function() {
+        searchQuery = value.trim();
+        renderDocTable();
+    }, 300);
+}
+
+/* ============================================
+   DOCUMENT LIST RENDERING
+   ============================================ */
+function getFilteredDocs() {
+    let docs = documents.filter(function(d) { return d.status === 'normal'; });
+    if (currentTab === 'recent') {
+        docs = docs.slice().sort(function(a, b) { return b.accessedAt - a.accessedAt; });
+    } else if (currentTab === 'collection') {
+        docs = docs.filter(function(d) { return d.isCollected; });
+    } else if (currentTab === 'shared') {
+        docs = docs.filter(function(d) { return d.owner !== '我'; });
+        if (docs.length === 0) {
+            // mock shared docs
+            docs = documents.filter(function(d) { return d.status === 'normal'; }).slice(0, 2).map(function(d) {
+                var copy = Object.assign({}, d);
+                copy.id = 'shared-' + d.id;
+                copy.owner = '张三';
+                return copy;
+            });
+        }
+    } else if (currentTab === 'custom-view') {
+        docs = docs.slice(0, 3);
+    }
+    if (searchQuery) {
+        docs = docs.filter(function(d) { return fuzzyMatch(d.name, searchQuery); });
+    }
+    return docs;
+}
+
+function renderDocTable() {
+    const docs = getFilteredDocs();
+    const tbody = document.getElementById('doc-table-body');
+    const emptyState = document.getElementById('empty-state');
+    const table = document.getElementById('doc-table');
+
+    if (docs.length === 0) {
+        tbody.innerHTML = '';
+        table.style.display = 'none';
+        emptyState.style.display = 'block';
+        return;
+    }
+
+    table.style.display = 'block';
+    emptyState.style.display = 'none';
+
+    tbody.innerHTML = docs.map(function(doc) {
+        const isSelected = selectedDocIds.has(doc.id);
+        const pinClass = doc.isPinned ? 'pinned' : '';
+        const starClass = doc.isCollected ? 'collected' : '';
+        const nameHtml = highlightText(doc.name, searchQuery);
+        const ownerName = doc.owner || '我';
+        const ownerInitial = ownerName.charAt(0);
+        const ownerColors = ['#4f6ef6', '#22c55e', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
+        const ownerColor = ownerColors[ownerName.charCodeAt(0) % ownerColors.length];
+        const location = doc.location || '我的文档库 / 文档';
+        const timeLabel = doc.collectedAt ? formatTime(doc.collectedAt) : formatTime(doc.modifiedAt);
+        const iconClass = doc.type === '表格' ? 'doc-icon-sheet' : (doc.type === '幻灯片' ? 'doc-icon-slide' : 'doc-icon-doc');
+        const iconSymbol = doc.type === '表格' ? '&#128202;' : (doc.type === '幻灯片' ? '&#128200;' : '&#128196;');
+        const rowClass = isSelected ? 'selected' : '';
+        return '<div class="table-row ' + rowClass + '" data-doc-id="' + doc.id + '" ondblclick="openDocument(\'' + doc.id + '\')">' +
+            '<div class="col-checkbox" onclick="event.stopPropagation();toggleDocSelect(\'' + doc.id + '\')">' +
+                '<input type="checkbox" ' + (isSelected ? 'checked' : '') + ' onclick="event.stopPropagation();toggleDocSelect(\'' + doc.id + '\')">' +
+            '</div>' +
+            '<div class="col-title">' +
+                '<span class="doc-icon-small ' + iconClass + '">' + iconSymbol + '</span>' +
+                '<div class="doc-name">' +
+                    '<span class="doc-name-text" title="' + escapeHtml(doc.name) + '">' + nameHtml + '</span>' +
+                    '<span class="pin-icon-table ' + pinClass + '" onclick="event.stopPropagation();togglePin(\'' + doc.id + '\')" title="' + (doc.isPinned ? '取消置顶' : '置顶') + '">&#128204;</span>' +
+                '</div>' +
+            '</div>' +
+            '<div class="col-location"><span class="location-tag">' + escapeHtml(location) + '</span></div>' +
+            '<div class="col-owner">' +
+                '<span class="owner-avatar" style="background:' + ownerColor + ';">' + escapeHtml(ownerInitial) + '</span>' +
+                '<span>' + escapeHtml(ownerName) + '</span>' +
+            '</div>' +
+            '<div class="col-time">' + timeLabel + '</div>' +
+            '<div class="col-action">' +
+                '<button class="action-btn" onclick="event.stopPropagation();toggleDropdown(this, \'' + doc.id + '\')">&#8943;</button>' +
+                '<div class="dropdown-menu" id="dropdown-' + doc.id + '">' +
+                    '<div class="dropdown-item pin-item ' + (doc.isPinned ? 'pinned' : '') + '" onclick="handleDropdownPin(\'' + doc.id + '\')">' +
+                        '<span class="dropdown-icon">&#128204;</span>' +
+                        '<span>' + (doc.isPinned ? '点击取消文件置顶' : '点击将文件置顶') + '</span>' +
+                    '</div>' +
+                    '<div class="dropdown-divider"></div>' +
+                    '<div class="dropdown-item" onclick="handleDropdownCollect(\'' + doc.id + '\')">' +
+                        '<span class="dropdown-icon">&#11088;</span>' +
+                        '<span>' + (doc.isCollected ? '取消收藏' : '点击收藏文档') + '</span>' +
+                    '</div>' +
+                    '<div class="dropdown-item rename-item" onclick="showRenameModal(\'' + doc.id + '\')">' +
+                        '<span class="dropdown-icon">&#9998;</span>' +
+                        '<span>重命名</span>' +
+                    '</div>' +
+                    '<div class="dropdown-divider"></div>' +
+                    '<div class="dropdown-item recycle-item" onclick="moveToRecycle(\'' + doc.id + '\')">' +
+                        '<span class="dropdown-icon">&#128465;</span>' +
+                        '<span>移动到回收站</span>' +
+                    '</div>' +
+                    '<div class="dropdown-item delete-item" onclick="permanentDeleteDoc(\'' + doc.id + '\')">' +
+                        '<span class="dropdown-icon">&#128163;</span>' +
+                        '<span>彻底删除</span>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+        '</div>';
+    }).join('');
+
+    updateSelectAllCheckbox();
+}
+
+function renderSidebar() {
+    var pinnedList = document.getElementById('sidebar-pinned-docs');
+    var myDocsList = document.getElementById('sidebar-my-docs');
+    var pinnedDocs = documents.filter(function(d) { return d.status === 'normal' && d.isPinned; });
+    var myDocs = documents.filter(function(d) { return d.status === 'normal'; }).slice(0, 5);
+
+    if (pinnedList) {
+        if (pinnedDocs.length === 0) {
+            pinnedList.innerHTML = '<li class="sidebar-section-item" style="opacity:0.5;cursor:default;"><span class="sidebar-doc-name">无置顶文档</span></li>';
+        } else {
+            pinnedList.innerHTML = pinnedDocs.map(function(doc) {
+                return '<li class="sidebar-section-item" onclick="openDocument(\'' + doc.id + '\')">' +
+                    '<span class="sidebar-doc-icon">&#128196;</span>' +
+                    '<span class="sidebar-doc-name">' + escapeHtml(doc.name) + '</span>' +
+                '</li>';
+            }).join('');
+        }
+    }
+
+    if (myDocsList) {
+        myDocsList.innerHTML = myDocs.map(function(doc) {
+            return '<li class="sidebar-section-item" onclick="openDocument(\'' + doc.id + '\')">' +
+                '<span class="sidebar-doc-icon">&#128196;</span>' +
+                '<span class="sidebar-doc-name">' + escapeHtml(doc.name) + '</span>' +
+            '</li>';
+        }).join('');
+    }
+}
+
+/* ============================================
+   DROPDOWN HANDLERS
+   ============================================ */
+function toggleDropdown(btn, docId) {
+    const menu = document.getElementById('dropdown-' + docId);
+    if (!menu) return;
+    const isOpen = menu.classList.contains('show');
+    closeAllDropdowns();
+    if (!isOpen) {
+        menu.classList.add('show');
+        currentDropdown = menu;
+    }
+}
+function closeAllDropdowns() {
+    document.querySelectorAll('.dropdown-menu').forEach(function(m) { m.classList.remove('show'); });
+    currentDropdown = null;
+}
+
+function handleDropdownPin(docId) {
+    togglePin(docId);
+    closeAllDropdowns();
+}
+function handleDropdownCollect(docId) {
+    toggleCollect(docId);
+    closeAllDropdowns();
+}
+
+/* ============================================
+   PIN / COLLECT / DELETE ACTIONS
+   ============================================ */
+function togglePin(docId) {
+    const doc = getDocById(docId);
+    if (!doc) return;
+    doc.isPinned = !doc.isPinned;
+    showToast(doc.isPinned ? '置顶成功' : '取消置顶成功');
+    renderDocTable();
+}
+function toggleCollect(docId) {
+    const doc = getDocById(docId);
+    if (!doc) return;
+    doc.isCollected = !doc.isCollected;
+    showToast(doc.isCollected ? '已添加到收藏' : '已从收藏中移除');
+    renderDocTable();
+}
+function moveToRecycle(docId) {
+    const doc = getDocById(docId);
+    if (!doc) return;
+    showConfirm('移动到回收站', '确定要将「' + doc.name + '」移动到回收站吗？', function() {
+        doc.status = 'recycle';
+        doc.isPinned = false;
+        doc.isCollected = false;
+        selectedDocIds.delete(docId);
+        showToast('已移动到回收站');
+        renderDocTable();
+        updateMultiSelectBar();
+    });
+    closeAllDropdowns();
+}
+function permanentDeleteDoc(docId) {
+    const doc = getDocById(docId);
+    if (!doc) return;
+    showConfirm('彻底删除文档', '确定要彻底删除「' + doc.name + '」吗？删除后将进入90天倒计时。', function() {
+        doc.status = 'permanently_deleted';
+        doc.deletedAt = Date.now();
+        doc.isPinned = false;
+        doc.isCollected = false;
+        selectedDocIds.delete(docId);
+        showToast('文档已彻底删除');
+        renderDocTable();
+        updateMultiSelectBar();
+    });
+    closeAllDropdowns();
+}
+
+/* ============================================
+   MULTI-SELECT
+   ============================================ */
+function toggleDocSelect(docId) {
+    if (selectedDocIds.has(docId)) {
+        selectedDocIds.delete(docId);
+    } else {
+        selectedDocIds.add(docId);
+    }
+    renderDocTable();
+    updateMultiSelectBar();
+}
+function toggleSelectAll() {
+    const docs = getFilteredDocs();
+    const allSelected = docs.every(function(d) { return selectedDocIds.has(d.id); });
+    if (allSelected) {
+        docs.forEach(function(d) { selectedDocIds.delete(d.id); });
+    } else {
+        docs.forEach(function(d) { selectedDocIds.add(d.id); });
+    }
+    renderDocTable();
+    updateMultiSelectBar();
+}
+function updateSelectAllCheckbox() {
+    const cb = document.getElementById('select-all-checkbox');
+    const docs = getFilteredDocs();
+    if (docs.length === 0) {
+        cb.checked = false;
+        cb.indeterminate = false;
+        return;
+    }
+    const all = docs.every(function(d) { return selectedDocIds.has(d.id); });
+    const some = docs.some(function(d) { return selectedDocIds.has(d.id); });
+    cb.checked = all;
+    cb.indeterminate = some && !all;
+}
+function updateMultiSelectBar() {
+    const bar = document.getElementById('multi-select-bar');
+    const count = document.getElementById('multi-select-count');
+    if (selectedDocIds.size > 0) {
+        bar.classList.add('show');
+        count.textContent = '已选择 ' + selectedDocIds.size + ' 项';
+    } else {
+        bar.classList.remove('show');
+    }
+}
+function batchCollect() {
+    let changed = 0;
+    selectedDocIds.forEach(function(id) {
+        const doc = getDocById(id);
+        if (doc && doc.status === 'normal') { doc.isCollected = true; changed++; }
+    });
+    if (changed) showToast('已收藏 ' + changed + ' 个文档');
+    selectedDocIds.clear();
+    renderDocTable();
+    updateMultiSelectBar();
+}
+function batchPin() {
+    let changed = 0;
+    selectedDocIds.forEach(function(id) {
+        const doc = getDocById(id);
+        if (doc && doc.status === 'normal') { doc.isPinned = true; changed++; }
+    });
+    if (changed) showToast('已置顶 ' + changed + ' 个文档');
+    selectedDocIds.clear();
+    renderDocTable();
+    updateMultiSelectBar();
+}
+function batchMoveToRecycle() {
+    let changed = 0;
+    selectedDocIds.forEach(function(id) {
+        const doc = getDocById(id);
+        if (doc && doc.status === 'normal') {
+            doc.status = 'recycle';
+            doc.isPinned = false;
+            doc.isCollected = false;
+            changed++;
+        }
+    });
+    if (changed) showToast('已将 ' + changed + ' 个文档移动到回收站');
+    selectedDocIds.clear();
+    renderDocTable();
+    updateMultiSelectBar();
+}
+
+/* ============================================
+   NEW DOCUMENT
+   ============================================ */
+function createNewDocument() {
+    const id = generateId();
+    const doc = {
+        id: id, name: '未命名文档', type: '文档', size: '0KB',
+        modifiedAt: Date.now(), accessedAt: Date.now(),
+        isPinned: false, isCollected: false, status: 'normal', owner: '我',
+        paragraphs: []
+    };
+    documents.push(doc);
+    openDocument(id);
+    showToast('新建文档成功');
+}
+
+/* ============================================
+   EDITOR
+   ============================================ */
+function openDocument(docId) {
+    const doc = getDocById(docId);
+    if (!doc) return;
+    doc.accessedAt = Date.now();
+    currentDocId = docId;
+    currentView = 'editor';
+
+    document.getElementById('app-wrapper').style.display = 'none';
+    document.getElementById('editor-view').classList.add('active');
+    document.getElementById('editor-doc-title').value = doc.name;
+
+    const pinBtn = document.getElementById('editor-pin-btn');
+    if (doc.isPinned) pinBtn.classList.add('pinned');
+    else pinBtn.classList.remove('pinned');
+
+    renderEditorBody();
+    renderOutlineNav();
+    updateWordCount();
+    updateSaveStatus('saved');
+    setupEditorEvents();
+}
+
+function closeEditor() {
+    currentDocId = null;
+    currentView = 'list';
+    document.getElementById('app-wrapper').style.display = 'flex';
+    document.getElementById('editor-view').classList.remove('active');
+    hideLevelPopup();
+    renderDocTable();
+}
+
+function updateDocTitle(value) {
+    const doc = getDocById(currentDocId);
+    if (doc) {
+        doc.name = value.trim() || '未命名文档';
+        doc.modifiedAt = Date.now();
+        triggerAutoSave();
+    }
+}
+
+function toggleEditorPin() {
+    const doc = getDocById(currentDocId);
+    if (!doc) return;
+    doc.isPinned = !doc.isPinned;
+    const btn = document.getElementById('editor-pin-btn');
+    btn.classList.toggle('pinned', doc.isPinned);
+    showToast(doc.isPinned ? '置顶成功' : '取消置顶成功');
+}
+
+function toggleEditorMoreMenu(event) {
+    event.stopPropagation();
+    const menu = document.getElementById('editor-more-menu');
+    const doc = getDocById(currentDocId);
+    if (doc) {
+        document.getElementById('editor-pin-menu-text').textContent = doc.isPinned ? '取消置顶' : '置顶文档';
+        document.getElementById('editor-collect-menu-text').textContent = doc.isCollected ? '取消收藏' : '收藏文档';
+    }
+    menu.classList.toggle('show');
+}
+function handleEditorPinFromMenu() {
+    toggleEditorPin();
+    document.getElementById('editor-more-menu').classList.remove('show');
+}
+function handleEditorCollectFromMenu() {
+    const doc = getDocById(currentDocId);
+    if (doc) {
+        doc.isCollected = !doc.isCollected;
+        showToast(doc.isCollected ? '已收藏' : '已取消收藏');
+    }
+    document.getElementById('editor-more-menu').classList.remove('show');
+}
+function deleteCurrentDoc() {
+    const doc = getDocById(currentDocId);
+    if (!doc) return;
+    document.getElementById('editor-more-menu').classList.remove('show');
+    showConfirm('删除文档', '确定要删除「' + doc.name + '」吗？', function() {
+        doc.status = 'recycle';
+        doc.isPinned = false;
+        doc.isCollected = false;
+        showToast('已移动到回收站');
+        closeEditor();
+    });
+}
+
+/* ============================================
+   EDITOR BODY RENDERING
+   ============================================ */
+function renderEditorBody() {
+    const doc = getDocById(currentDocId);
+    const body = document.getElementById('editor-doc-body');
+    const placeholder = document.getElementById('empty-doc-placeholder');
+
+    if (!doc) return;
+
+    if (doc.paragraphs.length === 0) {
+        body.style.display = 'none';
+        placeholder.style.display = 'flex';
+    } else {
+        body.style.display = 'block';
+        placeholder.style.display = 'none';
+        body.innerHTML = doc.paragraphs.map(function(p) {
+            const tag = LEVEL_TAGS[p.level] || 'p';
+            const style = 'color:' + (p.color || '#1f2329') + ';background-color:' + (p.bgColor || 'transparent') + ';';
+            return '<' + tag + ' data-para-id="' + p.id + '" style="' + style + '" onmouseenter="onParagraphHover(this, ' + p.id + ')" onclick="onParagraphClick(this, ' + p.id + ')">' + escapeHtml(p.text) + '<span class="level-badge" onclick="event.stopPropagation();showLevelPopup(this, ' + p.id + ')">' + LEVEL_NAMES[p.level] + '</span></' + tag + '>';
+        }).join('');
+    }
+}
+
+function initEmptyDoc() {
+    const doc = getDocById(currentDocId);
+    if (!doc) return;
+    doc.paragraphs = [{ id: Date.now(), level: 0, text: '', color: '#1f2329', bgColor: 'transparent' }];
+    renderEditorBody();
+    renderOutlineNav();
+    var firstP = document.querySelector('#editor-doc-body p, #editor-doc-body h1, #editor-doc-body h2, #editor-doc-body h3, #editor-doc-body h4');
+    if (firstP) {
+        firstP.focus();
+        var range = document.createRange();
+        range.selectNodeContents(firstP);
+        range.collapse(true);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+    }
+}
+
+function onParagraphHover(el, paraId) {
+    activeParagraph = { el: el, id: paraId };
+}
+
+function onParagraphClick(el, paraId) {
+    activeParagraph = { el: el, id: paraId };
+    hideLevelPopup();
+}
+
+/* ============================================
+   LEVEL POPUP
+   ============================================ */
+function showLevelPopup(badgeEl, paraId) {
+    const popup = document.getElementById('level-popup');
+    const doc = getDocById(currentDocId);
+    const para = doc.paragraphs.find(function(p) { return p.id === paraId; });
+    if (!para) return;
+
+    popup.querySelectorAll('.popup-item[data-level]').forEach(function(item) {
+        item.classList.toggle('level-active', parseInt(item.dataset.level) === para.level);
+    });
+
+    var rect = badgeEl.getBoundingClientRect();
+    popup.style.top = (rect.bottom + 4) + 'px';
+    popup.style.left = rect.left + 'px';
+    popup.classList.add('visible');
+}
+
+function hideLevelPopup() {
+    document.getElementById('level-popup').classList.remove('visible');
+}
+
+function setParagraphLevel(level) {
+    const doc = getDocById(currentDocId);
+    if (!doc || !activeParagraph) return;
+    const para = doc.paragraphs.find(function(p) { return p.id === activeParagraph.id; });
+    if (para) {
+        para.level = level;
+        renderEditorBody();
+        renderOutlineNav();
+        triggerAutoSave();
+    }
+    hideLevelPopup();
+}
+
+/* ============================================
+   COLOR PICKER
+   ============================================ */
+function initColorGrids() {
+    const textGrid = document.getElementById('text-color-grid');
+    const bgGrid = document.getElementById('bg-color-grid');
+    if (!textGrid || textGrid.children.length > 0) return;
+
+    PRESET_COLORS.forEach(function(c) {
+        var tSwatch = document.createElement('div');
+        tSwatch.className = 'color-swatch';
+        tSwatch.style.backgroundColor = c;
+        tSwatch.onclick = function() { setParagraphColor(c); };
+        textGrid.appendChild(tSwatch);
+
+        var bSwatch = document.createElement('div');
+        bSwatch.className = 'color-swatch';
+        bSwatch.style.backgroundColor = c;
+        bSwatch.onclick = function() { setParagraphBgColor(c); };
+        bgGrid.appendChild(bSwatch);
+    });
+}
+
+function setParagraphColor(color) {
+    const doc = getDocById(currentDocId);
+    if (!doc || !activeParagraph) return;
+    const para = doc.paragraphs.find(function(p) { return p.id === activeParagraph.id; });
+    if (para) {
+        para.color = color;
+        renderEditorBody();
+        renderOutlineNav();
+        triggerAutoSave();
+    }
+}
+
+function setParagraphBgColor(color) {
+    const doc = getDocById(currentDocId);
+    if (!doc || !activeParagraph) return;
+    const para = doc.paragraphs.find(function(p) { return p.id === activeParagraph.id; });
+    if (para) {
+        para.bgColor = color;
+        renderEditorBody();
+        triggerAutoSave();
+    }
+}
+
+function applyCustomTextColor() {
+    var color = document.getElementById('custom-text-color').value;
+    document.getElementById('custom-text-color-text').value = color;
+    setParagraphColor(color);
+}
+
+function applyCustomBgColor() {
+    var color = document.getElementById('custom-bg-color').value;
+    document.getElementById('custom-bg-color-text').value = color;
+    setParagraphBgColor(color);
+}
+
+/* ============================================
+   OUTLINE NAV
+   ============================================ */
+function renderOutlineNav() {
+    const doc = getDocById(currentDocId);
+    const navBody = document.getElementById('outline-nav-body');
+    if (!doc || !navBody) return;
+
+    navBody.innerHTML = doc.paragraphs.filter(function(p) { return p.level > 0; }).map(function(p) {
+        var truncated = p.text.length > 5 ? p.text.substring(0, 5) + '...' : p.text;
+        return '<div class="nav-label level-' + p.level + '" style="color:' + (p.color || '#1f2329') + '" title="' + escapeHtml(p.text) + '" onclick="scrollToParagraph(' + p.id + ')">' +
+            '<span class="nav-label-text">' + escapeHtml(truncated) + '</span>' +
+        '</div>';
+    }).join('');
+}
+
+function scrollToParagraph(paraId) {
+    var el = document.querySelector('[data-para-id="' + paraId + '"]');
+    if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.style.backgroundColor = '#e8f3ff';
+        setTimeout(function() { el.style.backgroundColor = ''; }, 1500);
+    }
+}
+
+function toggleOutlineNav() {
+    document.getElementById('outline-nav').classList.toggle('collapsed');
+}
+
+/* ============================================
+   EDITOR EVENTS
+   ============================================ */
+function setupEditorEvents() {
+    const body = document.getElementById('editor-doc-body');
+    if (!body) return;
+
+    body.oninput = function() {
+        syncContentFromDOM();
+        updateWordCount();
+        triggerAutoSave();
+    };
+
+    body.onkeydown = function(e) {
+        if (e.key === 'Enter') {
+            setTimeout(function() {
+                syncContentFromDOM();
+                renderEditorBody();
+                renderOutlineNav();
+                triggerAutoSave();
+            }, 0);
+        }
+    };
+}
+
+function syncContentFromDOM() {
+    const doc = getDocById(currentDocId);
+    const body = document.getElementById('editor-doc-body');
+    if (!doc || !body) return;
+
+    var children = Array.from(body.children);
+    doc.paragraphs = children.map(function(el, idx) {
+        var existing = doc.paragraphs.find(function(p) { return p.id === parseInt(el.dataset.paraId); });
+        var tag = el.tagName.toLowerCase();
+        var level = 0;
+        if (tag === 'h1') level = 1;
+        else if (tag === 'h2') level = 2;
+        else if (tag === 'h3') level = 3;
+        else if (tag === 'h4') level = 4;
+        return {
+            id: existing ? existing.id : (Date.now() + idx),
+            level: level,
+            text: el.textContent.replace(/\u200B/g, '').trim(),
+            color: el.style.color || '#1f2329',
+            bgColor: el.style.backgroundColor || 'transparent'
+        };
+    }).filter(function(p) { return p.text || p.level > 0; });
+
+    if (doc.paragraphs.length === 0) {
+        document.getElementById('editor-doc-body').style.display = 'none';
+        document.getElementById('empty-doc-placeholder').style.display = 'flex';
+    }
+}
+
+function updateWordCount() {
+    const doc = getDocById(currentDocId);
+    var count = 0;
+    if (doc) {
+        count = doc.paragraphs.reduce(function(sum, p) { return sum + (p.text ? p.text.length : 0); }, 0);
+    }
+    document.getElementById('word-count').textContent = count + ' 字';
+}
+
+function triggerAutoSave() {
+    const doc = getDocById(currentDocId);
+    if (!doc) return;
+    doc.modifiedAt = Date.now();
+    updateSaveStatus('saving');
+    if (saveTimeout) clearTimeout(saveTimeout);
+    saveTimeout = setTimeout(function() {
+        updateSaveStatus('saved');
+        var time = new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+        document.getElementById('save-status-text').textContent = '已保存于 ' + time;
+    }, 3000);
+}
+
+function updateSaveStatus(status) {
+    var el = document.getElementById('save-status');
+    var icon = document.getElementById('save-status-icon');
+    var text = document.getElementById('save-status-text');
+    if (status === 'saving') {
+        el.classList.add('saving');
+        icon.textContent = '...';
+        text.textContent = '保存中...';
+    } else {
+        el.classList.remove('saving');
+        icon.textContent = '\u2713';
+    }
+}
+
+/* ============================================
+   ADMIN PANEL
+   ============================================ */
+function openAdminPanel() {
+    document.getElementById('admin-panel').classList.add('show');
+    hideUserDropdown();
+    renderAdminPanel();
+}
+function closeAdminPanel() {
+    document.getElementById('admin-panel').classList.remove('show');
+}
+function switchAdminTab(tab) {
+    document.querySelectorAll('.admin-sidebar-item').forEach(function(el) { el.classList.remove('active'); });
+    event.currentTarget.classList.add('active');
+}
+function renderAdminPanel() {
+    var tbody = document.getElementById('admin-table-body');
+    var filter = document.getElementById('admin-status-filter').value;
+    var docs = documents;
+    if (filter !== 'all') docs = docs.filter(function(d) { return d.status === filter; });
+    tbody.innerHTML = docs.map(function(doc) {
+        var statusClass = 'admin-status-normal';
+        var statusText = '正常';
+        if (doc.status === 'recycle') { statusClass = 'admin-status-recycle'; statusText = '回收站'; }
+        else if (doc.status === 'permanently_deleted') { statusClass = 'admin-status-deleted'; statusText = '彻底删除'; }
+        return '<tr>' +
+            '<td>' + escapeHtml(doc.name) + '</td>' +
+            '<td>' + doc.type + '</td>' +
+            '<td>' + doc.owner + '</td>' +
+            '<td class="' + statusClass + '">' + statusText + '</td>' +
+            '<td>' + doc.size + '</td>' +
+            '<td>' + formatTime(doc.modifiedAt) + '</td>' +
+            '<td>' +
+                (doc.status === 'recycle' ? '<button class="modal-btn primary" style="padding:4px 12px;font-size:12px;" onclick="restoreDoc(\'' + doc.id + '\')">恢复</button>' : '') +
+                (doc.status === 'permanently_deleted' ? '<button class="modal-btn primary" style="padding:4px 12px;font-size:12px;" onclick="restoreDoc(\'' + doc.id + '\')">恢复</button><button class="modal-btn confirm" style="padding:4px 12px;font-size:12px;margin-left:8px;" onclick="destroyDoc(\'' + doc.id + '\')">销毁</button>' : '') +
+            '</td>' +
+        '</tr>';
+    }).join('');
+}
+function restoreDoc(docId) {
+    var doc = getDocById(docId);
+    if (doc) {
+        doc.status = 'normal';
+        doc.deletedAt = null;
+        showToast('文档已恢复');
+        renderAdminPanel();
+        renderDocTable();
+    }
+}
+function destroyDoc(docId) {
+    showConfirm('销毁文档', '此操作不可恢复，确定要销毁吗？', function() {
+        var idx = documents.findIndex(function(d) { return d.id === docId; });
+        if (idx > -1) {
+            documents.splice(idx, 1);
+            showToast('文档已销毁');
+            renderAdminPanel();
+        }
+    });
+}
+
+/* ============================================
+   RECYCLE BIN
+   ============================================ */
+function openRecycleBin() {
+    document.getElementById('recycle-bin-panel').classList.add('show');
+    renderRecycleBin();
+}
+function closeRecycleBin() {
+    document.getElementById('recycle-bin-panel').classList.remove('show');
+}
+function renderRecycleBin() {
+    var tbody = document.getElementById('recycle-table-body');
+    var empty = document.getElementById('recycle-empty');
+    var recycleDocs = documents.filter(function(d) { return d.status === 'recycle'; });
+    if (recycleDocs.length === 0) {
+        tbody.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+    }
+    empty.style.display = 'none';
+    tbody.innerHTML = recycleDocs.map(function(doc) {
+        return '<tr>' +
+            '<td>' + escapeHtml(doc.name) + '</td>' +
+            '<td>' + doc.type + '</td>' +
+            '<td>' + formatTime(doc.modifiedAt) + '</td>' +
+            '<td>' +
+                '<button class="modal-btn primary" style="padding:4px 12px;font-size:12px;" onclick="restoreDoc(\'' + doc.id + '\')">恢复</button>' +
+                '<button class="modal-btn confirm" style="padding:4px 12px;font-size:12px;margin-left:8px;" onclick="permanentDeleteDoc(\'' + doc.id + '\')">彻底删除</button>' +
+            '</td>' +
+        '</tr>';
+    }).join('');
+}
+
+/* ============================================
+   GLOBAL CLICK HANDLER
+   ============================================ */
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.dropdown-menu') && !e.target.closest('.action-btn') && !e.target.closest('.user-dropdown') && !e.target.closest('.user-avatar')) {
+        closeAllDropdowns();
+    }
+    if (!e.target.closest('.user-dropdown') && !e.target.closest('.user-avatar')) {
+        hideUserDropdown();
+    }
+    if (!e.target.closest('#editor-more-menu') && !e.target.closest('.editor-top-icon')) {
+        var menu = document.getElementById('editor-more-menu');
+        if (menu) menu.classList.remove('show');
+    }
+    if (!e.target.closest('#level-popup') && !e.target.closest('.level-badge')) {
+        hideLevelPopup();
+    }
+});
+
+/* ============================================
+   KEYBOARD SHORTCUTS
+   ============================================ */
+document.addEventListener('keydown', function(e) {
+    var isInput = e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable;
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k' && !isInput) {
+        e.preventDefault();
+        document.getElementById('header-search-input').focus();
+    }
+    if ((e.ctrlKey || e.metaKey) && e.key === 'n' && !isInput) {
+        e.preventDefault();
+        createNewDocument();
+    }
+    if (e.key === 'Escape') {
+        hideLoginModal();
+        hideConfirmModal();
+        hideRenameModal();
+        closeAllDropdowns();
+        hideLevelPopup();
+    }
+});
+
+/* ============================================
+   INITIALIZATION
+   ============================================ */
+function init() {
+    initColorGrids();
+    renderDocTable();
+    renderSidebar();
+    updateUserUI();
+}
+init();
+</script>
+</body>
+</html>

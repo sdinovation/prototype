@@ -727,6 +727,85 @@
         }
         .admin-action-btn:hover { background-color: var(--bg-hover); color: var(--text-primary); }
 
+        /* ===== Document Status Badges ===== */
+        .doc-status-badge {
+            display: inline-block; padding: 2px 8px; border-radius: 4px;
+            font-size: 12px; font-weight: 500;
+        }
+        .doc-status-badge.normal { background: #e8f7e8; color: #00b42a; }
+        .doc-status-badge.recycle { background: #f2f3f5; color: #8f959e; }
+        .doc-status-badge.deleted { background: #ffece8; color: #f54a45; }
+
+        /* ===== Countdown ===== */
+        .countdown-normal { color: #8f959e; }
+        .countdown-warning { color: #ff7d00; }
+        .countdown-urgent { color: #f54a45; animation: countdownBlink 1s ease-in-out infinite; }
+        @keyframes countdownBlink { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+        /* ===== Admin Operation Menu ===== */
+        .admin-op-menu {
+            position: absolute; right: 0; top: 100%; margin-top: 4px;
+            background: #fff; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            min-width: 160px; z-index: 100; display: none; padding: 4px 0;
+        }
+        .admin-op-menu.show { display: block; }
+        .admin-op-item {
+            display: flex; align-items: center; gap: 10px;
+            padding: 9px 14px; cursor: pointer; font-size: 14px; color: #1f2329;
+            transition: background-color 0.15s; position: relative;
+        }
+        .admin-op-item:hover:not(.disabled) { background: #e8f3ff; }
+        .admin-op-item.disabled { color: #c0c4cc; cursor: not-allowed; }
+        .admin-op-item.disabled:hover { background: transparent; }
+        .admin-op-item.danger { color: #f54a45; }
+        .admin-op-item.danger:not(.disabled):hover { background: #fff0f0; }
+
+        /* ===== Traffic-Sign Disabled Icon ===== */
+        .admin-op-prohibit {
+            width: 16px; height: 16px; border-radius: 50%; border: 2px solid #f54a45;
+            position: relative; flex-shrink: 0; display: none;
+        }
+        .admin-op-item.disabled .admin-op-prohibit {
+            display: block; animation: prohibitIn 0.15s ease;
+        }
+        @keyframes prohibitIn { from { opacity:0; transform:scale(0.5) } to { opacity:1; transform:scale(1) } }
+        .admin-op-prohibit::after {
+            content: ''; position: absolute;
+            top: 5px; left: -2px; width: 16px; height: 2px;
+            background: #f54a45; transform: rotate(-45deg);
+        }
+        .admin-op-icon { width: 18px; text-align: center; font-size: 14px; }
+
+        /* ===== Admin Confirm Modal ===== */
+        .admin-confirm-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 20000;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: all 0.2s;
+        }
+        .admin-confirm-overlay.show { opacity: 1; visibility: visible; }
+        .admin-confirm-dialog {
+            background: #fff; border-radius: 12px; padding: 24px; width: 400px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18); text-align: center;
+        }
+        .admin-confirm-icon {
+            width: 48px; height: 48px; border-radius: 50%; margin: 0 auto 16px;
+            display: flex; align-items: center; justify-content: center; font-size: 22px;
+        }
+        .admin-confirm-icon.warn { background: #fff3e0; color: #ff9800; }
+        .admin-confirm-icon.danger { background: #ffece8; color: #f54a45; }
+        .admin-confirm-title { font-size: 16px; font-weight: 600; color: #1f2329; margin-bottom: 8px; }
+        .admin-confirm-desc { font-size: 13px; color: #8f959e; margin-bottom: 20px; line-height: 1.5; }
+        .admin-confirm-btns { display: flex; gap: 10px; justify-content: center; }
+        .admin-confirm-btn {
+            padding: 8px 24px; border-radius: 6px; font-size: 14px; cursor: pointer;
+            border: 1px solid #d9d9d9; background: #fff; color: #333; transition: all 0.15s;
+        }
+        .admin-confirm-btn:hover { background: #f5f5f5; }
+        .admin-confirm-btn.primary { background: #3370ff; border-color: #3370ff; color: #fff; }
+        .admin-confirm-btn.primary:hover { background: #2860e0; }
+        .admin-confirm-btn.danger { background: #f54a45; border-color: #f54a45; color: #fff; }
+        .admin-confirm-btn.danger:hover { background: #e04040; }
+
         /* ============================================
            TOAST NOTIFICATIONS
            ============================================ */
@@ -2421,7 +2500,7 @@
     </header>
 
     <!-- 主体布局 -->
-    <div class="main-container" style="display: none;">
+    <div class="main-container">
         <!-- 左侧边栏 -->
         <aside class="sidebar" id="sidebar">
             <div class="search-box">
@@ -2443,7 +2522,7 @@
                     </div>
                 </div>
                 <div id="pinned-list" class="pinned-list">
-                    <div class="doc-item" data-doc-id="doc001" ondblclick="openDocument(&#39;doc001&#39;)">
+                    <div class="doc-item" data-doc-id="doc001" ondblclick="openDocument(&#39;doc001&#39;)" onclick="openDocument(&#39;doc001&#39;)">
                         <div class="doc-item-content">
                             <span class="doc-icon">📄</span>
                             <span>文档001</span>
@@ -2486,7 +2565,7 @@
                     </div>
                 </div>
                 <div id="my-docs-list" class="my-docs-list">
-                    <div class="doc-item" data-doc-id="my-doc001" ondblclick="openDocument(&#39;doc001&#39;)">
+                    <div class="doc-item" data-doc-id="my-doc001" ondblclick="openDocument(&#39;doc001&#39;)" onclick="openDocument(&#39;doc001&#39;)">
                         <div class="doc-item-content">
                             <span class="doc-icon">📄</span>
                             <span>文档001</span>
@@ -2517,7 +2596,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="doc-item" data-doc-id="my-doc002" ondblclick="openDocument(&#39;doc002&#39;)">
+                    <div class="doc-item" data-doc-id="my-doc002" ondblclick="openDocument(&#39;doc002&#39;)" onclick="openDocument(&#39;doc002&#39;)">
                         <div class="doc-item-content">
                             <span class="doc-icon">📄</span>
                             <span>文档002</span>
@@ -2591,7 +2670,7 @@
                     <div class="col-action"></div>
                 </div>
                 
-                <div class="table-row" data-doc-id="doc002" ondblclick="openDocument(&#39;doc002&#39;)">
+                <div class="table-row" data-doc-id="doc002" ondblclick="openDocument(&#39;doc002&#39;)" onclick="openDocument(&#39;doc002&#39;)">
                     <div class="col-title">
                         <span class="doc-icon-small">📄</span>
                         <div class="doc-name">
@@ -2602,7 +2681,7 @@
                     <div class="col-location">我的文档库</div>
                     <div class="col-owner">用户1413</div>
                     <div class="col-create-time">5月19日 19:54</div>
-                    <div class="col-access-time">今天20:46</div>
+                    <div class="col-access-time">今天16:59</div>
                     <div class="col-action">
                         <div class="action-btn" onclick="toggleDropdown(this, &#39;doc002&#39;, &#39;文档002&#39;)" style="opacity: 0;">⋮</div>
                         <div class="dropdown-menu" id="dropdown-doc002">
@@ -2632,7 +2711,7 @@
                     </div>
                 </div>
 
-                <div class="table-row" data-doc-id="doc001" ondblclick="openDocument(&#39;doc001&#39;)">
+                <div class="table-row" data-doc-id="doc001" ondblclick="openDocument(&#39;doc001&#39;)" onclick="openDocument(&#39;doc001&#39;)">
                     <div class="col-title">
                         <span class="doc-icon-small">📄</span>
                         <div class="doc-name">
@@ -2698,7 +2777,22 @@
     </div><!-- 关闭 app-wrapper -->
 
     <script>
-        // ============================================
+        /* ╔══════════════════════════════════════════════════════╗
+           ║  MODULE REGISTRY                                    ║
+           ║  THEME | KEYBOARD | STATE | USER_DROPDOWN          ║
+           ║  ADMIN_PANEL | RECYCLE_BIN | SIDEBAR | DOC_TABLE  ║
+           ║  TOAST | DELETE_MODAL | LOGOUT_MODAL               ║
+           ║  LOGIN | REGISTER | EDITOR_OPEN | EDITOR_UTILS    ║
+           ║  EDITOR_USER | LEVEL_BADGE | BADGE_UTILS           ║
+           ║  COLOR_PANEL | ADV_COLOR | LEVEL_SWITCH            ║
+           ║  EDITOR_MORE | SCROLL | GLOBAL_CLICK | ESC | INIT ║
+           ║  == ADD NEW MODULES BELOW, KEEP HEADERS ==        ║
+           ╚══════════════════════════════════════════════════════╝ */
+                /* ╔══════════════════════════════════════════════════════╗
+           ║  MODULE: THEME                                     ║
+           ║  PUBLIC: toggleTheme(), setTheme(), getTheme()    ║
+           ╚══════════════════════════════════════════════════════╝ */
+// ============================================
         // THEME MANAGEMENT
         // ============================================
         function getTheme() { return localStorage.getItem('lei-cloud-theme') || 'light'; }
@@ -2716,7 +2810,11 @@
         // Initialize theme on load
         (function() { setTheme(getTheme()); })();
 
-        // ============================================
+                /* ╔══════════════════════════════════════════════════════╗
+           ║  MODULE: KEYBOARD                                  ║
+           ║  PUBLIC: Ctrl+K/N, Escape                         ║
+           ╚══════════════════════════════════════════════════════╝ */
+// ============================================
         // KEYBOARD SHORTCUTS
         // ============================================
         document.addEventListener('keyup', function(e) {
@@ -2765,7 +2863,31 @@
             }
         });
 
-        // ============================================
+        // Enter key: auto-click new paragraph in editor
+        document.addEventListener('keyup', function(e) {
+            if (e.key !== 'Enter' || !e.target.isContentEditable) return;
+            requestAnimationFrame(function() {
+                var sel = window.getSelection();
+                if (!sel.rangeCount) return;
+                var node = sel.anchorNode;
+                var body = document.getElementById('editor-doc-body');
+                if (!body) return;
+                while (node && node !== body) {
+                    if (node.nodeType === 1 && ['p','h1','h2','h3','div'].includes(node.tagName.toLowerCase())) {
+                        if (!node.onclick) node.setAttribute('onclick', 'event.stopPropagation();showLevelBadge(this)');
+                        if (typeof showLevelBadge === 'function') showLevelBadge(node);
+                        return;
+                    }
+                    node = node.parentElement;
+                }
+            });
+        });
+
+                /* ╔══════════════════════════════════════════════════════╗
+           ║  MODULE: STATE                                     ║
+           ║  PUBLIC: pinnedDocs, collectedDocs, isLoggedIn    ║
+           ╚══════════════════════════════════════════════════════╝ */
+// ============================================
         // STATE
         // ============================================
         // 存储置顶文档的ID
@@ -2832,7 +2954,11 @@
             stopCountdownUpdate();
         }
 
-        // 打开回收站
+                /* ╔══════════════════════════════════════════════════════╗
+           ║  MODULE: RECYCLE_BIN                               ║
+           ║  PUBLIC: openRecycleBin(), closeRecycleBin()      ║
+           ╚══════════════════════════════════════════════════════╝ */
+// 打开回收站
         function openRecycleBin() {
             const panel = document.getElementById('recycle-bin-panel');
             panel.classList.add('show');
@@ -2853,98 +2979,31 @@
             stopRecycleCountdownUpdate();
         }
 
-        // 加载回收站列表
+        // 加载回收站列表（复用adminDocs + 新状态系统）
         function loadRecycleBinList() {
-            const tbody = document.getElementById('recycle-table-body');
-            const recycleDocs = adminDocs.filter(doc => doc.status === 'recycle');
-            
+            var tbody = document.getElementById('recycle-table-body');
+            var recycleDocs = adminDocs.filter(function(d){ return d.status === 'recycle'; });
             if (recycleDocs.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#999;padding:40px;">回收站为空</td></tr>';
                 return;
             }
-            
-            tbody.innerHTML = recycleDocs.map(doc => {
-                const deletedDate = new Date(doc.deletedAt);
-                const deletedTimeStr = deletedDate.toLocaleString('zh-CN');
-                const remaining = getRecycleCountdown(doc.deletedAt);
-                return `
-                    <tr class="admin-file-row" data-doc-id="${doc.id}">
-                        <td class="admin-td-name">${doc.name}</td>
-                        <td>${doc.type}</td>
-                        <td>${deletedTimeStr}</td>
-                        <td class="admin-status-recycle">${remaining}</td>
-                        <td>
-                            <button class="admin-action-btn" onclick="restoreDocument('${doc.id}')" style="margin-right:8px;color:#1890ff;">恢复</button>
-                            <button class="admin-action-btn" onclick="permanentlyDeleteDocument('${doc.id}')" style="color:#ff4d4f;">彻底删除</button>
-                        </td>
-                    </tr>
-                `;
+            tbody.innerHTML = recycleDocs.map(function(doc){
+                var delDate = new Date(doc.deletedAt).toLocaleString('zh-CN');
+                return '<tr class="admin-file-row" data-doc-id="'+doc.id+'">'+
+                    '<td>'+doc.name+'</td>'+
+                    '<td>'+doc.type+'</td>'+
+                    '<td>'+delDate+'</td>'+
+                    '<td>'+renderStatusBadge(doc)+'</td>'+
+                    '<td>'+
+                        '<button class="admin-action-btn" onclick="event.stopPropagation();handleAdminOp(\'restore\',\''+doc.id+'\')" style="margin-right:8px;color:#1890ff;">恢复</button>'+
+                        '<button class="admin-action-btn" onclick="event.stopPropagation();handleAdminOp(\'permanentDelete\',\''+doc.id+'\')" style="color:#ff4d4f;">彻底删除</button>'+
+                    '</td>'+
+                '</tr>';
             }).join('');
         }
 
-        // 计算回收站剩余时间（30天倒计时）
-        function getRecycleCountdown(deletedAt) {
-            const now = Date.now();
-            const elapsed = now - deletedAt;
-            const total30Days = 30 * 24 * 60 * 60 * 1000;
-            const remaining = total30Days - elapsed;
-            
-            if (remaining <= 0) return '即将删除';
-            
-            const days = Math.floor(remaining / (24 * 60 * 60 * 1000));
-            const hours = Math.floor((remaining % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
-            const minutes = Math.floor((remaining % (60 * 60 * 1000)) / (60 * 1000));
-            const seconds = Math.floor((remaining % (60 * 1000)) / 1000);
-            
-            if (days >= 1) return `${days}天`;
-            if (hours >= 1) return `${hours}小时`;
-            return `${minutes}分${seconds}秒`;
-        }
-
-        // 恢复文档
-        function restoreDocument(docId) {
-            const doc = adminDocs.find(d => d.id === docId);
-            if (doc) {
-                doc.status = 'normal';
-                doc.deletedAt = null;
-                loadRecycleBinList();
-                showToast('文档已恢复');
-            }
-        }
-
-        // 彻底删除文档
-        function permanentlyDeleteDocument(docId) {
-            const doc = adminDocs.find(d => d.id === docId);
-            if (doc) {
-                doc.status = 'permanently_deleted';
-                doc.deletedAt = Date.now();
-                loadRecycleBinList();
-                showToast('文档已彻底删除');
-            }
-        }
-
-        // 回收站倒计时更新
-        let recycleCountdownInterval;
-        function startRecycleCountdownUpdate() {
-            if (recycleCountdownInterval) clearInterval(recycleCountdownInterval);
-            recycleCountdownInterval = setInterval(() => {
-                document.querySelectorAll('#recycle-table-body .admin-status-recycle').forEach((el, index) => {
-                    const row = el.closest('.admin-file-row');
-                    const docId = row.getAttribute('data-doc-id');
-                    const doc = adminDocs.find(d => d.id === docId);
-                    if (doc && doc.status === 'recycle') {
-                        el.textContent = getRecycleCountdown(doc.deletedAt);
-                    }
-                });
-            }, 1000);
-        }
-
-        function stopRecycleCountdownUpdate() {
-            if (recycleCountdownInterval) {
-                clearInterval(recycleCountdownInterval);
-                recycleCountdownInterval = null;
-            }
-        }
+        function startRecycleCountdownUpdate() {}
+        function stopRecycleCountdownUpdate() {}
 
         // 切换管理后台用户头像下拉菜单
         function toggleAdminUserDropdown(event) {
@@ -2954,110 +3013,214 @@
         }
 
         // 全局文档数据
+        // ============================================
+        // DOCUMENT STATE MACHINE
+        // ============================================
+        const DocStatus = Object.freeze({ NORMAL: 'normal', RECYCLE: 'recycle', DELETED: 'permanently_deleted' });
+
+        // Operation permission matrix
+        function canOperate(status, operation) {
+            const matrix = {
+                restore:       { normal: false, recycle: true,  permanently_deleted: true  },
+                permanentDelete:{ normal: true,  recycle: true,  permanently_deleted: false },
+                destroy:       { normal: false, recycle: false, permanently_deleted: true  }
+            };
+            return matrix[operation] ? (matrix[operation][status] || false) : false;
+        }
+
         let adminDocs = [
             { id: 'doc00', name: '未命名文档 00', type: '文档', owner: '刘晓源', status: 'normal', size: '0.1KB', time: '2026-05-06 19:53', deletedAt: null },
-            { id: 'doc01', name: '未命名文档 01', type: '文档', owner: '刘晓源', status: 'recycle', size: '0.1KB', time: '2026-05-06 19:53', deletedAt: Date.now() - 1000 * 60 * 60 * 24 * 5 }, // 5天前删除
-            { id: 'doc02', name: '未命名文档 02', type: '文档', owner: '刘晓源', status: 'permanently_deleted', size: '0.1KB', time: '2026-05-06 19:53', deletedAt: Date.now() - 1000 * 60 * 60 * 24 * 80 }, // 80天前删除
-            { id: 'doc03', name: '未命名文档 03', type: '文档', owner: '刘晓源', status: 'permanently_deleted', size: '0.1KB', time: '2026-05-06 19:53', deletedAt: Date.now() - 1000 * 60 * 60 * 20 }, // 20小时前删除
-            { id: 'doc04', name: '未命名文档 04', type: '文档', owner: '刘晓源', status: 'permanently_deleted', size: '0.1KB', time: '2026-05-06 19:53', deletedAt: Date.now() - 1000 * 60 * 30 } // 30分钟前删除
+            { id: 'doc01', name: '未命名文档 01', type: '文档', owner: '刘晓源', status: 'recycle', size: '0.1KB', time: '2026-05-06 19:53', deletedAt: Date.now() - 1000*60*60*24*5 },
+            { id: 'doc02', name: '未命名文档 02', type: '文档', owner: '刘晓源', status: 'permanently_deleted', size: '0.1KB', time: '2026-05-06 19:53', deletedAt: Date.now() - 1000*60*60*24*80 },
+            { id: 'doc03', name: '未命名文档 03', type: '文档', owner: '刘晓源', status: 'permanently_deleted', size: '0.1KB', time: '2026-05-06 19:53', deletedAt: Date.now() - 1000*60*60*20 },
+            { id: 'doc04', name: '未命名文档 04', type: '文档', owner: '刘晓源', status: 'permanently_deleted', size: '0.1KB', time: '2026-05-06 19:53', deletedAt: Date.now() - 1000*60*30 }
         ];
-
-        // 当前用户是否是管理员
         let isAdmin = true;
+        let adminOpMenuDoc = null; // which doc's menu is open
 
-        // 计算倒计时
-        function getCountdown(deletedAt) {
-            const now = Date.now();
-            const elapsed = now - deletedAt;
-            const total90Days = 90 * 24 * 60 * 60 * 1000;
-            const remaining = total90Days - elapsed;
-            
-            if (remaining <= 0) return '即将销毁';
-            
-            const days = Math.floor(remaining / (24 * 60 * 60 * 1000));
-            const hours = Math.floor((remaining % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
-            const minutes = Math.floor((remaining % (60 * 60 * 1000)) / (60 * 1000));
-            const seconds = Math.floor((remaining % (60 * 1000)) / 1000);
-            
-            if (days >= 1) return `${days}天`;
-            if (hours >= 1) return `${hours}小时`;
-            return `${minutes}分${seconds}秒`;
+        // Countdown calculation
+        function getCountdownDays(deletedAt) {
+            if (!deletedAt) return null;
+            const remaining = 90*24*60*60*1000 - (Date.now() - deletedAt);
+            if (remaining <= 0) return 0;
+            return Math.ceil(remaining / (24*60*60*1000));
         }
 
-        // 格式化状态显示
-        function formatStatus(doc) {
+        function getCountdownClass(days) {
+            if (days === null) return '';
+            if (days <= 7) return 'countdown-urgent';
+            if (days <= 30) return 'countdown-warning';
+            return 'countdown-normal';
+        }
+
+        // Status badge HTML
+        function renderStatusBadge(doc) {
             switch(doc.status) {
-                case 'normal': 
-                    return { text: '正常', class: 'admin-status-normal' };
-                case 'recycle': 
-                    return { text: '回收站', class: 'admin-status-recycle' };
-                case 'permanently_deleted': 
-                    const countdown = getCountdown(doc.deletedAt);
-                    return { text: `彻底删除(${countdown})`, class: 'admin-status-deleted' };
-                default: 
-                    return { text: '正常', class: 'admin-status-normal' };
+                case 'normal': return '<span class="doc-status-badge normal">正常</span>';
+                case 'recycle': return '<span class="doc-status-badge recycle">回收站</span>';
+                case 'permanently_deleted':
+                    var d = getCountdownDays(doc.deletedAt);
+                    var cls = getCountdownClass(d);
+                    return '<span class="doc-status-badge deleted">彻底删除</span> <span class="'+cls+'">剩余 '+(d||0)+' 天</span>';
             }
         }
 
-        // 加载管理后台文件列表
+        // Load admin file list
         function loadAdminFileList() {
-            const tbody = document.getElementById('admin-table-body');
-            const statusFilter = document.getElementById('admin-status-filter').value;
-            
-            // 筛选文档
-            let filteredDocs = adminDocs;
-            if (statusFilter !== 'all') {
-                filteredDocs = adminDocs.filter(doc => doc.status === statusFilter);
-            }
-            
-            // 非管理员不显示彻底删除的文档
-            if (!isAdmin) {
-                filteredDocs = filteredDocs.filter(doc => doc.status !== 'permanently_deleted');
-            }
+            var tbody = document.getElementById('admin-table-body');
+            var filter = document.getElementById('admin-status-filter').value;
+            var docs = adminDocs;
+            if (filter !== 'all') docs = docs.filter(function(d){ return d.status === filter; });
+            if (!isAdmin) docs = docs.filter(function(d){ return d.status !== 'permanently_deleted'; });
 
-            tbody.innerHTML = filteredDocs.map((doc, index) => {
-                const status = formatStatus(doc);
-                return `
-                    <tr class="admin-file-row" data-doc-id="${doc.id}">
-                        <td class="admin-td-name">${doc.name}</td>
-                        <td>${doc.type}</td>
-                        <td>${doc.owner}</td>
-                        <td class="${status.class}">${status.text}</td>
-                        <td>${doc.size}</td>
-                        <td>${doc.time}</td>
-                        <td><span class="admin-action-btn">⋮</span></td>
-                    </tr>
-                `;
+            tbody.innerHTML = docs.map(function(doc){
+                return '<tr class="admin-file-row" data-doc-id="'+doc.id+'">'+
+                    '<td>'+doc.name+'</td>'+
+                    '<td>'+doc.type+'</td>'+
+                    '<td>'+doc.owner+'</td>'+
+                    '<td>'+renderStatusBadge(doc)+'</td>'+
+                    '<td>'+doc.size+'</td>'+
+                    '<td>'+doc.time+'</td>'+
+                    '<td style="position:relative;">'+
+                        '<span class="admin-action-btn" onclick="event.stopPropagation();toggleAdminOpMenu(event,\''+doc.id+'\')">⋮</span>'+
+                        '<div class="admin-op-menu" id="admin-op-menu-'+doc.id+'">'+
+                            renderOpItem('restore',doc,'恢复','↩️',false)+
+                            renderOpItem('permanentDelete',doc,'彻底删除','🗑️',true)+
+                            '<div style="height:1px;background:#f0f0f0;margin:2px 0;"></div>'+
+                            renderOpItem('destroy',doc,'销毁','⛔',true)+
+                        '</div>'+
+                    '</td>'+
+                '</tr>';
             }).join('');
         }
 
-        // 启动倒计时更新
-        let countdownInterval;
-        function startCountdownUpdate() {
-            if (countdownInterval) clearInterval(countdownInterval);
-            countdownInterval = setInterval(() => {
-                // 更新所有彻底删除文档的倒计时显示
-                document.querySelectorAll('.admin-status-deleted').forEach(el => {
-                    const row = el.closest('.admin-file-row');
-                    const docId = row.getAttribute('data-doc-id');
-                    const doc = adminDocs.find(d => d.id === docId);
-                    if (doc && doc.status === 'permanently_deleted') {
-                        const status = formatStatus(doc);
-                        el.textContent = status.text;
-                    }
-                });
-            }, 1000);
+        function renderOpItem(op, doc, label, icon, isDanger) {
+            var enabled = canOperate(doc.status, op);
+            var cls = 'admin-op-item' + (enabled ? '' : ' disabled') + (isDanger ? ' danger' : '');
+            var fn = enabled ? ('onclick="event.stopPropagation();handleAdminOp(\''+op+'\',\''+doc.id+'\')"') : '';
+            return '<div class="'+cls+'" '+fn+' style="'+(!enabled?'cursor:not-allowed;':'')+'">'+
+                '<span class="admin-op-prohibit"></span>'+
+                '<span class="admin-op-icon">'+icon+'</span>'+
+                '<span>'+label+'</span>'+
+            '</div>';
         }
 
-        // 停止倒计时更新
-        function stopCountdownUpdate() {
-            if (countdownInterval) {
-                clearInterval(countdownInterval);
-                countdownInterval = null;
+        // Toggle operation menu
+        function toggleAdminOpMenu(event, docId) {
+            event.stopPropagation();
+            var menu = document.getElementById('admin-op-menu-'+docId);
+            if (!menu) return;
+            var isOpen = menu.classList.contains('show');
+            closeAllAdminOpMenus();
+            if (!isOpen) menu.classList.add('show');
+            adminOpMenuDoc = isOpen ? null : docId;
+        }
+
+        function closeAllAdminOpMenus() {
+            document.querySelectorAll('.admin-op-menu').forEach(function(m){ m.classList.remove('show'); });
+            adminOpMenuDoc = null;
+        }
+
+        // Handle operations
+        var adminPendingOp = null;
+        var adminPendingDoc = null;
+        var adminDestroyStep = 0;
+
+        function handleAdminOp(op, docId) {
+            var doc = adminDocs.find(function(d){ return d.id === docId; });
+            if (!doc || !canOperate(doc.status, op)) return;
+            adminPendingOp = op;
+            adminPendingDoc = doc;
+            adminDestroyStep = 0;
+
+            if (op === 'destroy') {
+                showAdminConfirm('warn', '确定销毁该文档？', '销毁后不可恢复', true);
+            } else if (op === 'permanentDelete') {
+                showAdminConfirm('warn', '确定彻底删除该文档？', '删除后将进入90天倒计时', false);
+            } else if (op === 'restore') {
+                showAdminConfirm('warn', '确定恢复该文档？', '恢复的文档将会在文档页面显示', false);
+            }
+            closeAllAdminOpMenus();
+        }
+
+        function showAdminConfirm(iconType, title, desc, isDestroy) {
+            var overlay = document.getElementById('admin-confirm-overlay');
+            document.getElementById('admin-confirm-icon').className = 'admin-confirm-icon ' + iconType;
+            document.getElementById('admin-confirm-title').textContent = title;
+            document.getElementById('admin-confirm-desc').textContent = desc;
+            document.getElementById('admin-confirm-btn').textContent = isDestroy ? '下一步' : '确认';
+            document.getElementById('admin-confirm-btn').className = isDestroy ? 'admin-confirm-btn danger' : 'admin-confirm-btn primary';
+            overlay.classList.add('show');
+        }
+
+        function hideAdminConfirm() {
+            document.getElementById('admin-confirm-overlay').classList.remove('show');
+            adminPendingOp = null;
+            adminPendingDoc = null;
+            adminDestroyStep = 0;
+        }
+
+        function confirmAdminAction() {
+            if (adminPendingOp === 'destroy' && adminDestroyStep === 0) {
+                adminDestroyStep = 1;
+                document.getElementById('admin-confirm-title').textContent = '再次确认';
+                document.getElementById('admin-confirm-desc').textContent = '该文档将被永久删除，此操作不可撤销';
+                document.getElementById('admin-confirm-btn').textContent = '确认销毁';
+                document.getElementById('admin-confirm-btn').className = 'admin-confirm-btn danger';
+                document.getElementById('admin-confirm-icon').className = 'admin-confirm-icon danger';
+                return;
+            }
+            executeAdminOp();
+        }
+
+        function executeAdminOp() {
+            var doc = adminPendingDoc;
+            var op = adminPendingOp;
+            if (!doc) return;
+
+            switch(op) {
+                case 'restore':
+                    doc.status = 'recycle' === doc.status ? 'normal' : 'recycle';
+                    doc.deletedAt = null;
+                    break;
+                case 'permanentDelete':
+                    doc.status = 'permanently_deleted';
+                    doc.deletedAt = Date.now();
+                    break;
+                case 'destroy':
+                    var idx = adminDocs.indexOf(doc);
+                    if (idx > -1) adminDocs.splice(idx, 1);
+                    break;
+            }
+            hideAdminConfirm();
+            closeAllAdminOpMenus();
+            loadAdminFileList();
+            showToast(op === 'destroy' ? '文档已永久删除' : (op === 'restore' ? '文档已恢复' : '文档已彻底删除'));
+        }
+
+        // Auto-destroy expired docs (check every 60s)
+        function autoDestroyExpiredDocs() {
+            var now = Date.now();
+            var total90 = 90*24*60*60*1000;
+            for (var i = adminDocs.length - 1; i >= 0; i--) {
+                var d = adminDocs[i];
+                if (d.status === 'permanently_deleted' && d.deletedAt && (now - d.deletedAt >= total90)) {
+                    adminDocs.splice(i, 1);
+                }
             }
         }
+        setInterval(autoDestroyExpiredDocs, 60000);
+        autoDestroyExpiredDocs();
 
-        function toggleSidebar() {
+        // 启动倒计时更新
+        function startCountdownUpdate() { /* handled by autoDestroyExpiredDocs */ }
+        function stopCountdownUpdate() {}
+
+                /* ╔══════════════════════════════════════════════════════╗
+           ║  MODULE: SIDEBAR                                   ║
+           ║  PUBLIC: toggleSidebar(), togglePinnedSection(),  ║
+           ╚══════════════════════════════════════════════════════╝ */
+function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('collapsed');
         }
@@ -3159,7 +3322,11 @@
             return newItem;
         }
 
-        function togglePin(element, docId, docName, showNotification = true) {
+                /* ╔══════════════════════════════════════════════════════╗
+           ║  MODULE: DOC_TABLE                                 ║
+           ║  PUBLIC: togglePin(), toggleDropdown(), createCop ║
+           ╚══════════════════════════════════════════════════════╝ */
+function togglePin(element, docId, docName, showNotification = true) {
             const pinnedList = document.getElementById('pinned-list');
             
             if (pinnedDocs.has(docId)) {
@@ -3200,7 +3367,11 @@
             updateMyDocsDropdownState('my-' + docId);
         }
 
-        // 显示提示弹窗
+                /* ╔══════════════════════════════════════════════════════╗
+           ║  MODULE: TOAST                                     ║
+           ║  PUBLIC: showToast(), showCodeToast(), showErrorT ║
+           ╚══════════════════════════════════════════════════════╝ */
+// 显示提示弹窗
         let toastTimeout = null;
         function showToast(message) {
             const toast = document.getElementById('toast-notification');
@@ -4626,7 +4797,11 @@
             showToast('登录成功');
         }
 
-        // ========== 注册页面功能 ==========
+                /* ╔══════════════════════════════════════════════════════╗
+           ║  MODULE: REGISTER                                  ║
+           ║  PUBLIC: showRegisterStep1(), goToRegisterStep2() ║
+           ╚══════════════════════════════════════════════════════╝ */
+// ========== 注册页面功能 ==========
 
         // 显示注册页面第一步
         function showRegisterStep1() {
@@ -5114,8 +5289,9 @@
                 showLoginPage();
                 return;
             }
-            
+
             currentEditingDocId = docId;
+            hideLevelBadge(); hideActionMenu();
             const editorPage = document.getElementById('doc-editor-page');
             const editorContent = document.getElementById('editor-content');
             const editorDocName = document.getElementById('editor-doc-name');
@@ -5142,9 +5318,18 @@
             
             // 记录访问时间并更新表格
             updateDocModifyTime(docId);
-            
+
+            // 先把 badge/menu 移回 body，防止 innerHTML 销毁它们
+            var badgeEl = document.getElementById('level-badge');
+            var menuEl = document.getElementById('action-menu');
+            var advEl = document.getElementById('adv-color-overlay');
+            if (badgeEl) document.body.appendChild(badgeEl);
+            if (menuEl) document.body.appendChild(menuEl);
+            if (advEl) document.body.appendChild(advEl);
+
             // 填充编辑区域
             const docData = docContents[docId];
+            console.log('LOADING doc:', docId, 'hasData:', !!docData, 'hasContent:', docData?.hasContent, 'htmlLen:', docData?.html?.length);
             if (docData && docData.hasContent && docData.html) {
                 // 使用预存的内容
                 editorContent.innerHTML = docData.html;
@@ -5207,13 +5392,27 @@
             titleInput.addEventListener('input', function() {
                 updateDocName(docId, this.textContent.trim());
             });
+            titleInput.addEventListener('click', function() {
+                hideLevelBadge();
+                hideActionMenu();
+            });
             
             // 监听文档内容变化，更新目录
             const bodyInput = document.getElementById('editor-doc-body');
+            // 自动保存（防抖500ms，全局变量供 goBackFromEditor 使用）
+            window._autoSaveTimer = null;
+            function autoSave() {
+                if (window._autoSaveTimer) clearTimeout(window._autoSaveTimer);
+                window._autoSaveTimer = setTimeout(function() { saveCurrentDocument(); }, 500);
+            }
             bodyInput.addEventListener('input', function() {
                 updateOutlinePanel();
+                autoSave();
             });
-            
+            titleInput.addEventListener('input', function() {
+                autoSave();
+            });
+
             // 显示编辑页面
             editorPage.style.display = 'flex';
             
@@ -5224,7 +5423,11 @@
             updateOutlinePanel();
         }
 
-        // 页面加载时，给预渲染的段落绑定点击事件
+                /* ╔══════════════════════════════════════════════════════╗
+           ║  MODULE: INIT                                      ║
+           ║  PUBLIC: initEditorParagraphs()                   ║
+           ╚══════════════════════════════════════════════════════╝ */
+// 页面加载时，给预渲染的段落绑定点击事件
         document.addEventListener('DOMContentLoaded', function() {
             const docBody = document.getElementById('editor-doc-body');
             if (!docBody) return;
@@ -5244,7 +5447,11 @@
             });
         });
 
-        // 更新文档名称
+                /* ╔══════════════════════════════════════════════════════╗
+           ║  MODULE: EDITOR_UTILS                              ║
+           ║  PUBLIC: updateDocName(), saveCurrentDocument(),  ║
+           ╚══════════════════════════════════════════════════════╝ */
+// 更新文档名称
         function updateDocName(docId, newName) {
             if (!newName) return;
             
@@ -5311,13 +5518,18 @@
             // 显示主界面
             document.querySelector('.main-container').style.display = 'flex';
 
-            // 保存文档内容
+            // 立即保存（清除防抖定时器）
+            if (window._autoSaveTimer) { clearTimeout(window._autoSaveTimer); window._autoSaveTimer = null; }
             saveCurrentDocument();
 
             currentEditingDocId = null;
         }
 
-        // 切换编辑页面用户头像下拉菜单
+                /* ╔══════════════════════════════════════════════════════╗
+           ║  MODULE: EDITOR_USER                               ║
+           ║  PUBLIC: toggleEditorUserDropdown(), toggleEditor ║
+           ╚══════════════════════════════════════════════════════╝ */
+// 切换编辑页面用户头像下拉菜单
         function toggleEditorUserDropdown(event) {
             event.stopPropagation();
             const dropdown = document.getElementById('editor-user-dropdown');
@@ -5369,7 +5581,11 @@
          * Calculate badge position relative to a paragraph.
          * Badge appears at the vertical center of the paragraph, 8px to its left.
          */
-        function calcBadgePosition(para) {
+                /* ╔══════════════════════════════════════════════════════╗
+           ║  MODULE: BADGE_UTILS                               ║
+           ║  PUBLIC: calcBadgePosition(), calcMenuPosition(), ║
+           ╚══════════════════════════════════════════════════════╝ */
+function calcBadgePosition(para) {
             return {
                 top: para.offsetHeight / 2 - 17,
                 left: -42
@@ -5398,7 +5614,11 @@
         /* ╔══════════════════════════════════════════════════════╗
            ║  MODULE: LevelBadge JS                          ║
            ╚══════════════════════════════════════════════════╝ */
-        function showLevelBadge(para) {
+                /* ╔══════════════════════════════════════════════════════╗
+           ║  MODULE: LEVEL_BADGE                               ║
+           ║  PUBLIC: showLevelBadge(para), hideLevelBadge(),  ║
+           ╚══════════════════════════════════════════════════════╝ */
+function showLevelBadge(para) {
             if (!para) return;
             editorTargetBlock = para;
             editorLevel = getParaLevel(para);
@@ -5435,6 +5655,7 @@
 
         function hideLevelBadge() {
             const badge = document.getElementById('level-badge');
+            if (!badge) return;
             badge.classList.remove('show');
             badge.style.display = 'none';
             document.body.appendChild(badge);
@@ -5475,12 +5696,15 @@
 
         function hideActionMenu() {
             const menu = document.getElementById('action-menu');
+            if (!menu) return;
             menu.classList.remove('show');
             menu.style.display = 'none';
             menu.style.position = '';
             document.body.appendChild(menu);
             const cp = document.getElementById('am-color-panel');
             if (cp) cp.style.display = 'none';
+            var adv = document.getElementById('adv-color-overlay');
+            if (adv) { adv.classList.remove('show'); adv.style.display = 'none'; }
         }
 
         function updateActionMenuState() {
@@ -5505,7 +5729,11 @@
         /* ╔══════════════════════════════════════════════════════╗
            ║  MODULE: ColorPanel JS                          ║
            ╚══════════════════════════════════════════════════╝ */
-        function toggleActionColorPanel() {
+                /* ╔══════════════════════════════════════════════════════╗
+           ║  MODULE: COLOR_PANEL                               ║
+           ║  PUBLIC: toggleActionColorPanel(), handleFontColo ║
+           ╚══════════════════════════════════════════════════════╝ */
+function toggleActionColorPanel() {
             const panel = document.getElementById('am-color-panel');
             if (!panel) return;
             if (panel.style.display === 'block') { panel.style.display = 'none'; return; }
@@ -5582,7 +5810,11 @@
         /* ╔══════════════════════════════════════════════════════╗
            ║  MODULE: AdvColorPicker JS                      ║
            ╚══════════════════════════════════════════════════╝ */
-        function openAdvancedColorPicker() {
+                /* ╔══════════════════════════════════════════════════════╗
+           ║  MODULE: ADV_COLOR                                 ║
+           ║  PUBLIC: openAdvancedColorPicker(), closeAdvanced ║
+           ╚══════════════════════════════════════════════════════╝ */
+function openAdvancedColorPicker() {
             const overlay = document.getElementById('adv-color-overlay');
             const actionMenu = document.getElementById('action-menu');
             const moreBtn = document.querySelector('.color-more-btn');
@@ -5706,7 +5938,11 @@
 
         // ---------- Level Switch ----------
 
-        function handleLevelSwitch(newLevel) {
+                /* ╔══════════════════════════════════════════════════════╗
+           ║  MODULE: LEVEL_SWITCH                              ║
+           ║  PUBLIC: handleLevelSwitch(), handleEditorCopy(), ║
+           ╚══════════════════════════════════════════════════════╝ */
+function handleLevelSwitch(newLevel) {
             if (!editorTargetBlock) return;
             const docBody = document.getElementById('editor-doc-body');
             if (!docBody) return;
@@ -5873,7 +6109,11 @@
             }
         }
 
-        // ---------- Global click → close menu / adv picker ----------
+                /* ╔══════════════════════════════════════════════════════╗
+           ║  MODULE: GLOBAL_CLICK                              ║
+           ║  PUBLIC: document click handler - close popups    ║
+           ╚══════════════════════════════════════════════════════╝ */
+// ---------- Global click → close menu / adv picker ----------
 
         document.addEventListener('click', function(e) {
             const menu = document.getElementById('action-menu');
@@ -5906,7 +6146,11 @@
             }
         });
 
-        // ---------- ESC key → close all ----------
+                /* ╔══════════════════════════════════════════════════════╗
+           ║  MODULE: ESC                                       ║
+           ║  PUBLIC: ESC key handler - close all              ║
+           ╚══════════════════════════════════════════════════════╝ */
+// ---------- ESC key → close all ----------
 
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
@@ -5924,7 +6168,11 @@
 
         
 
-        let menuScrollRAF = null;
+                /* ╔══════════════════════════════════════════════════════╗
+           ║  MODULE: SCROLL                                    ║
+           ║  PUBLIC: onMenuScroll() - scroll repositioning    ║
+           ╚══════════════════════════════════════════════════════╝ */
+let menuScrollRAF = null;
 function onMenuScroll() {
     if (menuScrollRAF) return;
     menuScrollRAF = requestAnimationFrame(() => {
@@ -5969,7 +6217,11 @@ document.addEventListener('scroll', onMenuScroll, { passive: true, capture: true
         
         
         
-        function toggleEditorMoreMenu(event) {
+                /* ╔══════════════════════════════════════════════════════╗
+           ║  MODULE: EDITOR_MORE                               ║
+           ║  PUBLIC: toggleEditorMoreMenu(), toggleEditorSide ║
+           ╚══════════════════════════════════════════════════════╝ */
+function toggleEditorMoreMenu(event) {
             event.stopPropagation();
             const menu = document.getElementById('editor-more-menu');
             menu.classList.toggle('show');
@@ -6144,22 +6396,20 @@ document.addEventListener('scroll', onMenuScroll, { passive: true, capture: true
             const bodyInput = document.getElementById('editor-doc-body');
 
             if (bodyInput) {
-                // Clone to avoid modifying live DOM
                 const clone = bodyInput.cloneNode(true);
-                // Remove popup elements before saving
                 clone.querySelectorAll('#level-badge, #action-menu, #adv-color-overlay').forEach(el => el.remove());
-                // Clean up residual styles
                 clone.querySelectorAll('[style*=\"position: relative\"]').forEach(el => {
                     if (el.style.position === 'relative') el.style.position = '';
                 });
                 clone.querySelectorAll('.active').forEach(el => el.classList.remove('active'));
 
                 const html = clone.innerHTML;
+                const hasPara = clone.querySelector('p, h1, h2, h3') !== null;
                 const text = clone.textContent.trim();
 
                 docContents[currentEditingDocId] = {
                     title: titleInput ? titleInput.textContent.trim() : '未命名文档',
-                    hasContent: text.length > 0,
+                    hasContent: hasPara || text.length > 0,
                     html: html,
                     modifiedTime: formatModifyTime(new Date())
                 };
@@ -6202,7 +6452,7 @@ document.addEventListener('scroll', onMenuScroll, { passive: true, capture: true
     <!-- 成功提示弹窗 -->
     <div class="toast-notification" id="toast-notification">
         <div class="toast-icon">✓</div>
-        <div class="toast-text" id="toast-text">已切换为 H1</div>
+        <div class="toast-text" id="toast-text">文档已恢复</div>
     </div>
 
     <!-- 验证码提示弹窗 - 黑色胶囊样式 -->
@@ -6223,7 +6473,7 @@ document.addEventListener('scroll', onMenuScroll, { passive: true, capture: true
     <!-- 回收站页面 -->
     <div class="admin-panel-overlay" id="recycle-bin-panel">
         <div class="admin-panel-sidebar">
-            <div class="admin-panel-logo">
+            <div class="admin-panel-logo" onclick="closeAdminPanel();closeRecycleBin();" style="cursor:pointer;" title="返回主页">
                 <div class="admin-logo-icon">☁️</div>
                 <span>雷云云文档</span>
             </div>
@@ -6301,7 +6551,7 @@ document.addEventListener('scroll', onMenuScroll, { passive: true, capture: true
     <!-- 管理后台页面 -->
     <div class="admin-panel-overlay" id="admin-panel">
         <div class="admin-panel-sidebar">
-            <div class="admin-panel-logo">
+            <div class="admin-panel-logo" onclick="closeAdminPanel();closeRecycleBin();" style="cursor:pointer;" title="返回主页">
                 <div class="admin-logo-icon">☁️</div>
                 <span>雷云云文档</span>
             </div>
@@ -6383,9 +6633,7 @@ document.addEventListener('scroll', onMenuScroll, { passive: true, capture: true
                                 <th>操作</th>
                             </tr>
                         </thead>
-                        <tbody id="admin-table-body">
-                            <!-- 动态生成 -->
-                        </tbody>
+                        <tbody id="admin-table-body"><tr class="admin-file-row" data-doc-id="doc01"><td>未命名文档 01</td><td>文档</td><td>刘晓源</td><td><span class="doc-status-badge normal">正常</span></td><td>0.1KB</td><td>2026-05-06 19:53</td><td style="position:relative;"><span class="admin-action-btn" onclick="event.stopPropagation();toggleAdminOpMenu(event,&#39;doc01&#39;)">⋮</span><div class="admin-op-menu" id="admin-op-menu-doc01"><div class="admin-op-item disabled" style="cursor:not-allowed;"><span class="admin-op-prohibit"></span><span class="admin-op-icon">↩️</span><span>恢复</span></div><div class="admin-op-item danger" onclick="event.stopPropagation();handleAdminOp(&#39;permanentDelete&#39;,&#39;doc01&#39;)" style=""><span class="admin-op-prohibit"></span><span class="admin-op-icon">🗑️</span><span>彻底删除</span></div><div style="height:1px;background:#f0f0f0;margin:2px 0;"></div><div class="admin-op-item disabled danger" style="cursor:not-allowed;"><span class="admin-op-prohibit"></span><span class="admin-op-icon">⛔</span><span>销毁</span></div></div></td></tr><tr class="admin-file-row" data-doc-id="doc02"><td>未命名文档 02</td><td>文档</td><td>刘晓源</td><td><span class="doc-status-badge deleted">彻底删除</span> <span class="countdown-warning">剩余 10 天</span></td><td>0.1KB</td><td>2026-05-06 19:53</td><td style="position:relative;"><span class="admin-action-btn" onclick="event.stopPropagation();toggleAdminOpMenu(event,&#39;doc02&#39;)">⋮</span><div class="admin-op-menu" id="admin-op-menu-doc02"><div class="admin-op-item" onclick="event.stopPropagation();handleAdminOp(&#39;restore&#39;,&#39;doc02&#39;)" style=""><span class="admin-op-prohibit"></span><span class="admin-op-icon">↩️</span><span>恢复</span></div><div class="admin-op-item disabled danger" style="cursor:not-allowed;"><span class="admin-op-prohibit"></span><span class="admin-op-icon">🗑️</span><span>彻底删除</span></div><div style="height:1px;background:#f0f0f0;margin:2px 0;"></div><div class="admin-op-item danger" onclick="event.stopPropagation();handleAdminOp(&#39;destroy&#39;,&#39;doc02&#39;)" style=""><span class="admin-op-prohibit"></span><span class="admin-op-icon">⛔</span><span>销毁</span></div></div></td></tr><tr class="admin-file-row" data-doc-id="doc03"><td>未命名文档 03</td><td>文档</td><td>刘晓源</td><td><span class="doc-status-badge deleted">彻底删除</span> <span class="countdown-normal">剩余 90 天</span></td><td>0.1KB</td><td>2026-05-06 19:53</td><td style="position:relative;"><span class="admin-action-btn" onclick="event.stopPropagation();toggleAdminOpMenu(event,&#39;doc03&#39;)">⋮</span><div class="admin-op-menu" id="admin-op-menu-doc03"><div class="admin-op-item" onclick="event.stopPropagation();handleAdminOp(&#39;restore&#39;,&#39;doc03&#39;)" style=""><span class="admin-op-prohibit"></span><span class="admin-op-icon">↩️</span><span>恢复</span></div><div class="admin-op-item disabled danger" style="cursor:not-allowed;"><span class="admin-op-prohibit"></span><span class="admin-op-icon">🗑️</span><span>彻底删除</span></div><div style="height:1px;background:#f0f0f0;margin:2px 0;"></div><div class="admin-op-item danger" onclick="event.stopPropagation();handleAdminOp(&#39;destroy&#39;,&#39;doc03&#39;)" style=""><span class="admin-op-prohibit"></span><span class="admin-op-icon">⛔</span><span>销毁</span></div></div></td></tr><tr class="admin-file-row" data-doc-id="doc04"><td>未命名文档 04</td><td>文档</td><td>刘晓源</td><td><span class="doc-status-badge deleted">彻底删除</span> <span class="countdown-normal">剩余 90 天</span></td><td>0.1KB</td><td>2026-05-06 19:53</td><td style="position:relative;"><span class="admin-action-btn" onclick="event.stopPropagation();toggleAdminOpMenu(event,&#39;doc04&#39;)">⋮</span><div class="admin-op-menu" id="admin-op-menu-doc04"><div class="admin-op-item" onclick="event.stopPropagation();handleAdminOp(&#39;restore&#39;,&#39;doc04&#39;)" style=""><span class="admin-op-prohibit"></span><span class="admin-op-icon">↩️</span><span>恢复</span></div><div class="admin-op-item disabled danger" style="cursor:not-allowed;"><span class="admin-op-prohibit"></span><span class="admin-op-icon">🗑️</span><span>彻底删除</span></div><div style="height:1px;background:#f0f0f0;margin:2px 0;"></div><div class="admin-op-item danger" onclick="event.stopPropagation();handleAdminOp(&#39;destroy&#39;,&#39;doc04&#39;)" style=""><span class="admin-op-prohibit"></span><span class="admin-op-icon">⛔</span><span>销毁</span></div></div></td></tr></tbody>
                     </table>
                 </div>
             </div>
@@ -6728,7 +6976,7 @@ document.addEventListener('scroll', onMenuScroll, { passive: true, capture: true
     </div>
 
     <!-- 文档内部编辑页面 -->
-    <div class="doc-editor-page" id="doc-editor-page" style="display: flex;">
+    <div class="doc-editor-page" id="doc-editor-page" style="display: none;">
         <!-- 顶部导航栏 -->
         <div class="editor-topbar">
             <div class="editor-topbar-left">
@@ -6830,9 +7078,7 @@ document.addEventListener('scroll', onMenuScroll, { passive: true, capture: true
             <!-- 文字等级导航栏（点击目录图标展开） -->
             <div class="editor-outline-panel" id="editor-outline-panel">
                 <div class="outline-header">目录</div>
-                <div class="outline-list" id="outline-list"><div class="outline-item level-1" data-full-text="闲居赋 
-        H1" data-index="0">闲居赋&nbsp;
-   ...</div></div>
+                <div class="outline-list" id="outline-list"><div style="padding: 16px; color: var(--text-tertiary); font-size: 12px; text-align: center;">暂无目录</div></div>
             </div>
             
             <!-- 文字等级导航栏（点击目录图标展开） -->
@@ -6861,7 +7107,7 @@ document.addEventListener('scroll', onMenuScroll, { passive: true, capture: true
             
             <!-- 文档编辑区域 -->
             <div class="editor-content-wrapper">
-                <div class="editor-content" id="editor-content"><div class="doc-title-input" contenteditable="true" id="editor-doc-title">文档002</div><div class="doc-body" contenteditable="true" id="editor-doc-body"><h1 onclick="event.stopPropagation();showLevelBadge(this)" style="font-size:28px;font-weight:700;margin-bottom:16px;">闲居赋</h1><p onclick="event.stopPropagation();showLevelBadge(this)" style="margin-bottom:12px;line-height:1.8;">余僻处郊隅，茅舍三楹，竹树环庐。朝闻雀噪，暮听松风，远尘市之嚣，守丘园之静。</p><p onclick="event.stopPropagation();showLevelBadge(this)" style="margin-bottom:12px;line-height:1.8;">晨起汲泉煮茗，展卷阅古贤遗文；日斜策杖闲行，观溪鱼出没、野卉参差。遇邻叟闲谈桑麻，话岁时丰歉，忘时序之迁。</p><p onclick="event.stopPropagation();showLevelBadge(this)" style="margin-bottom: 12px; line-height: 1.8;" class="">身无繁务萦怀，心少俗虑羁绊。饭疏食，饮清水，亦自怡然。人生百年，汲汲名利者多，安于平淡者鲜。余不求闻达于当世，但守本心，顺天时，便足矣。</p></div></div>
+                <div class="editor-content" id="editor-content"><div class="doc-title-input" contenteditable="true" id="editor-doc-title">文档002</div><div class="doc-body" contenteditable="true" id="editor-doc-body"><p onclick="event.stopPropagation();showLevelBadge(this)" style="font-size: 24px; font-weight: 700; margin-bottom: 16px;" class="">闲居赋</p><p onclick="event.stopPropagation();showLevelBadge(this)" style="margin-bottom: 12px; line-height: 1.8; position: relative;" class="">余僻处郊隅，茅舍三楹，竹树环庐。朝闻雀噪，暮听松风，远尘市之嚣，守丘园之静。</p><p onclick="event.stopPropagation();showLevelBadge(this)" style="margin-bottom: 12px; line-height: 1.8; position: relative;" class="">晨起汲泉煮茗，展卷阅古贤遗文；日斜策杖闲行，观溪鱼出没、野卉参差。遇邻叟闲谈桑麻，话岁时丰歉，忘时序之迁。</p><p onclick="event.stopPropagation();showLevelBadge(this)" style="margin-bottom: 12px; line-height: 1.8; position: relative;" class="">身无繁务萦怀，心少俗虑羁绊。饭疏食，饮清水，亦自怡然。人生百年，汲汲名利者多，安于平淡者鲜。余不求闻达于当世，但守本心，顺天时，便足矣。</p></div></div>
             </div>
         </div>
     </div>
@@ -6902,7 +7148,24 @@ document.addEventListener('scroll', onMenuScroll, { passive: true, capture: true
                 <button class="adv-hex-btn" onclick="applyAdvHex()">确认</button>
             </div>
         </div>
-    </div><div class="level-badge" id="level-badge" onclick="handleLevelBadgeClick(event)" style="display: none; top: 50%; transform: translateY(-50%); left: -42px;">
+    </div>
+
+    <!-- ===== Admin Confirm Modal ===== -->
+    <div class="admin-confirm-overlay" id="admin-confirm-overlay">
+        <div class="admin-confirm-dialog">
+            <div class="admin-confirm-icon warn" id="admin-confirm-icon">!</div>
+            <div class="admin-confirm-title" id="admin-confirm-title">确定恢复该文档？</div>
+            <div class="admin-confirm-desc" id="admin-confirm-desc">恢复的文档将会在文档页面显示</div>
+            <div class="admin-confirm-btns">
+                <button class="admin-confirm-btn" onclick="hideAdminConfirm()">取消</button>
+                <button class="admin-confirm-btn primary" id="admin-confirm-btn" onclick="confirmAdminAction()">确认</button>
+            </div>
+        </div>
+    </div>
+
+    
+
+<div class="level-badge" id="level-badge" onclick="handleLevelBadgeClick(event)" style="display: none; top: 50%; transform: translateY(-50%); left: -42px;">
         <span class="badge-text" id="level-badge-text">T</span>
         <div class="badge-dots"><span></span><span></span><span></span></div>
     </div><div class="action-menu" id="action-menu" style="display: none; top: 240.896px; left: 354.667px;">

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>能力展示</title>
+    <style id="theme-vars">
+/* ============================================
+   Brand Tokens — 面试作品集
+   Primary: #1a1a2e | Accent: #e94560
+   Font: Inter + Noto Sans SC
+   ============================================ */
+
+:root {
+  /* ── Colors ── */
+  --color-primary: #1a1a2e;
+  --color-accent: #e94560;
+  --color-background: #ffffff;
+  --color-surface: #f8f9fb;
+  --color-foreground: #1a1a2e;
+  --color-text-primary: #1a1a2e;
+  --color-text-secondary: #4a4a6a;
+  --color-text-tertiary: #7a7a9a;
+  --color-border: #e2e5ed;
+  --color-muted: #f0f1f5;
+
+  /* ── Radius ── */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* ── Shadow (alpha <= 0.05) ── */
+  --shadow-sm: 0 1px 2px rgba(26,26,46,0.04);
+  --shadow-md: 0 2px 8px rgba(26,26,46,0.05);
+  --shadow-lg: 0 4px 16px rgba(26,26,46,0.05);
+
+  /* ── Spacing ── */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 96px;
+
+  /* ── Typography ── */
+  --font-primary: 'Inter', 'Noto Sans SC', sans-serif;
+  --font-display: 'Inter', 'Noto Sans SC', sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 30px;
+  --font-size-4xl: 36px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* ── Layout ── */
+  --content-max-width: 1200px;
+  --section-padding-y: 96px;
+  --card-padding: 24px;
+}
+
+/* ── Typography Classes ── */
+.display-heading {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.03em;
+}
+
+.heading-1 {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-4xl);
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.02em;
+}
+
+.heading-2 {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-2xl);
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.01em;
+}
+
+.heading-3 {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-normal);
+}
+
+.body-text {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-normal);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-secondary);
+}
+
+.caption-text {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-normal);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-tertiary);
+}
+
+/* ── Card Surface ── */
+.card-surface {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--color-background);
+    --color-foreground: var(--color-foreground);
+    --color-primary: var(--color-primary);
+    --color-muted: var(--color-muted);
+    --color-accent: var(--color-accent);
+    --color-border: var(--color-border);
+  }
+  @layer base {
+    body { background: var(--color-background); color: var(--color-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+      /* Responsive: bento grid stacks to single column on mobile */
+      @media (max-width: 767px) {
+        .skills-bento-grid {
+          grid-template-columns: 1fr !important;
+        }
+        .skills-bento-grid > div[style*="grid-column:span 2"],
+        .skills-bento-grid > div[style*="grid-column: span 2"] {
+          grid-column: span 1 !important;
+        }
+      }
+      /* Tablet: 2 columns */
+      @media (min-width: 768px) and (max-width: 1023px) {
+        .skills-bento-grid {
+          grid-template-columns: repeat(2, 1fr) !important;
+        }
+        .skills-bento-grid > div[style*="grid-column:span 2"],
+        .skills-bento-grid > div[style*="grid-column: span 2"] {
+          grid-column: span 2 !important;
+        }
+      }
+      /* Nav link overflow on mobile */
+      @media (max-width: 640px) {
+        nav > div > div:last-child {
+          gap: 16px !important;
+          overflow-x: auto;
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        nav > div > div:last-child::-webkit-scrollbar {
+          display: none;
+        }
+      }
+      /* Section padding responsive */
+      @media (max-width: 767px) {
+        section {
+          padding-top: 48px !important;
+          padding-bottom: 48px !important;
+        }
+        section:first-of-type {
+          padding-top: 48px !important;
+        }
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+
+<!-- TOP NAVIGATION BAR -->
+<nav style="position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid #e2e5ed;width:100%;">
+  <div style="max-width:1200px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;">
+    <!-- Left: Candidate name -->
+    <a href="#intro" style="font-family:'Inter','Noto Sans SC',sans-serif;font-weight:700;font-size:18px;color:#1a1a2e;text-decoration:none;letter-spacing:-0.02em;white-space:nowrap;">
+      刘晓源
+    </a>
+    <!-- Center/Right: Navigation links -->
+    <div style="display:flex;align-items:center;gap:32px;">
+      <!-- SLOT: activeNavItem -->
+      <a href="#intro" data-nav-key="intro" data-dom-id="nav-intro" style="font-family:'Inter','Noto Sans SC',sans-serif;font-size:14px;font-weight:500;color:#4a4a6a;text-decoration:none;white-space:nowrap;transition:color 0.2s ease;">个人介绍</a>
+      <a href="#project" data-nav-key="project" data-dom-id="nav-project" style="font-family:'Inter','Noto Sans SC',sans-serif;font-size:14px;font-weight:500;color:#4a4a6a;text-decoration:none;white-space:nowrap;transition:color 0.2s ease;">项目经历</a>
+      <a href="#skills" data-nav-key="skills" data-dom-id="nav-skills" data-active="true" style="font-family:'Inter','Noto Sans SC',sans-serif;font-size:14px;font-weight:600;color:#1a1a2e;text-decoration:none;white-space:nowrap;transition:color 0.2s ease;">能力展示</a>
+      <a href="#contact" data-nav-key="contact" data-dom-id="nav-contact" style="font-family:'Inter','Noto Sans SC',sans-serif;font-size:14px;font-weight:500;color:#4a4a6a;text-decoration:none;white-space:nowrap;transition:color 0.2s ease;">联系方式</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<!-- MAIN CONTENT WRAPPER -->
+<div style="max-width:1200px;margin:0 auto;padding:0 24px;">
+
+  <!-- ============================================ -->
+  <!-- SECTION 1: 专业技能 — Bento Grid Layout      -->
+  <!-- ============================================ -->
+  <section style="padding-top:96px;padding-bottom:96px;">
+    <h1 class="heading-1" style="margin:0 0 48px 0;text-wrap:balance;word-break:keep-all;overflow-wrap:break-word;">专业技能</h1>
+
+    <div class="skills-bento-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+
+      <!-- Card 1: 产品能力 (spans 2 cols) -->
+      <div class="card-surface" style="grid-column:span 2;padding:32px;">
+        <h3 class="heading-3" style="margin:0 0 20px 0;">产品能力</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <span style="display:inline-flex;align-items:center;padding:6px 14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary);white-space:nowrap;">原型设计</span>
+          <span style="display:inline-flex;align-items:center;padding:6px 14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary);white-space:nowrap;">PRD撰写</span>
+          <span style="display:inline-flex;align-items:center;padding:6px 14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary);white-space:nowrap;">竞品分析</span>
+          <span style="display:inline-flex;align-items:center;padding:6px 14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary);white-space:nowrap;">需求分析</span>
+          <span style="display:inline-flex;align-items:center;padding:6px 14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary);white-space:nowrap;">流程图绘制</span>
+          <span style="display:inline-flex;align-items:center;padding:6px 14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary);white-space:nowrap;">用户手册编写</span>
+        </div>
+      </div>
+
+      <!-- Card 2: 原型工具 (1 col) -->
+      <div class="card-surface" style="padding:32px;">
+        <h3 class="heading-3" style="margin:0 0 20px 0;">原型工具</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <span style="display:inline-flex;align-items:center;padding:6px 14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary);white-space:nowrap;">Axure</span>
+          <span style="display:inline-flex;align-items:center;padding:6px 14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary);white-space:nowrap;">墨刀</span>
+        </div>
+      </div>
+
+      <!-- Card 3: 思维工具 (1 col) -->
+      <div class="card-surface" style="padding:32px;">
+        <h3 class="heading-3" style="margin:0 0 20px 0;">思维工具</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <span style="display:inline-flex;align-items:center;padding:6px 14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary);white-space:nowrap;">Xmind</span>
+          <span style="display:inline-flex;align-items:center;padding:6px 14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary);white-space:nowrap;">Visio</span>
+        </div>
+      </div>
+
+      <!-- Card 4: 技术理解 (spans 2 cols) -->
+      <div class="card-surface" style="grid-column:span 2;padding:32px;">
+        <h3 class="heading-3" style="margin:0 0 20px 0;">技术理解</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <span style="display:inline-flex;align-items:center;padding:6px 14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary);white-space:nowrap;">C</span>
+          <span style="display:inline-flex;align-items:center;padding:6px 14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary);white-space:nowrap;">Java</span>
+          <span style="display:inline-flex;align-items:center;padding:6px 14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary);white-space:nowrap;">Python</span>
+          <span style="display:inline-flex;align-items:center;padding:6px 14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary);white-space:nowrap;">SQL</span>
+          <span style="display:inline-flex;align-items:center;padding:6px 14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary);white-space:nowrap;">Web开发</span>
+          <span style="display:inline-flex;align-items:center;padding:6px 14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary);white-space:nowrap;">数据库</span>
+        </div>
+      </div>
+
+      <!-- Card 5: AI 工具 (1 col) -->
+      <div class="card-surface" style="padding:32px;">
+        <h3 class="heading-3" style="margin:0 0 20px 0;">AI 工具</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <span style="display:inline-flex;align-items:center;padding:6px 14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary);white-space:nowrap;">Claude Code</span>
+          <span style="display:inline-flex;align-items:center;padding:6px 14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary);white-space:nowrap;">Trae</span>
+        </div>
+      </div>
+
+      <!-- Card 6: 文档工具 (1 col) -->
+      <div class="card-surface" style="padding:32px;">
+        <h3 class="heading-3" style="margin:0 0 20px 0;">文档工具</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <span style="display:inline-flex;align-items:center;padding:6px 14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary);white-space:nowrap;">Office全家桶</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SECTION 2: 教育背景                           -->
+  <!-- ============================================ -->
+  <section style="padding-bottom:96px;">
+    <h2 class="heading-2" style="margin:0 0 48px 0;text-wrap:balance;word-break:keep-all;overflow-wrap:break-word;">教育背景</h2>
+
+    <div class="card-surface" style="padding:32px;">
+      <!-- University & Degree Row -->
+      <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px;margin-bottom:8px;">
+        <h3 class="heading-3" style="margin:0;">山西农业大学</h3>
+        <span class="caption-text" style="margin:0;">软件工程 · 本科在读</span>
+      </div>
+
+      <!-- Period -->
+      <p class="caption-text" style="margin:0 0 24px 0;">2024.09 – 2028.06</p>
+
+      <!-- Core courses -->
+      <p style="font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-secondary);margin:0 0 12px 0;">核心课程</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;">
+        <span style="display:inline-flex;align-items:center;padding:6px 14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary);white-space:nowrap;">机器学习</span>
+        <span style="display:inline-flex;align-items:center;padding:6px 14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary);white-space:nowrap;">Python</span>
+        <span style="display:inline-flex;align-items:center;padding:6px 14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary);white-space:nowrap;">数字图像处理</span>
+        <span style="display:inline-flex;align-items:center;padding:6px 14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary);white-space:nowrap;">概率论与数理统计</span>
+        <span style="display:inline-flex;align-items:center;padding:6px 14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary);white-space:nowrap;">数据结构</span>
+        <span style="display:inline-flex;align-items:center;padding:6px 14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary);white-space:nowrap;">Java</span>
+        <span style="display:inline-flex;align-items:center;padding:6px 14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary);white-space:nowrap;">数据库</span>
+        <span style="display:inline-flex;align-items:center;padding:6px 14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary);white-space:nowrap;">Web开发</span>
+      </div>
+
+      <!-- Note -->
+      <p class="body-text" style="margin:0;line-height:var(--line-height-relaxed);">通过技术课程建立完整的数据思维与技术理解力，能够精准对接研发团队</p>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SECTION 3: 个人优势                           -->
+  <!-- ============================================ -->
+  <section style="padding-bottom:96px;">
+    <h2 class="heading-2" style="margin:0 0 48px 0;text-wrap:balance;word-break:keep-all;overflow-wrap:break-word;">个人优势</h2>
+
+    <div style="display:flex;flex-direction:column;gap:24px;">
+
+      <!-- Advantage 1 -->
+      <div style="display:flex;gap:20px;align-items:flex-start;">
+        <span style="display:inline-flex;align-items:center;justify-content:center;min-width:40px;height:40px;border-radius:var(--radius-md);background:var(--color-accent);color:#ffffff;font-family:var(--font-display);font-size:var(--font-size-lg);font-weight:var(--font-weight-bold);flex-shrink:0;">1</span>
+        <div style="min-width:0;">
+          <h3 class="heading-3" style="margin:0 0 8px 0;">0到1实战经验</h3>
+          <p class="body-text" style="margin:0;line-height:var(--line-height-relaxed);">完整独立完成原型图、PRD、用户手册与竞品分析，拥有从设计到方案落地的完整闭环思维</p>
+        </div>
+      </div>
+
+      <!-- Advantage 2 -->
+      <div style="display:flex;gap:20px;align-items:flex-start;">
+        <span style="display:inline-flex;align-items:center;justify-content:center;min-width:40px;height:40px;border-radius:var(--radius-md);background:var(--color-accent);color:#ffffff;font-family:var(--font-display);font-size:var(--font-size-lg);font-weight:var(--font-weight-bold);flex-shrink:0;">2</span>
+        <div style="min-width:0;">
+          <h3 class="heading-3" style="margin:0 0 8px 0;">AI辅助产品能力</h3>
+          <p class="body-text" style="margin:0;line-height:var(--line-height-relaxed);">熟练使用 Claude Code、Trae 等AI编程工具完成产品 Demo 与文档编写</p>
+        </div>
+      </div>
+
+      <!-- Advantage 3 -->
+      <div style="display:flex;gap:20px;align-items:flex-start;">
+        <span style="display:inline-flex;align-items:center;justify-content:center;min-width:40px;height:40px;border-radius:var(--radius-md);background:var(--color-accent);color:#ffffff;font-family:var(--font-display);font-size:var(--font-size-lg);font-weight:var(--font-weight-bold);flex-shrink:0;">3</span>
+        <div style="min-width:0;">
+          <h3 class="heading-3" style="margin:0 0 8px 0;">技术理解力</h3>
+          <p class="body-text" style="margin:0;line-height:var(--line-height-relaxed);">了解软件生命周期、前后端、数据库等IT技术，可与技术人员高效沟通</p>
+        </div>
+      </div>
+
+      <!-- Advantage 4 -->
+      <div style="display:flex;gap:20px;align-items:flex-start;">
+        <span style="display:inline-flex;align-items:center;justify-content:center;min-width:40px;height:40px;border-radius:var(--radius-md);background:var(--color-accent);color:#ffffff;font-family:var(--font-display);font-size:var(--font-size-lg);font-weight:var(--font-weight-bold);flex-shrink:0;">4</span>
+        <div style="min-width:0;">
+          <h3 class="heading-3" style="margin:0 0 8px 0;">数据思维</h3>
+          <p class="body-text" style="margin:0;line-height:var(--line-height-relaxed);">掌握数据指标分析方法，能够依托量化数据定位产品痛点</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- CTA: 联系方式 → (wired nav link)             -->
+  <!-- ============================================ -->
+  <section style="padding-bottom:96px;">
+    <div style="text-align:center;">
+      <a href="#contact" data-dom-id="nav-contact" style="font-family:var(--font-primary);font-size:var(--font-size-base);font-weight:var(--font-weight-medium);color:var(--color-accent);text-decoration:none;transition:color 0.2s ease;">联系方式 →</a>
+    </div>
+  </section>
+
+</div>
+
+</main>
+
+<!-- FOOTER -->
+<footer style="border-top:1px solid #e2e5ed;margin-top:0;">
+  <div style="max-width:1200px;margin:0 auto;padding:24px;text-align:center;">
+    <p style="font-family:'Inter','Noto Sans SC',sans-serif;font-size:13px;color:#4a4a6a;margin:0;white-space:nowrap;">&copy; 2026 刘晓源 &middot; 产品经理求职作品集</p>
+  </div>
+</footer>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

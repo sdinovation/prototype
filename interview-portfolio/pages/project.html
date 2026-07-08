@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目经历</title>
+    <style id="theme-vars">
+/* ============================================
+   Brand Tokens — 面试作品集
+   Primary: #1a1a2e | Accent: #e94560
+   Font: Inter + Noto Sans SC
+   ============================================ */
+
+:root {
+  /* ── Colors ── */
+  --color-primary: #1a1a2e;
+  --color-accent: #e94560;
+  --color-background: #ffffff;
+  --color-surface: #f8f9fb;
+  --color-foreground: #1a1a2e;
+  --color-text-primary: #1a1a2e;
+  --color-text-secondary: #4a4a6a;
+  --color-text-tertiary: #7a7a9a;
+  --color-border: #e2e5ed;
+  --color-muted: #f0f1f5;
+
+  /* ── Radius ── */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* ── Shadow (alpha <= 0.05) ── */
+  --shadow-sm: 0 1px 2px rgba(26,26,46,0.04);
+  --shadow-md: 0 2px 8px rgba(26,26,46,0.05);
+  --shadow-lg: 0 4px 16px rgba(26,26,46,0.05);
+
+  /* ── Spacing ── */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 96px;
+
+  /* ── Typography ── */
+  --font-primary: 'Inter', 'Noto Sans SC', sans-serif;
+  --font-display: 'Inter', 'Noto Sans SC', sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 30px;
+  --font-size-4xl: 36px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* ── Layout ── */
+  --content-max-width: 1200px;
+  --section-padding-y: 96px;
+  --card-padding: 24px;
+}
+
+/* ── Typography Classes ── */
+.display-heading {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.03em;
+}
+
+.heading-1 {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-4xl);
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.02em;
+}
+
+.heading-2 {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-2xl);
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.01em;
+}
+
+.heading-3 {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-normal);
+}
+
+.body-text {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-normal);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-secondary);
+}
+
+.caption-text {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-normal);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-tertiary);
+}
+
+/* ── Card Surface ── */
+.card-surface {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--color-background);
+    --color-foreground: var(--color-foreground);
+    --color-primary: var(--color-primary);
+    --color-muted: var(--color-muted);
+    --color-accent: var(--color-accent);
+    --color-border: var(--color-border);
+  }
+  @layer base {
+    body { background: var(--color-background); color: var(--color-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+
+<!-- TOP NAVIGATION BAR -->
+<nav style="position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid #e2e5ed;width:100%;">
+  <div style="max-width:1200px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;">
+    <!-- Left: Candidate name -->
+    <a href="#intro" style="font-family:'Inter','Noto Sans SC',sans-serif;font-weight:700;font-size:18px;color:#1a1a2e;text-decoration:none;letter-spacing:-0.02em;white-space:nowrap;">
+      刘晓源
+    </a>
+    <!-- Center/Right: Navigation links -->
+    <div style="display:flex;align-items:center;gap:32px;">
+      <a href="#intro" data-nav-key="intro" data-dom-id="nav-intro" style="font-family:'Inter','Noto Sans SC',sans-serif;font-size:14px;font-weight:500;color:#4a4a6a;text-decoration:none;white-space:nowrap;transition:color 0.2s ease;">个人介绍</a>
+      <a href="#project" data-nav-key="project" data-dom-id="nav-project" data-active="true" style="font-family:'Inter','Noto Sans SC',sans-serif;font-size:14px;font-weight:600;color:#1a1a2e;text-decoration:none;white-space:nowrap;transition:color 0.2s ease;border-bottom:2px solid #e94560;padding-bottom:2px;">项目经历</a>
+      <a href="#skills" data-nav-key="skills" data-dom-id="nav-skills" style="font-family:'Inter','Noto Sans SC',sans-serif;font-size:14px;font-weight:500;color:#4a4a6a;text-decoration:none;white-space:nowrap;transition:color 0.2s ease;">能力展示</a>
+      <a href="#contact" data-nav-key="contact" data-dom-id="nav-contact" style="font-family:'Inter','Noto Sans SC',sans-serif;font-size:14px;font-weight:500;color:#4a4a6a;text-decoration:none;white-space:nowrap;transition:color 0.2s ease;">联系方式</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="main-content-wrapper" style="max-width:1200px;margin:0 auto;padding:0 24px;">
+
+    <!-- ════════════════════════════════════════ -->
+    <!-- SECTION: PROJECT HEADER                  -->
+    <!-- ════════════════════════════════════════ -->
+    <section style="padding-top:80px;padding-bottom:48px;">
+      <!-- Company badge -->
+      <div class="inline-flex items-center px-3 py-1 rounded-lg whitespace-nowrap" style="background:var(--color-accent);margin-bottom:20px;">
+        <span style="font-family:var(--font-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-semibold);color:#ffffff;">雷云文档</span>
+      </div>
+      <!-- Role -->
+      <h1 class="heading-1" style="margin-bottom:8px;text-wrap:balance;word-break:keep-all;overflow-wrap:break-word;">产品助理</h1>
+      <!-- Period -->
+      <p class="caption-text" style="margin-bottom:20px;">2026.03 &ndash; 2026.05</p>
+      <!-- Brief description -->
+      <p class="body-text" style="max-width:640px;line-height:var(--line-height-relaxed);">
+        独立完成在线协作文档产品的设计，涵盖文档管理、在线编辑、用户系统等核心功能模块。
+      </p>
+    </section>
+
+    <!-- ════════════════════════════════════════ -->
+    <!-- SECTION: PROJECT SHOWCASE IMAGE          -->
+    <!-- ════════════════════════════════════════ -->
+    <section style="padding-bottom:96px;">
+      <div style="max-width:860px;margin:0 auto;">
+        <img src="../assets/project-showcase.jpg" alt="雷云文档项目展示" class="rounded-xl w-full" style="border:1px solid var(--color-border);">
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════ -->
+    <!-- SECTION 1: 项目概述                      -->
+    <!-- ════════════════════════════════════════ -->
+    <section style="padding-bottom:80px;">
+      <div style="display:flex;gap:48px;align-items:flex-start;">
+        <!-- Left: Timeline label -->
+        <div style="flex-shrink:0;width:140px;padding-top:4px;">
+          <h2 class="heading-2" style="color:var(--color-primary);">项目概述</h2>
+        </div>
+        <!-- Right: Content -->
+        <div style="flex:1;min-width:0;">
+          <p class="body-text" style="margin-bottom:24px;line-height:var(--line-height-relaxed);">
+            雷云文档是一款在线协作文档编辑平台，旨在为用户提供便捷、高效的文档创建与管理体验。作为产品助理，我独立负责了该产品从需求分析到原型设计的全流程工作。
+          </p>
+          <!-- Key features list -->
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <span class="inline-flex items-center px-3 py-1 rounded-lg whitespace-nowrap" style="border:1px solid var(--color-border);font-family:var(--font-primary);font-size:var(--font-size-sm);color:var(--color-text-secondary);">置顶 / 取消置顶</span>
+            <span class="inline-flex items-center px-3 py-1 rounded-lg whitespace-nowrap" style="border:1px solid var(--color-border);font-family:var(--font-primary);font-size:var(--font-size-sm);color:var(--color-text-secondary);">收藏 / 取消收藏</span>
+            <span class="inline-flex items-center px-3 py-1 rounded-lg whitespace-nowrap" style="border:1px solid var(--color-border);font-family:var(--font-primary);font-size:var(--font-size-sm);color:var(--color-text-secondary);">文字等级</span>
+            <span class="inline-flex items-center px-3 py-1 rounded-lg whitespace-nowrap" style="border:1px solid var(--color-border);font-family:var(--font-primary);font-size:var(--font-size-sm);color:var(--color-text-secondary);">文字颜色与背景颜色</span>
+            <span class="inline-flex items-center px-3 py-1 rounded-lg whitespace-nowrap" style="border:1px solid var(--color-border);font-family:var(--font-primary);font-size:var(--font-size-sm);color:var(--color-text-secondary);">登录 / 注册 / 退出</span>
+            <span class="inline-flex items-center px-3 py-1 rounded-lg whitespace-nowrap" style="border:1px solid var(--color-border);font-family:var(--font-primary);font-size:var(--font-size-sm);color:var(--color-text-secondary);">文档管理</span>
+            <span class="inline-flex items-center px-3 py-1 rounded-lg whitespace-nowrap" style="border:1px solid var(--color-border);font-family:var(--font-primary);font-size:var(--font-size-sm);color:var(--color-text-secondary);">在线编辑</span>
+            <span class="inline-flex items-center px-3 py-1 rounded-lg whitespace-nowrap" style="border:1px solid var(--color-border);font-family:var(--font-primary);font-size:var(--font-size-sm);color:var(--color-text-secondary);">文档导出</span>
+            <span class="inline-flex items-center px-3 py-1 rounded-lg whitespace-nowrap" style="border:1px solid var(--color-border);font-family:var(--font-primary);font-size:var(--font-size-sm);color:var(--color-text-secondary);">用户间交流</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════ -->
+    <!-- SECTION 2: 负责模块 (Card Grid 2 cols)   -->
+    <!-- ════════════════════════════════════════ -->
+    <section style="padding-bottom:80px;">
+      <div style="display:flex;gap:48px;align-items:flex-start;">
+        <!-- Left: Timeline label -->
+        <div style="flex-shrink:0;width:140px;padding-top:4px;">
+          <h2 class="heading-2" style="color:var(--color-primary);">负责模块</h2>
+        </div>
+        <!-- Right: 2-col card grid -->
+        <div style="flex:1;min-width:0;display:grid;grid-template-columns:repeat(2,1fr);gap:20px;">
+          <!-- Card 1: 原型设计 -->
+          <div class="card-surface" style="padding:var(--card-padding);">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="flex items-center justify-center rounded-lg" style="width:40px;height:40px;background:var(--color-surface);flex-shrink:0;">
+                <i data-lucide="pen-tool" style="width:20px;height:20px;color:var(--color-primary);"></i>
+              </div>
+              <h3 class="heading-3 truncate" style="margin:0;">原型设计</h3>
+            </div>
+            <p class="body-text" style="margin:0;font-size:var(--font-size-sm);line-height:var(--line-height-relaxed);">
+              负责文档功能原型图绘制（收藏、置顶、登录等），并设计用户使用时的进程状态与异常状态
+            </p>
+          </div>
+          <!-- Card 2: PRD撰写 -->
+          <div class="card-surface" style="padding:var(--card-padding);">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="flex items-center justify-center rounded-lg" style="width:40px;height:40px;background:var(--color-surface);flex-shrink:0;">
+                <i data-lucide="file-text" style="width:20px;height:20px;color:var(--color-primary);"></i>
+              </div>
+              <h3 class="heading-3 truncate" style="margin:0;">PRD 撰写</h3>
+            </div>
+            <p class="body-text" style="margin:0;font-size:var(--font-size-sm);line-height:var(--line-height-relaxed);">
+              独立完成产品PRD的书写及各功能流程图的绘制
+            </p>
+          </div>
+          <!-- Card 3: 竞品分析 -->
+          <div class="card-surface" style="padding:var(--card-padding);">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="flex items-center justify-center rounded-lg" style="width:40px;height:40px;background:var(--color-surface);flex-shrink:0;">
+                <i data-lucide="search" style="width:20px;height:20px;color:var(--color-primary);"></i>
+              </div>
+              <h3 class="heading-3 truncate" style="margin:0;">竞品分析</h3>
+            </div>
+            <p class="body-text" style="margin:0;font-size:var(--font-size-sm);line-height:var(--line-height-relaxed);">
+              主导两款竞品（百度文库、钉钉文档）的深度分析
+            </p>
+          </div>
+          <!-- Card 4: 文档输出 -->
+          <div class="card-surface" style="padding:var(--card-padding);">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="flex items-center justify-center rounded-lg" style="width:40px;height:40px;background:var(--color-surface);flex-shrink:0;">
+                <i data-lucide="folder-output" style="width:20px;height:20px;color:var(--color-primary);"></i>
+              </div>
+              <h3 class="heading-3 truncate" style="margin:0;">文档输出</h3>
+            </div>
+            <p class="body-text" style="margin:0;font-size:var(--font-size-sm);line-height:var(--line-height-relaxed);">
+              完成用户手册、竞品分析等核心文档编写
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════ -->
+    <!-- SECTION 3: 项目成果                      -->
+    <!-- ════════════════════════════════════════ -->
+    <section style="padding-bottom:80px;">
+      <div style="display:flex;gap:48px;align-items:flex-start;">
+        <!-- Left: Timeline label -->
+        <div style="flex-shrink:0;width:140px;padding-top:4px;">
+          <h2 class="heading-2" style="color:var(--color-primary);">项目成果</h2>
+        </div>
+        <!-- Right: Numbered list with check icons -->
+        <div style="flex:1;min-width:0;">
+          <ol style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:16px;">
+            <li style="display:flex;align-items:flex-start;gap:12px;">
+              <span class="flex items-center justify-center rounded-full flex-shrink-0" style="width:24px;height:24px;background:var(--color-accent);margin-top:2px;">
+                <i data-lucide="check" style="width:14px;height:14px;color:#ffffff;"></i>
+              </span>
+              <span class="body-text" style="line-height:var(--line-height-relaxed);">掌握 Axure 工具的使用</span>
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:12px;">
+              <span class="flex items-center justify-center rounded-full flex-shrink-0" style="width:24px;height:24px;background:var(--color-accent);margin-top:2px;">
+                <i data-lucide="check" style="width:14px;height:14px;color:#ffffff;"></i>
+              </span>
+              <span class="body-text" style="line-height:var(--line-height-relaxed);">养成并巩固逻辑思维与结构化思维</span>
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:12px;">
+              <span class="flex items-center justify-center rounded-full flex-shrink-0" style="width:24px;height:24px;background:var(--color-accent);margin-top:2px;">
+                <i data-lucide="check" style="width:14px;height:14px;color:#ffffff;"></i>
+              </span>
+              <span class="body-text" style="line-height:var(--line-height-relaxed);">熟悉 PRD、流程图与原型图的绘制</span>
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:12px;">
+              <span class="flex items-center justify-center rounded-full flex-shrink-0" style="width:24px;height:24px;background:var(--color-accent);margin-top:2px;">
+                <i data-lucide="check" style="width:14px;height:14px;color:#ffffff;"></i>
+              </span>
+              <span class="body-text" style="line-height:var(--line-height-relaxed);">掌握功能从设计到使用入口再到异常状态设计的完整流程</span>
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:12px;">
+              <span class="flex items-center justify-center rounded-full flex-shrink-0" style="width:24px;height:24px;background:var(--color-accent);margin-top:2px;">
+                <i data-lucide="check" style="width:14px;height:14px;color:#ffffff;"></i>
+              </span>
+              <span class="body-text" style="line-height:var(--line-height-relaxed);">熟悉产品的框架设计流程</span>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════ -->
+    <!-- SECTION 4: 产出物链接                    -->
+    <!-- ════════════════════════════════════════ -->
+    <section style="padding-bottom:80px;">
+      <div style="display:flex;gap:48px;align-items:flex-start;">
+        <!-- Left: Timeline label -->
+        <div style="flex-shrink:0;width:140px;padding-top:4px;">
+          <h2 class="heading-2" style="color:var(--color-primary);">产出物链接</h2>
+        </div>
+        <!-- Right: Horizontal link cards -->
+        <div style="flex:1;min-width:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;">
+          <!-- Link Card: 产品 Demo -->
+          <a href="#" class="card-surface flex items-center gap-3 no-underline group" style="padding:20px;border-left:3px solid var(--color-accent);text-decoration:none;transition:box-shadow 0.2s ease;">
+            <div class="flex items-center justify-center rounded-lg flex-shrink-0" style="width:40px;height:40px;background:var(--color-surface);">
+              <i data-lucide="play-circle" style="width:20px;height:20px;color:var(--color-primary);"></i>
+            </div>
+            <span style="font-family:var(--font-primary);font-weight:var(--font-weight-semibold);font-size:var(--font-size-base);color:var(--color-primary);">产品 Demo</span>
+          </a>
+          <!-- Link Card: 原型图 -->
+          <a href="#" class="card-surface flex items-center gap-3 no-underline group" style="padding:20px;border-left:3px solid var(--color-accent);text-decoration:none;transition:box-shadow 0.2s ease;">
+            <div class="flex items-center justify-center rounded-lg flex-shrink-0" style="width:40px;height:40px;background:var(--color-surface);">
+              <i data-lucide="layout" style="width:20px;height:20px;color:var(--color-primary);"></i>
+            </div>
+            <span style="font-family:var(--font-primary);font-weight:var(--font-weight-semibold);font-size:var(--font-size-base);color:var(--color-primary);">原型图</span>
+          </a>
+          <!-- Link Card: PRD 文档 -->
+          <a href="#" class="card-surface flex items-center gap-3 no-underline group" style="padding:20px;border-left:3px solid var(--color-accent);text-decoration:none;transition:box-shadow 0.2s ease;">
+            <div class="flex items-center justify-center rounded-lg flex-shrink-0" style="width:40px;height:40px;background:var(--color-surface);">
+              <i data-lucide="file-text" style="width:20px;height:20px;color:var(--color-primary);"></i>
+            </div>
+            <span style="font-family:var(--font-primary);font-weight:var(--font-weight-semibold);font-size:var(--font-size-base);color:var(--color-primary);">PRD 文档</span>
+          </a>
+          <!-- Link Card: 用户手册 -->
+          <a href="#" class="card-surface flex items-center gap-3 no-underline group" style="padding:20px;border-left:3px solid var(--color-accent);text-decoration:none;transition:box-shadow 0.2s ease;">
+            <div class="flex items-center justify-center rounded-lg flex-shrink-0" style="width:40px;height:40px;background:var(--color-surface);">
+              <i data-lucide="book-open" style="width:20px;height:20px;color:var(--color-primary);"></i>
+            </div>
+            <span style="font-family:var(--font-primary);font-weight:var(--font-weight-semibold);font-size:var(--font-size-base);color:var(--color-primary);">用户手册</span>
+          </a>
+          <!-- Link Card: 竞品分析 -->
+          <a href="#" class="card-surface flex items-center gap-3 no-underline group" style="padding:20px;border-left:3px solid var(--color-accent);text-decoration:none;transition:box-shadow 0.2s ease;">
+            <div class="flex items-center justify-center rounded-lg flex-shrink-0" style="width:40px;height:40px;background:var(--color-surface);">
+              <i data-lucide="bar-chart-3" style="width:20px;height:20px;color:var(--color-primary);"></i>
+            </div>
+            <span style="font-family:var(--font-primary);font-weight:var(--font-weight-semibold);font-size:var(--font-size-base);color:var(--color-primary);">竞品分析</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════ -->
+    <!-- BOTTOM: Wiring link to skills page       -->
+    <!-- ════════════════════════════════════════ -->
+    <section style="padding-bottom:48px;text-align:center;">
+      <a href="#skills" data-dom-id="nav-skills" style="font-family:var(--font-primary);font-size:var(--font-size-base);font-weight:var(--font-weight-medium);color:var(--color-accent);text-decoration:none;transition:opacity 0.2s ease;">
+        查看能力展示 &rarr;
+      </a>
+    </section>
+
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer style="border-top:1px solid #e2e5ed;margin-top:64px;">
+  <div style="max-width:1200px;margin:0 auto;padding:24px;text-align:center;">
+    <p style="font-family:'Inter','Noto Sans SC',sans-serif;font-size:13px;color:#4a4a6a;margin:0;white-space:nowrap;">&copy; 2026 刘晓源 &middot; 产品经理求职作品集</p>
+  </div>
+</footer>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>
